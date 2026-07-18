@@ -88,7 +88,39 @@
     footer{padding:44px 8vw;background:#050f19;color:#7e8b94;display:flex;justify-content:space-between;align-items:center;font-size:11px;flex-wrap:wrap;gap:12px}.footLinks a{color:#aab7c0;border-bottom:1px solid rgba(184,148,79,.4);padding-bottom:2px}.wa{position:fixed;z-index:20;left:24px;bottom:24px;width:54px;height:54px;border-radius:50%;background:#28c76f;color:#fff;display:grid;place-items:center;font-size:25px}.mobileBar{display:none}
     @media(max-width:800px){.heroExact{display:none}.mobileHero{display:block}.section,.contact{padding:78px 24px}.about,.portraitStatement,.faq,.contact{grid-template-columns:1fr}.portraitStatement figure{height:560px}.portraitStatement>div{padding:78px 28px}.head{display:block}.head>p{margin-top:20px}.areas,.steps{grid-template-columns:repeat(2,1fr)}.wa{display:none}.mobileBar{position:fixed;z-index:50;bottom:0;left:0;right:0;height:58px;display:grid;grid-template-columns:repeat(3,1fr);background:var(--navy);color:#fff}.mobileBar a{display:grid;place-items:center;border-left:1px solid rgba(255,255,255,.15);font-size:12px}.mobileBar a:last-child{background:var(--gold);color:var(--navy)}footer{padding-bottom:82px;align-items:flex-start;flex-direction:column;gap:15px}}
     @media(max-width:560px){.areas,.steps,.form{grid-template-columns:1fr}.area{min-height:315px}.form{padding:25px}.form label{grid-column:1/-1}.signature{flex-direction:column;gap:15px}.portraitStatement figure{height:480px}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.area{transition:none}}
+    /* ── scroll hint on the hero (image itself untouched) ── */
+    .scrollHint{position:absolute;z-index:6;left:50%;bottom:2.4%;transform:translateX(-50%);width:38px;height:38px;display:grid;place-items:center;color:var(--gold);animation:hintBob 2.4s ease-in-out infinite}
+    .scrollHint svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.7}
+    .scrollHint span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    @keyframes hintBob{0%,100%{transform:translateX(-50%) translateY(0);opacity:.55}50%{transform:translateX(-50%) translateY(6px);opacity:1}}
+    /* ── areas carousel ── */
+    .areasCarousel{position:relative;background:radial-gradient(820px 300px at 50% 98%,rgba(184,148,79,.14),transparent 70%),radial-gradient(circle at 11% 8%,rgba(32,67,91,.48),transparent 42%),linear-gradient(160deg,#061522,#081d2d 55%,#050f19);border-top:1px solid var(--gold);padding:56px 0 40px;overflow:hidden;color:var(--ivory)}
+    .areasCarousel .secHead{text-align:center;margin-bottom:34px}
+    .areasCarousel .secHead h2{font-size:clamp(30px,3vw,40px);color:var(--ivory)}
+    .areasCarousel .secHead .rule{width:62px;height:1px;background:var(--gold);margin:15px auto 0}
+    .carStage{position:relative;height:322px;perspective:1250px}
+    .carCard{position:absolute;top:0;right:50%;height:100%;width:300px;margin-right:-150px;padding:26px 24px;text-align:center;cursor:pointer;user-select:none;-webkit-user-select:none;display:flex;flex-direction:column;align-items:center;background:linear-gradient(150deg,#8b939b,#6e7780);color:#2c343c;border-radius:9px;box-shadow:0 26px 54px rgba(0,0,0,.45);transition:transform .65s cubic-bezier(.22,.9,.24,1),opacity .65s,filter .65s,background .65s;will-change:transform}
+    .carCard .icn{height:54px;flex:none;margin-bottom:14px;display:grid;place-items:center}
+    .carCard .icn svg{height:100%;width:auto;stroke:#4b545c;fill:none;stroke-width:1.5;transition:stroke .65s}
+    .carCard h3{font-size:24px;margin:0;line-height:1.2;color:inherit}
+    .carCard .bar{width:38px;height:1px;background:currentColor;opacity:.45;margin:12px 0 14px}
+    .carCard p{font-size:13.5px;line-height:1.75;margin:0;color:inherit;opacity:.85}
+    .carCard.active{background:linear-gradient(165deg,#fbf7ee,#efe7d5);color:var(--ink);box-shadow:0 40px 84px rgba(0,0,0,.55),0 0 0 1px rgba(184,148,79,.35)}
+    .carCard.active .icn svg{stroke:var(--gold)}
+    .carCard.active h3{color:var(--navy)}
+    .carCard.active .bar{background:var(--gold);opacity:1}
+    .carOrbit{position:absolute;left:50%;bottom:-5%;width:min(1080px,88vw);height:66%;transform:translateX(-50%);pointer-events:none;border-radius:50%;border:1px solid transparent;background:linear-gradient(90deg,rgba(184,148,79,0),rgba(230,201,131,.85),rgba(184,148,79,0)) border-box;-webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+    .carBtn{position:absolute;top:50%;transform:translateY(-50%);z-index:40;width:52px;height:52px;border:0;background:none;color:#e6c983;font:40px/1 Georgia,serif;cursor:pointer;opacity:.85;transition:opacity .25s}
+    .carBtn:hover,.carBtn:focus-visible{opacity:1}
+    .carBtn.prev{right:3vw}.carBtn.next{left:3vw}
+    .carFoot{display:flex;flex-direction:column;align-items:center;gap:13px;margin-top:26px}
+    .carDots{display:flex;gap:12px}
+    .carDots button{width:8px;height:8px;border-radius:50%;border:0;padding:0;background:rgba(242,235,221,.28);cursor:pointer;transition:.3s}
+    .carDots button.on{background:#e6c983;transform:scale(1.3)}
+    .carHint{color:#93a1ab;font-size:13px;margin:0;letter-spacing:.03em}
+    .carHint svg{width:16px;height:16px;vertical-align:-3px;stroke:#93a1ab;fill:none;stroke-width:1.6;margin-left:6px}
+    @media(max-width:800px){.areasCarousel{padding:46px 0 34px}.areasCarousel .secHead{margin-bottom:26px}.carStage{height:300px}.carCard{width:250px;margin-right:-125px;padding:22px 18px}.carCard .icn{height:44px;margin-bottom:10px}.carCard h3{font-size:20px}.carCard p{font-size:12.5px}.carBtn{width:42px;height:42px;font-size:32px}.carBtn.prev{right:.5vw}.carBtn.next{left:.5vw}.carOrbit{width:150vw}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.area{transition:none}.carCard{transition:none}.scrollHint{animation:none}}
   </style>
 </head>
 <body>
@@ -97,6 +129,7 @@
     <img src="assets/images/approved-hero-reference.webp" alt="עורך הדין פרי מצר סולומון, ייצוג משפטי בדיני תעבורה" fetchpriority="high">
     <nav class="heroNav" aria-label="ניווט ראשי"><a href="#about"><span>אודות</span></a><a href="#areas"><span>תחומי עיסוק</span></a><a href="#process"><span>דרך הטיפול</span></a><a href="#faq"><span>שאלות</span></a><a href="#contact"><span>יצירת קשר</span></a></nav>
     <a class="heroPrimary" href="#contact"><span>לבדיקת המקרה</span></a><a class="heroSecondary" href="tel:0528822044"><span>שיחה מיידית</span></a>
+    <a class="scrollHint" href="#areas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8l7 7 7-7"/></svg><span>המשך לתחומי העיסוק</span></a>
   </section>
   <section class="mobileHero">
     <div class="mobileBrand"><b>PMS</b><i></i><div><strong>פרי מצר סולומון</strong><small lang="en">PERI METZER SOLOMON</small></div></div>
@@ -104,9 +137,9 @@
     <div class="mobileCopy"><span class="eyebrow">דיני תעבורה ורישוי נהיגה</span><h1>כשכל נקודה<br>משנה את הדרך.</h1><p>ייצוג משפטי מדויק בדיני תעבורה, פסילות רישיון והליכים בפני בתי המשפט לתעבורה.</p><div class="actions"><a class="primary" href="#contact">לבדיקת המקרה</a><a class="secondary" href="tel:0528822044">שיחה מיידית</a></div></div>
   </section>
   <main id="content">
+    <section id="areas" class="areasCarousel"><div class="secHead"><h2>תחומי עיסוק</h2><div class="rule"></div></div><div class="carStage" id="carStage"><div class="carOrbit"></div></div><button class="carBtn prev" id="carPrev" aria-label="הקודם">‹</button><button class="carBtn next" id="carNext" aria-label="הבא">›</button><div class="carFoot"><div class="carDots" id="carDots" aria-label="ניווט תחומי עיסוק"></div><p class="carHint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11.5V5.7a1.7 1.7 0 0 1 3.4 0v5m0-1.2a1.7 1.7 0 0 1 3.4 0v1.2m0 0a1.7 1.7 0 0 1 3.4.6c0 3.4-.7 5-2 6.6-1.1 1.3-2.8 2.1-5 2.1-3.1 0-4.6-1.4-6.2-4.4L4.3 12a1.6 1.6 0 0 1 2.7-1.6L9 12.6"/></svg> גררו או לחצו לניווט</p></div></section>
     <section id="about" class="section about"><div class="sectionNo">01</div><div><p class="kicker">אודות המשרד</p><h2>ייצוג אישי, יסודי<br>ומדויק בכל שלב</h2></div><div class="aboutCopy"><p>משרד עורך הדין פרי מצר סולומון מעניק ייצוג משפטי לנהגים בהליכי תעבורה ורישוי נהיגה, החל מבדיקת הדוח או חומר החקירה, דרך גיבוש אסטרטגיית ההגנה ועד לסיום ההליך.</p><p>הטיפול בכל תיק מבוסס על בחינה פרטנית של הראיות, הקפדה על המועדים המשפטיים, זמינות ושקיפות מלאה מול הלקוח.</p><div class="signature"><span>פרי מצר סולומון <small>עורך דין</small></span><b lang="en">PERI METZER SOLOMON</b></div></div></section>
     <section class="portraitStatement"><figure><img src="assets/images/peri-metzer-solomon-warm.webp" alt="עורך הדין פרי מצר סולומון" loading="lazy" decoding="async"></figure><div><p class="kicker">ליווי אישי. חשיבה אסטרטגית.</p><h2>כל תיק מתחיל<br>בהקשבה לפרטים.</h2><p class="body">הטיפול המשפטי מבוסס על היכרות מעמיקה עם נסיבות המקרה, בחינה יסודית של חומר הראיות וגיבוש דרך פעולה המותאמת ללקוח.</p><a class="textLink" href="#contact">לתיאום שיחת ייעוץ ←</a></div></section>
-    <section id="areas" class="section dark"><div class="head"><div><p class="kicker">תחומי עיסוק</p><h2>הגנה משפטית ממוקדת<br>בעולם התעבורה</h2></div><p>כל מקרה נבחן לפי נסיבותיו, חומר הראיות והמשמעות המעשית עבור הנהג.</p></div><div class="areas" id="areasGrid"></div></section>
     <section id="process" class="section process"><div class="head"><div><p class="kicker">דרך הטיפול</p><h2>מסלול ברור.<br>בלי הפתעות.</h2></div><p>תהליך עבודה מובנה, שקוף ומותאם לצרכים המשפטיים והאישיים של כל לקוח.</p></div><div class="steps" id="steps"></div></section>
     <section id="faq" class="section faq"><div><p class="kicker">שאלות נפוצות</p><h2>מידע ראשוני.<br>לפני שמחליטים.</h2><p class="faqIntro">התשובות הן מידע כללי בלבד. ההחלטה הנכונה מתקבלת לאחר בחינת נסיבות המקרה.</p></div><div class="accordion" id="accordion"></div></section>
     <section id="contact" class="contact"><div class="contactInfo"><p class="kicker">בדיקה משפטית ראשונית</p><h2>קיבלתם דוח<br>או זימון?</h2><p>השאירו פרטים והמשיכו להודעת WhatsApp מסודרת.</p><a href="tel:0528822044">052-882-2044</a><a href="mailto:peri@bettylaw.co.il">peri@bettylaw.co.il</a></div><form class="form" id="contactForm"><label>שם מלא<input name="name" required autocomplete="name" placeholder="איך לפנות אליך?"></label><label>מספר טלפון<input name="phone" required type="tel" autocomplete="tel" placeholder="050-0000000"></label><label class="wide">סוג הפנייה<select name="subject" required><option value="">בחרו נושא</option><option>דוח תנועה או נקודות</option><option>הזמנה לדין</option><option>פסילה מנהלית</option><option>נהיגה בשכרות</option><option>אחר</option></select></label><label class="wide">תיאור קצר<textarea name="details" placeholder="אפשר לכתוב בכמה מילים"></textarea></label><button class="primary" type="submit">המשך לשליחה ב־WhatsApp</button><small>השליחה מתבצעת דרך WhatsApp ואינה יוצרת יחסי עורך דין ולקוח או אישור לקבלת הייצוג.</small></form></section>
@@ -114,8 +147,39 @@
   <footer><strong>פרי מצר סולומון · PERI METZER SOLOMON</strong><nav class="footLinks" aria-label="מדריכים"><a href="/articles">כל המדריכים</a> · <a href="/traffic-ticket">דוח תנועה</a> · <a href="/drunk-driving">נהיגה בשכרות</a> · <a href="/administrative-suspension">פסילה מנהלית</a> · <a href="/points-system">שיטת הניקוד</a> · <a href="/speeding">מהירות מופרזת</a></nav><p>מידע כללי בלבד, שאינו מהווה ייעוץ משפטי או התחייבות לתוצאה.</p><p>© 2026 כל הזכויות שמורות</p></footer>
   <a class="wa" href="https://wa.me/972528822044" aria-label="פתיחת WhatsApp">◉</a><div class="mobileBar"><a href="tel:0528822044">חייגו</a><a href="https://wa.me/972528822044">WhatsApp</a><a href="#contact">שליחת פרטים</a></div>
   <script>
-    const areas=[["נהיגה בשכרות","בדיקת נסיבות האכיפה, תקינות הבדיקה והשלכות הפסילה.","◇"],["פסילת רישיון","טיפול בפסילה מנהלית, שיפוטית ובהליכים דחופים.","▣"],["מהירות מופרזת","בחינת אמצעי המדידה, התיעוד, ההסמכה ונסיבות האירוע.","≫"],["תאונות דרכים","ליווי משפטי מחקירה ראשונית ועד לסיום ההליך.","△"],["דוחות ונקודות","בדיקת משמעות הדוח, הניקוד והמועדים לפני קבלת החלטה.","§"],["נהגים מקצועיים","הגנה משפטית כאשר רישיון הנהיגה הוא בסיס הפרנסה.","□"]];
-    document.querySelector("#areasGrid").innerHTML=areas.map((a,i)=>`<article class="area"><span class="areaNo">0${i+1}</span><div class="areaIcon"><span>${a[2]}</span></div><small>תחום ייצוג</small><h3>${a[0]}</h3><p>${a[1]}</p><a href="#contact"><span>לבדיקה ראשונית</span><b>←</b></a></article>`).join("");
+    const CAR_ICONS={points:'<svg viewBox="0 0 64 64"><rect x="16" y="10" width="32" height="44" rx="3"/><path d="M26 8h12v6H26zM23 24h18M23 32h18M23 40h11"/></svg>',alcohol:'<svg viewBox="0 0 64 64"><path d="M8 44h26l4-8h-9l-5-8H14l-4 8z"/><circle cx="15" cy="48" r="4"/><circle cx="31" cy="48" r="4"/><path d="M46 14l8 0-3 12c-.5 2-2 3-5 3s-4.5-1-5-3l-3-12h8zM49 29v10M44 42h10"/></svg>',license:'<svg viewBox="0 0 64 64"><rect x="8" y="18" width="34" height="26" rx="3"/><circle cx="18" cy="28" r="4"/><path d="M13 39c1-4 3-5 5-5s4 1 5 5M30 26h8M30 33h8"/><circle cx="48" cy="40" r="11"/><path d="M41 33l14 14"/></svg>',speed:'<svg viewBox="0 0 64 64"><path d="M12 44a22 22 0 1 1 40 0"/><path d="M32 44L44 26"/><circle cx="32" cy="44" r="3.5"/><path d="M32 22v-4M18 28l-3-3M46 28l3-3"/></svg>',pro:'<svg viewBox="0 0 64 64"><circle cx="32" cy="21" r="9"/><path d="M14 52c2-11 8-16 18-16s16 5 18 16"/><path d="M32 36v8M26 52l6-8 6 8"/></svg>',crash:'<svg viewBox="0 0 64 64"><path d="M6 42h22l3-7h-8l-4-6H11l-5 7zM33 42h25l-4-8h-7l-5-5H32l1 5"/><circle cx="13" cy="46" r="3.5"/><circle cx="24" cy="46" r="3.5"/><circle cx="40" cy="46" r="3.5"/><circle cx="51" cy="46" r="3.5"/><path d="M30 14l3 6-5 2 4 5"/></svg>'};
+    const CAR_AREAS=[{k:"points",t:"דוחות ונקודות",d:"בדיקת משמעות הדוח, הניקוד והמועדים לפני קבלת החלטה."},{k:"alcohol",t:"נהיגה בשכרות",d:"בדיקת נסיבות האכיפה, תקינות הבדיקה והשלכות הפסילה."},{k:"license",t:"פסילת רישיון",d:"טיפול בפסילה מנהלית, שיפוטית ובהליכים דחופים."},{k:"speed",t:"מהירות מופרזת",d:"בחינת אמצעי המדידה, התיעוד, ההסמכה ונסיבות האירוע."},{k:"pro",t:"נהגים מקצועיים",d:"הגנה משפטית כאשר רישיון הנהיגה הוא בסיס הפרנסה."},{k:"crash",t:"תאונות דרכים",d:"ליווי משפטי מחקירה ראשונית ועד לסיום ההליך."}];
+    (function(){
+      const stage=document.getElementById("carStage"),dotsWrap=document.getElementById("carDots");
+      const N=CAR_AREAS.length;let active=2,timer,px=null;
+      CAR_AREAS.forEach((a,i)=>{
+        const el=document.createElement("article");el.className="carCard";
+        el.innerHTML=`<div class="icn">${CAR_ICONS[a.k]}</div><h3>${a.t}</h3><div class="bar"></div><p>${a.d}</p>`;
+        el.addEventListener("click",()=>go(i));stage.appendChild(el);
+        const b=document.createElement("button");b.type="button";b.setAttribute("aria-label",a.t);
+        b.addEventListener("click",()=>go(i));dotsWrap.appendChild(b)});
+      const cards=[...stage.querySelectorAll(".carCard")],dots=[...dotsWrap.children];
+      function layout(){
+        const step=cards[0].offsetWidth*0.86;
+        cards.forEach((el,i)=>{let d=i-active;if(d>N/2)d-=N;if(d<-N/2)d+=N;const abs=Math.abs(d);
+          el.style.transform=`translateX(${d*-step}px) translateZ(${-abs*180}px) rotateY(${d*9}deg) scale(${1-abs*0.09})`;
+          el.style.opacity=abs>2.5?0:1-abs*0.08;el.style.zIndex=30-abs*10;
+          el.style.filter=abs?"grayscale(.85) brightness(.9)":"none";
+          el.classList.toggle("active",d===0);el.setAttribute("aria-hidden",abs>2.5)});
+        dots.forEach((b,i)=>b.classList.toggle("on",i===active))}
+      function go(i){active=(i+N)%N;layout();restart()}
+      const next=()=>go(active+1),prev=()=>go(active-1);
+      document.getElementById("carNext").addEventListener("click",next);
+      document.getElementById("carPrev").addEventListener("click",prev);
+      stage.addEventListener("pointerdown",e=>{px=e.clientX;clearInterval(timer)});
+      window.addEventListener("pointerup",e=>{if(px===null)return;const dx=e.clientX-px;px=null;if(Math.abs(dx)>42)(dx<0?next:prev)();restart()});
+      const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+      function restart(){clearInterval(timer);if(!reduced)timer=setInterval(next,3600)}
+      stage.addEventListener("pointerenter",()=>clearInterval(timer));
+      stage.addEventListener("pointerleave",restart);
+      addEventListener("resize",layout);
+      layout();restart();
+    })();
     const steps=[["01","בדיקת המקרה","מיפוי האירוע, המועדים והסיכונים המשפטיים."],["02","קבלת החומר","איסוף הדוח, המסמכים וחומרי החקירה הרלוונטיים."],["03","בחינת הראיות","איתור פערים, כשלים וסוגיות המחייבות בדיקה."],["04","גיבוש אסטרטגיה","בחירת דרך הפעולה המתאימה לנסיבות ולמטרות הלקוח."],["05","ניהול ההליך","ייצוג מול גורמי התביעה, הרישוי ובית המשפט."],["06","ליווי מלא","עדכון ומעקב שוטף עד להחלטה וסיום הטיפול."]];
     document.querySelector("#steps").innerHTML=steps.map(s=>`<article class="step"><b>${s[0]}</b><div><h3>${s[1]}</h3><p>${s[2]}</p></div></article>`).join("");
     const faqs=[["האם כדאי לשלם את הדוח או לבקש להישפט?","אין תשובה אחידה. תשלום הדוח עשוי להיחשב כהודאה ולהביא לרישום נקודות, ולכן נכון לבחון תחילה את הראיות, הניקוד והמועדים."],["האם תשלום דוח נחשב כהודאה?","ככלל, תשלום הודעת תשלום קנס מביא להרשעה בעבירה. לפני התשלום מומלץ להבין את מלוא ההשלכות המשפטיות והרישוייות."],["מהי פסילה מנהלית?","פסילה מנהלית היא פסילה המוטלת בידי קצין משטרה, בתנאים הקבועים בדין. ניתן לבחון פנייה לבית המשפט לביטולה או לקיצור תקופתה."],["מה ניתן לעשות אם ניתן פסק דין בהיעדר?","בנסיבות המתאימות ניתן להגיש בקשה לביטול פסק הדין, בכפוף למועדים ולתנאים המשפטיים. כל מקרה מחייב בדיקה פרטנית."]];
