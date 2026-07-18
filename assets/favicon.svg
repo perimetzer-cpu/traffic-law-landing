@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#071827"/>
+  <rect x="2.5" y="2.5" width="59" height="59" fill="none" stroke="#b8944f" stroke-width="1.5"/>
+  <text x="32" y="41" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="24" fill="#b8944f" letter-spacing="1">PMS</text>
+</svg>
