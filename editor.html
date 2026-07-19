@@ -349,7 +349,7 @@ function setMode(m){
   $("mDesign").classList.toggle("on",m==="design");
   $("mView").classList.toggle("on",m==="view");
   $("hint").textContent = m==="edit" ? "לחצו על כל טקסט וכתבו"
-                        : m==="add" ? "לחצו על טקסט — החדש ייכנס מתחתיו"
+                        : m==="add" ? "לחצו בכל מקום להוספה · גררו טקסט שנוסף כדי למקם"
                         : m==="move" ? "השתמשו בחיצים כדי לשנות סדר"
                         : m==="design" ? "לחצו על טקסט כדי לעצב אותו"
                         : "";
@@ -425,8 +425,10 @@ function inject(){
    'body.pe-design [data-pe]{cursor:pointer}'+
    'body.pe-design [data-pe]:hover{outline:1px dashed rgba(184,148,79,.55);outline-offset:2px}'+
    '.pe-sel{outline:2px solid #b8944f!important;outline-offset:2px}'+
-   'body.pe-add [data-pe]{cursor:copy}'+
+   'body.pe-add{cursor:copy}'+
    'body.pe-add [data-pe]:hover{outline:1px dashed rgba(95,184,127,.7);outline-offset:2px}'+
+   'body.pe-add [data-pe-add]{cursor:grab}'+
+   'body.pe-add [data-pe-add]:hover{outline:2px dashed rgba(95,184,127,.9);outline-offset:2px}'+
    '.pe-addbar{display:flex;gap:4px;background:#071827;border:1px solid #b8944f;border-radius:7px;'+
      'padding:4px;box-shadow:0 6px 18px rgba(0,0,0,.4)}'+
    '.pe-addbar button{border:0;border-radius:4px;background:#b8944f;color:#20160a;'+
@@ -443,13 +445,56 @@ function inject(){
     var t=e.target.closest && e.target.closest("[data-pe]");
     if(t){ e.preventDefault(); e.stopPropagation(); selectEl(t,doc); }
   },true);
-  /* add mode: click an original element → chooser → new block below it */
+  /* add mode: click anywhere → chooser. On a text element the new block enters
+     the flow below it; on empty space / the hero image it is free-positioned. */
   doc.addEventListener("click",function(e){
     if(mode!=="add") return;
+    if(dragJust){ dragJust=false; return; }
     if(e.target.closest && e.target.closest(".pe-addbar")) return;
+    if(e.target.closest && e.target.closest("[data-pe-add]")) return;
+    e.preventDefault(); e.stopPropagation();
     var t=e.target.closest && e.target.closest("[data-pe]");
-    if(t && !t.hasAttribute("data-pe-add")){ e.preventDefault(); e.stopPropagation(); showAddChooser(doc,t); }
+    showAddChooser(doc, t||null, {cx:e.clientX, cy:e.clientY});
   },true);
+  /* add mode: drag an added block to reposition it anywhere */
+  doc.addEventListener("mousedown",function(e){
+    if(mode!=="add") return;
+    var el=e.target.closest && e.target.closest("[data-pe-add]");
+    if(!el) return;
+    e.preventDefault(); e.stopPropagation();
+    var id=el.getAttribute("data-pe-add"), rec=pg(cur).add?pg(cur).add[id]:null;
+    if(!rec) return;
+    var r=el.getBoundingClientRect();
+    dragSt={el:el,rec:rec,dx:e.clientX-r.left,dy:e.clientY-r.top,moved:false};
+  },true);
+  doc.addEventListener("mousemove",function(e){
+    if(!dragSt) return;
+    /* button released outside the iframe → finish the drag here */
+    if(e.buttons===0){
+      var st=dragSt; dragSt=null;
+      if(st.moved){ dragJust=true; st.el.style.cursor=""; dropAdd(doc,st,e); }
+      return;
+    }
+    var el=dragSt.el;
+    if(!dragSt.moved){
+      dragSt.moved=true;
+      doc.body.appendChild(el);
+      el.style.position="absolute"; el.style.margin="0";
+      el.style.zIndex="2147482000"; el.style.maxWidth="min(480px,80%)";
+      el.style.cursor="grabbing";
+    }
+    var b=doc.body.getBoundingClientRect();
+    el.style.left=(e.clientX-b.left-dragSt.dx)+"px";
+    el.style.top=(e.clientY-b.top-dragSt.dy)+"px";
+  });
+  doc.addEventListener("mouseup",function(e){
+    if(!dragSt) return;
+    var st=dragSt; dragSt=null;
+    if(!st.moved) return;
+    dragJust=true;
+    st.el.style.cursor="";
+    dropAdd(doc,st,e);
+  });
   applyMode();
   readGlobals(doc);
 }
@@ -599,15 +644,34 @@ function blockAnchor(el,doc){
   return el;
 }
 
-function showAddChooser(doc,t){
+/* free-position helpers: a dragged/free block lives inside the nearest section
+   (or body) with % left + px top, so it stays glued to its part of the page */
+var dragSt=null, dragJust=false;
+function contAt(doc,cx,cy,skipEl){
+  if(skipEl) skipEl.style.visibility="hidden";
+  var below=doc.elementFromPoint(cx,cy);
+  if(skipEl) skipEl.style.visibility="";
+  var cont=below&&below.closest ? below.closest("section,header,footer,main") : null;
+  if(!cont || (cont.closest && cont.closest("[data-pe-add]"))) cont=doc.body;
+  return cont;
+}
+function contPath(cont,doc){ return cont===doc.body ? "" : pathOf(cont,doc); }
+function contBy(p,doc){ return p==="" ? doc.body : (byPath(p,doc)||doc.body); }
+function ensureRel(cont,doc){
+  if(doc.defaultView.getComputedStyle(cont).position==="static") cont.style.position="relative";
+}
+
+function showAddChooser(doc,t,pt){
   var host=doc.getElementById("pe-mv-host"); if(!host) return;
   host.innerHTML="";
-  var anchor=blockAnchor(t,doc);
-  var r=anchor.getBoundingClientRect(), sy=doc.defaultView.scrollY, sx=doc.defaultView.scrollX;
+  var anchor = t ? blockAnchor(t,doc) : null;
+  var sy=doc.defaultView.scrollY, sx=doc.defaultView.scrollX;
+  var top,left;
+  if(anchor){ var r=anchor.getBoundingClientRect(); top=r.bottom+sy+5; left=r.left+sx; }
+  else { top=pt.cy+sy+8; left=pt.cx+sx-40; }
   var box=doc.createElement("div");
   box.className="pe-addbar";
-  box.style.cssText="position:absolute;z-index:2147483000;pointer-events:auto;top:"+
-    (r.bottom+sy+5)+"px;left:"+(r.left+sx)+"px";
+  box.style.cssText="position:absolute;z-index:2147483000;pointer-events:auto;top:"+top+"px;left:"+Math.max(4,left)+"px";
   box.innerHTML='<button data-t="p">＋ פסקה</button><button data-t="h2">＋ כותרת</button><button data-t="x">ביטול</button>';
   box.addEventListener("click",function(ev){
     var b=ev.target.closest("button"); if(!b) return;
@@ -615,7 +679,8 @@ function showAddChooser(doc,t){
     host.innerHTML="";
     var tag=b.getAttribute("data-t");
     if(tag==="x") return;
-    insertAdd(doc,anchor,tag);
+    if(anchor) insertAdd(doc,anchor,tag);
+    else insertAddFree(doc,pt,tag);
   });
   host.appendChild(box);
 }
@@ -632,6 +697,24 @@ function insertAdd(doc,anchor,tag){
   render();
 }
 
+function insertAddFree(doc,pt,tag){
+  var d=pg(cur); if(!d.add) d.add={};
+  S.seq=(S.seq||0)+1;
+  var id="a"+S.seq;
+  var cont=contAt(doc,pt.cx,pt.cy,null);
+  var cr=cont.getBoundingClientRect();
+  var rec={tag:tag, html:"", pos:{
+    c:contPath(cont,doc),
+    l:(((pt.cx-cr.left)/cr.width)*100).toFixed(2)+"%",
+    t:Math.round(pt.cy-cr.top)+"px"
+  }};
+  d.add[id]=rec; save();
+  var el=buildAdd(doc,id,rec,null);
+  setMode("edit");
+  el.focus();
+  render();
+}
+
 function buildAdd(doc,id,rec,anchorEl){
   var el=doc.createElement(rec.tag);
   el.setAttribute("data-pe-add",id);
@@ -639,7 +722,17 @@ function buildAdd(doc,id,rec,anchorEl){
   el.setAttribute("data-pe-dirty","");
   el.spellcheck=false;
   if(rec.html) el.innerHTML=rec.html; else el.textContent=PLACE;
-  anchorEl.parentNode.insertBefore(el, anchorEl.nextSibling);
+  if(rec.pos){
+    var cont=contBy(rec.pos.c,doc);
+    ensureRel(cont,doc);
+    el.style.position="absolute";
+    el.style.left=rec.pos.l; el.style.top=rec.pos.t;
+    el.style.margin="0"; el.style.zIndex="5";
+    el.style.maxWidth="min(480px,80%)";
+    cont.appendChild(el);
+  } else {
+    anchorEl.parentNode.insertBefore(el, anchorEl.nextSibling);
+  }
   var stl=(pg(cur).style||{})["add:"+id];
   if(stl) Object.keys(stl.css).forEach(function(p){ el.style[p]=stl.css[p]; });
   el.setAttribute("contenteditable", mode==="edit"?"true":"false");
@@ -659,6 +752,21 @@ function buildAdd(doc,id,rec,anchorEl){
     if(e.key==="Escape"){ this.textContent=""; this.blur(); }
   });
   return el;
+}
+
+function dropAdd(doc,st,e){
+  var el=st.el, rec=st.rec;
+  var cont=contAt(doc,e.clientX,e.clientY,el);
+  ensureRel(cont,doc);
+  var r=el.getBoundingClientRect(), cr=cont.getBoundingClientRect();
+  cont.appendChild(el);
+  el.style.left=(((r.left-cr.left)/cr.width)*100).toFixed(2)+"%";
+  el.style.top=Math.round(r.top-cr.top)+"px";
+  el.style.zIndex="5";
+  rec.pos={c:contPath(cont,doc), l:el.style.left, t:el.style.top};
+  delete rec.after;
+  save(); render();
+  toast("מוקם — אפשר להמשיך לגרור");
 }
 
 function removeAdd(id){
@@ -683,6 +791,7 @@ function restore(doc){
   /* recreate user-added blocks first, so styles keyed add:<id> can find them */
   Object.keys(d.add||{}).forEach(function(id){
     var rec=d.add[id];
+    if(rec.pos){ buildAdd(doc,id,rec,null); return; }
     var anchor=byPath(rec.after,doc); if(!anchor) return;
     buildAdd(doc,id,rec,anchor);
   });
@@ -924,7 +1033,7 @@ function render(){
     });
     Object.keys(d.add||{}).forEach(function(id){
       var r=d.add[id];
-      L.appendChild(row(pageName(p)+" · טקסט חדש", r.tag==="h2"?"כותרת":"פסקה", strip(r.html||"")||"(עדיין ריק)", false, function(){
+      L.appendChild(row(pageName(p)+(r.pos?" · טקסט חופשי":" · טקסט חדש"), r.tag==="h2"?"כותרת":"פסקה", strip(r.html||"")||"(עדיין ריק)", false, function(){
         if(p===cur) removeAdd(id);
         else { delete d.add[id]; if(d.style) delete d.style["add:"+id]; save(); render(); }
       }));
@@ -983,7 +1092,10 @@ function showOut(){
     var ad=[];
     Object.keys(d.add||{}).forEach(function(id){
       var x=d.add[id];
-      if(x.html) ad.push({id:id, insertAfter:x.after, tag:x.tag, html:x.html});
+      if(!x.html) return;
+      if(x.pos) ad.push({id:id, tag:x.tag, html:x.html,
+        position:{container:x.pos.c, left:x.pos.l, top:x.pos.t}});
+      else ad.push({id:id, insertAfter:x.after, tag:x.tag, html:x.html});
     });
     if(t.length||r.length||sst.length||ad.length){
       o.pages[p]={};
