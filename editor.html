@@ -169,6 +169,7 @@ select:focus,input.txt:focus{outline:1px solid var(--gold)}
   <div id="stage">
     <div class="sbar">
       <button class="pill on" id="mEdit">✎ עריכה</button>
+      <button class="pill" id="mAdd">＋ הוספה</button>
       <button class="pill" id="mMove">↕ סידור</button>
       <button class="pill" id="mDesign">🎨 עיצוב</button>
       <button class="pill" id="mView">👁 תצוגה</button>
@@ -290,7 +291,7 @@ function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} 
 function pg(p){ return S.pages[p] || (S.pages[p]={text:{},order:{}}); }
 function count(){
   var n=0,k;
-  for(k in S.pages){ n+=Object.keys(S.pages[k].text||{}).length+Object.keys(S.pages[k].order||{}).length+Object.keys(S.pages[k].style||{}).length; }
+  for(k in S.pages){ n+=Object.keys(S.pages[k].text||{}).length+Object.keys(S.pages[k].order||{}).length+Object.keys(S.pages[k].style||{}).length+Object.keys(S.pages[k].add||{}).length; }
   for(k in S.global){ if(S.global[k] && S.global[k].now!==S.global[k].was) n++; }
   return n;
 }
@@ -321,6 +322,7 @@ function boot(){
   });
   pageSel.onchange=function(){ go(pageSel.value) };
   $("mEdit").onclick=function(){ setMode("edit") };
+  $("mAdd").onclick=function(){ setMode("add") };
   $("mMove").onclick=function(){ setMode("move") };
   $("mDesign").onclick=function(){ setMode("design") };
   $("mView").onclick=function(){ setMode("view") };
@@ -342,10 +344,12 @@ function boot(){
 function setMode(m){
   mode=m;
   $("mEdit").classList.toggle("on",m==="edit");
+  $("mAdd").classList.toggle("on",m==="add");
   $("mMove").classList.toggle("on",m==="move");
   $("mDesign").classList.toggle("on",m==="design");
   $("mView").classList.toggle("on",m==="view");
   $("hint").textContent = m==="edit" ? "לחצו על כל טקסט וכתבו"
+                        : m==="add" ? "לחצו על טקסט — החדש ייכנס מתחתיו"
                         : m==="move" ? "השתמשו בחיצים כדי לשנות סדר"
                         : m==="design" ? "לחצו על טקסט כדי לעצב אותו"
                         : "";
@@ -367,18 +371,33 @@ function toast(t){
 }
 
 /* ============ path helpers ============ */
+/* paths index ORIGINAL siblings only — user-added blocks ([data-pe-add]) are
+   invisible to the numbering, so inserting text never shifts existing paths */
 function pathOf(el,doc){
   var parts=[];
   while(el && el!==doc.body && el.parentNode){
-    parts.unshift(Array.prototype.indexOf.call(el.parentNode.children,el));
+    var i=0,c=el.parentNode.firstElementChild;
+    while(c && c!==el){ if(!c.hasAttribute("data-pe-add")) i++; c=c.nextElementSibling; }
+    parts.unshift(i);
     el=el.parentNode;
   }
   return parts.join(".");
 }
 function byPath(p,doc){
   var el=doc.body, a=p.split("."), i;
-  for(i=0;i<a.length;i++){ el=el&&el.children[+a[i]]; if(!el) return null; }
-  return el;
+  for(i=0;i<a.length;i++){
+    if(!el) return null;
+    var n=+a[i], c=el.firstElementChild;
+    while(c){
+      if(!c.hasAttribute("data-pe-add")){ if(n===0) break; n--; }
+      c=c.nextElementSibling;
+    }
+    el=c;
+  }
+  return el||null;
+}
+function findByPe(p,doc){
+  return p.indexOf("add:")===0 ? doc.querySelector('[data-pe-add="'+p.slice(4)+'"]') : byPath(p,doc);
 }
 
 /* ============ injection ============ */
@@ -405,7 +424,14 @@ function inject(){
    'body.pe-move [data-pe-mv]{outline:1px dashed rgba(184,148,79,.5);outline-offset:3px}'+
    'body.pe-design [data-pe]{cursor:pointer}'+
    'body.pe-design [data-pe]:hover{outline:1px dashed rgba(184,148,79,.55);outline-offset:2px}'+
-   '.pe-sel{outline:2px solid #b8944f!important;outline-offset:2px}';
+   '.pe-sel{outline:2px solid #b8944f!important;outline-offset:2px}'+
+   'body.pe-add [data-pe]{cursor:copy}'+
+   'body.pe-add [data-pe]:hover{outline:1px dashed rgba(95,184,127,.7);outline-offset:2px}'+
+   '.pe-addbar{display:flex;gap:4px;background:#071827;border:1px solid #b8944f;border-radius:7px;'+
+     'padding:4px;box-shadow:0 6px 18px rgba(0,0,0,.4)}'+
+   '.pe-addbar button{border:0;border-radius:4px;background:#b8944f;color:#20160a;'+
+     'font:600 12px/1 sans-serif;padding:6px 10px;cursor:pointer}'+
+   '.pe-addbar button:last-child{background:transparent;color:#f3ebe0;border:1px solid rgba(184,148,79,.4)}';
   doc.head.appendChild(st);
 
   mark(doc);
@@ -416,6 +442,13 @@ function inject(){
     if(mode!=="design") return;
     var t=e.target.closest && e.target.closest("[data-pe]");
     if(t){ e.preventDefault(); e.stopPropagation(); selectEl(t,doc); }
+  },true);
+  /* add mode: click an original element → chooser → new block below it */
+  doc.addEventListener("click",function(e){
+    if(mode!=="add") return;
+    if(e.target.closest && e.target.closest(".pe-addbar")) return;
+    var t=e.target.closest && e.target.closest("[data-pe]");
+    if(t && !t.hasAttribute("data-pe-add")){ e.preventDefault(); e.stopPropagation(); showAddChooser(doc,t); }
   },true);
   applyMode();
   readGlobals(doc);
@@ -553,6 +586,91 @@ function sel(el){
   return s;
 }
 
+/* ============ added blocks ============ */
+var PLACE="טקסט חדש — כתבו כאן";
+var BLOCKS={P:1,H1:1,H2:1,H3:1,H4:1,H5:1,H6:1,LI:1,BLOCKQUOTE:1,A:1,DIV:1,SECTION:1};
+
+function blockAnchor(el,doc){
+  var cur=el;
+  while(cur && cur!==doc.body){
+    if(BLOCKS[cur.tagName]) return cur;
+    cur=cur.parentNode;
+  }
+  return el;
+}
+
+function showAddChooser(doc,t){
+  var host=doc.getElementById("pe-mv-host"); if(!host) return;
+  host.innerHTML="";
+  var anchor=blockAnchor(t,doc);
+  var r=anchor.getBoundingClientRect(), sy=doc.defaultView.scrollY, sx=doc.defaultView.scrollX;
+  var box=doc.createElement("div");
+  box.className="pe-addbar";
+  box.style.cssText="position:absolute;z-index:2147483000;pointer-events:auto;top:"+
+    (r.bottom+sy+5)+"px;left:"+(r.left+sx)+"px";
+  box.innerHTML='<button data-t="p">＋ פסקה</button><button data-t="h2">＋ כותרת</button><button data-t="x">ביטול</button>';
+  box.addEventListener("click",function(ev){
+    var b=ev.target.closest("button"); if(!b) return;
+    ev.preventDefault(); ev.stopPropagation();
+    host.innerHTML="";
+    var tag=b.getAttribute("data-t");
+    if(tag==="x") return;
+    insertAdd(doc,anchor,tag);
+  });
+  host.appendChild(box);
+}
+
+function insertAdd(doc,anchor,tag){
+  var d=pg(cur); if(!d.add) d.add={};
+  S.seq=(S.seq||0)+1;
+  var id="a"+S.seq;
+  var rec={after:pathOf(anchor,doc), tag:tag, html:""};
+  d.add[id]=rec; save();
+  var el=buildAdd(doc,id,rec,anchor);
+  setMode("edit");
+  el.focus();
+  render();
+}
+
+function buildAdd(doc,id,rec,anchorEl){
+  var el=doc.createElement(rec.tag);
+  el.setAttribute("data-pe-add",id);
+  el.setAttribute("data-pe","add:"+id);
+  el.setAttribute("data-pe-dirty","");
+  el.spellcheck=false;
+  if(rec.html) el.innerHTML=rec.html; else el.textContent=PLACE;
+  anchorEl.parentNode.insertBefore(el, anchorEl.nextSibling);
+  var stl=(pg(cur).style||{})["add:"+id];
+  if(stl) Object.keys(stl.css).forEach(function(p){ el.style[p]=stl.css[p]; });
+  el.setAttribute("contenteditable", mode==="edit"?"true":"false");
+  el.addEventListener("focus",function(){
+    if(this.textContent===PLACE){
+      var r=doc.createRange(); r.selectNodeContents(this);
+      var s=doc.defaultView.getSelection(); s.removeAllRanges(); s.addRange(r);
+    }
+  });
+  el.addEventListener("blur",function(){
+    var txt=(this.textContent||"").trim();
+    if(!txt || txt===PLACE){ removeAdd(id); toast("הטקסט הריק הוסר"); return; }
+    rec.html=this.innerHTML; save(); render();
+  });
+  el.addEventListener("keydown",function(e){
+    if(e.key==="Enter" && !e.shiftKey){ e.preventDefault(); this.blur(); }
+    if(e.key==="Escape"){ this.textContent=""; this.blur(); }
+  });
+  return el;
+}
+
+function removeAdd(id){
+  var d=pg(cur);
+  if(d.add) delete d.add[id];
+  if(d.style) delete d.style["add:"+id];
+  if(dPath==="add:"+id) deselect();
+  var doc; try{ doc=frame.contentDocument; }catch(e){}
+  if(doc){ var el=doc.querySelector('[data-pe-add="'+id+'"]'); if(el) el.remove(); }
+  save(); render();
+}
+
 /* ============ edits ============ */
 function textEdit(path,was,now,mixed,tag){
   var d=pg(cur);
@@ -562,14 +680,20 @@ function textEdit(path,was,now,mixed,tag){
 }
 function restore(doc){
   var d=S.pages[cur]; if(!d) return;
+  /* recreate user-added blocks first, so styles keyed add:<id> can find them */
+  Object.keys(d.add||{}).forEach(function(id){
+    var rec=d.add[id];
+    var anchor=byPath(rec.after,doc); if(!anchor) return;
+    buildAdd(doc,id,rec,anchor);
+  });
   Object.keys(d.text||{}).forEach(function(p){
-    var el=byPath(p,doc); if(!el) return;
+    var el=findByPe(p,doc); if(!el) return;
     var r=d.text[p];
     if(r.mix) el.innerHTML=r.now; else el.textContent=r.now;
     el.setAttribute("data-pe-dirty","");
   });
   Object.keys(d.style||{}).forEach(function(p){
-    var el=byPath(p,doc); if(!el) return;
+    var el=findByPe(p,doc); if(!el) return;
     var r=d.style[p];
     Object.keys(r.css).forEach(function(prop){ el.style[prop]=r.css[prop]; });
   });
@@ -589,6 +713,7 @@ function applyMode(){
   var doc; try{ doc=frame.contentDocument; }catch(e){ return; }
   if(!doc||!doc.body) return;
   doc.body.classList.toggle("pe-edit",mode==="edit");
+  doc.body.classList.toggle("pe-add",mode==="add");
   doc.body.classList.toggle("pe-move",mode==="move");
   doc.body.classList.toggle("pe-design",mode==="design");
   Array.prototype.forEach.call(doc.querySelectorAll("[data-pe]"),function(el){
@@ -797,6 +922,13 @@ function render(){
         if(p===cur) frame.src=frame.src;
       }));
     });
+    Object.keys(d.add||{}).forEach(function(id){
+      var r=d.add[id];
+      L.appendChild(row(pageName(p)+" · טקסט חדש", r.tag==="h2"?"כותרת":"פסקה", strip(r.html||"")||"(עדיין ריק)", false, function(){
+        if(p===cur) removeAdd(id);
+        else { delete d.add[id]; if(d.style) delete d.style["add:"+id]; save(); render(); }
+      }));
+    });
     Object.keys(d.style||{}).forEach(function(path){
       var r=d.style[path];
       var props=Object.keys(r.css).map(function(x){return PROP_HE[x]||x}).join(" · ");
@@ -848,9 +980,15 @@ function showOut(){
     Object.keys(d.order||{}).forEach(function(path){
       r.push({path:path, container:d.order[path].sel, order:d.order[path].labels});
     });
-    if(t.length||r.length||sst.length){
+    var ad=[];
+    Object.keys(d.add||{}).forEach(function(id){
+      var x=d.add[id];
+      if(x.html) ad.push({id:id, insertAfter:x.after, tag:x.tag, html:x.html});
+    });
+    if(t.length||r.length||sst.length||ad.length){
       o.pages[p]={};
       if(t.length)o.pages[p].text=t;
+      if(ad.length)o.pages[p].added=ad;
       if(sst.length)o.pages[p].design=sst;
       if(r.length)o.pages[p].reorder=r;
     }
