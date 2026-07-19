@@ -1,0 +1,879 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>עורך האתר · פרי מצר סולומון</title>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<style>
+:root{
+  --navy:#071827; --ink:#152331; --ivory:#f3ebe0; --gold:#b8944f; --gold2:#e6c983;
+  --panel:#0d2133; --line:rgba(184,148,79,.22); --ok:#5fb87f;
+  --panelW:340px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--navy); color:var(--ivory);
+  font:14px/1.55 "Heebo",-apple-system,"Segoe UI",Arial,sans-serif;
+  overflow:hidden;
+}
+button{font:inherit;cursor:pointer}
+input,select{font:inherit}
+
+/* ---------- gate ---------- */
+#gate{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(1200px 700px at 70% 20%,#12314c,#050f1a 70%)}
+#gate .box{width:min(92vw,380px);background:rgba(8,25,40,.92);border:1px solid var(--line);
+  border-radius:14px;padding:34px 30px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+#gate .lg{font:700 30px/1 Georgia,serif;letter-spacing:.16em;color:var(--gold2)}
+#gate .sub{font-size:12px;letter-spacing:.14em;color:var(--gold);margin:9px 0 26px}
+#gate h1{font:600 17px/1.4 inherit;margin:0 0 18px;color:var(--ivory)}
+#gate input{width:100%;padding:12px 14px;border-radius:9px;border:1px solid var(--line);
+  background:rgba(0,0,0,.3);color:var(--ivory);text-align:center;letter-spacing:.2em;font-size:16px}
+#gate button{margin-top:14px;width:100%;padding:12px;border:0;border-radius:9px;
+  background:linear-gradient(180deg,var(--gold2),var(--gold));color:#20160a;font-weight:700}
+#gate .err{color:#e88;font-size:12.5px;height:18px;margin-top:10px}
+#gate .note{margin-top:20px;font-size:11.5px;line-height:1.6;color:rgba(243,235,224,.5)}
+
+/* ---------- shell ---------- */
+#app{display:none;height:100%}
+#app.on{display:flex}
+
+#panel{width:var(--panelW);flex:0 0 var(--panelW);background:var(--panel);
+  border-inline-start:1px solid var(--line);display:flex;flex-direction:column;order:2}
+#stage{flex:1;min-width:0;display:flex;flex-direction:column;order:1;background:#0a1a2a}
+
+.phead{padding:16px 18px 14px;border-bottom:1px solid var(--line)}
+.phead .lg{font:700 20px/1 Georgia,serif;letter-spacing:.14em;color:var(--gold2)}
+.phead .t{font-size:11px;letter-spacing:.1em;color:rgba(243,235,224,.55);margin-top:6px}
+
+.sect{padding:15px 18px;border-bottom:1px solid var(--line)}
+.sect h2{margin:0 0 11px;font-size:11px;letter-spacing:.13em;color:var(--gold);
+  text-transform:none;font-weight:700}
+label.f{display:block;margin-bottom:9px}
+label.f span{display:block;font-size:11.5px;color:rgba(243,235,224,.62);margin-bottom:4px}
+select,input.txt{width:100%;padding:9px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(0,0,0,.28);color:var(--ivory)}
+select:focus,input.txt:focus{outline:1px solid var(--gold)}
+
+.seg{display:flex;gap:6px}
+.seg button{flex:1;padding:8px 6px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(0,0,0,.25);color:rgba(243,235,224,.72);font-size:12.5px}
+.seg button.on{background:linear-gradient(180deg,var(--gold2),var(--gold));color:#20160a;
+  border-color:transparent;font-weight:700}
+
+#scroll{flex:1;overflow-y:auto;min-height:0}
+#scroll::-webkit-scrollbar{width:9px}
+#scroll::-webkit-scrollbar-thumb{background:rgba(184,148,79,.3);border-radius:9px}
+
+.chg{background:rgba(0,0,0,.24);border:1px solid var(--line);border-radius:9px;
+  padding:9px 11px;margin-bottom:8px;font-size:12px}
+.chg .pg{font-size:10.5px;letter-spacing:.08em;color:var(--gold);margin-bottom:5px}
+.chg .was{color:rgba(243,235,224,.45);text-decoration:line-through;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chg .now{color:#9fe0b4;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chg .rm{float:inline-end;background:none;border:0;color:rgba(243,235,224,.45);font-size:15px;
+  line-height:1;padding:0 0 0 4px}
+.chg .rm:hover{color:#e88}
+.chg.mix .now:after{content:" · עיצוב פנימי";color:var(--gold);font-size:10px}
+.empty{color:rgba(243,235,224,.4);font-size:12.5px;text-align:center;padding:22px 6px;line-height:1.7}
+
+.pfoot{padding:14px 18px;border-top:1px solid var(--line);background:rgba(0,0,0,.18)}
+.big{width:100%;padding:12px;border:0;border-radius:9px;font-weight:700;
+  background:linear-gradient(180deg,var(--gold2),var(--gold));color:#20160a}
+.big[disabled]{opacity:.35;cursor:not-allowed}
+.lite{width:100%;padding:9px;margin-top:8px;border:1px solid var(--line);border-radius:9px;
+  background:transparent;color:rgba(243,235,224,.6);font-size:12.5px}
+.lite:hover{color:#e88;border-color:rgba(232,136,136,.4)}
+.cnt{font-size:11.5px;color:rgba(243,235,224,.55);text-align:center;margin-bottom:9px}
+
+/* ---------- design controls ---------- */
+#design{display:none}
+#design.on{display:block}
+#dSel{font-size:11.5px;color:#9fe0b4;margin-bottom:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rng{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.rng label{flex:0 0 82px;font-size:11.5px;color:rgba(243,235,224,.62)}
+.rng input[type=range]{flex:1;accent-color:var(--gold);min-width:0}
+.rng .v{flex:0 0 46px;text-align:center;font-size:11px;color:var(--gold2)}
+.seg{margin-bottom:9px}
+.swatches{display:flex;gap:6px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+.sw{width:24px;height:24px;border-radius:6px;border:1px solid rgba(255,255,255,.22);padding:0;cursor:pointer}
+.sw.on{outline:2px solid var(--gold2);outline-offset:1px}
+.sw.custom{width:34px;height:26px;background:none;border:1px dashed var(--line)}
+.dRow{display:flex;gap:6px;margin-top:4px}
+.dRow button{flex:1;padding:8px;border-radius:8px;border:1px solid var(--line);background:rgba(0,0,0,.25);color:rgba(243,235,224,.75);font-size:12px}
+.dRow button:hover{border-color:var(--gold)}
+
+/* ---------- stage ---------- */
+.sbar{display:flex;align-items:center;gap:10px;padding:9px 14px;
+  border-bottom:1px solid var(--line);background:var(--panel);flex-wrap:wrap}
+.sbar .url{font:12px/1 ui-monospace,Menlo,monospace;color:rgba(243,235,224,.5);direction:ltr}
+.sbar .sp{flex:1}
+.pill{padding:5px 12px;border-radius:99px;border:1px solid var(--line);
+  background:rgba(0,0,0,.25);color:rgba(243,235,224,.72);font-size:12px}
+.pill.on{background:rgba(184,148,79,.16);border-color:var(--gold);color:var(--gold2)}
+#hint{font-size:12px;color:var(--gold2)}
+
+#frameWrap{flex:1;min-height:0;overflow:auto;display:flex;justify-content:center;
+  padding:0;background:#0a1a2a}
+#frame{border:0;background:#fff;width:100%;height:100%;display:block}
+#frameWrap.mob{padding:18px 0}
+#frameWrap.mob #frame{width:390px;flex:0 0 390px;height:calc(100% - 36px);
+  border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+
+#toast{position:fixed;inset-block-end:24px;inset-inline-start:50%;transform:translateX(50%) translateY(80px);
+  background:var(--gold);color:#20160a;padding:11px 22px;border-radius:99px;font-weight:700;
+  font-size:13px;opacity:0;transition:.28s;pointer-events:none;z-index:60}
+#toast.on{opacity:1;transform:translateX(50%) translateY(0)}
+
+#out{position:fixed;inset:0;z-index:70;background:rgba(3,10,18,.86);display:none;
+  align-items:center;justify-content:center;padding:24px}
+#out.on{display:flex}
+#out .box{width:min(94vw,720px);max-height:86vh;background:var(--panel);border:1px solid var(--line);
+  border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:13px}
+#out h2{margin:0;font-size:16px;color:var(--gold2)}
+#out p{margin:0;font-size:12.5px;color:rgba(243,235,224,.62);line-height:1.65}
+#out textarea{flex:1;min-height:280px;background:#050f1a;color:#cfe3d6;border:1px solid var(--line);
+  border-radius:9px;padding:13px;font:12px/1.6 ui-monospace,Menlo,monospace;direction:ltr;
+  text-align:left;resize:none}
+#out .row{display:flex;gap:9px}
+#out .row button{flex:1;padding:11px;border-radius:9px;border:0;font-weight:700}
+#out .row .x{background:transparent;border:1px solid var(--line);color:rgba(243,235,224,.65);font-weight:400}
+
+@media(max-width:900px){
+  body{overflow:auto}
+  #app.on{flex-direction:column;height:auto}
+  #panel{width:100%;flex:none;order:1;border-inline-start:0;border-bottom:1px solid var(--line)}
+  #stage{order:2;height:70vh}
+  #scroll{max-height:34vh}
+}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="box">
+    <div class="lg">PMS</div>
+    <div class="sub">עורך האתר</div>
+    <h1>הזינו קוד כניסה</h1>
+    <input id="code" type="password" autocomplete="off" inputmode="latin" placeholder="••••••">
+    <button id="go">כניסה</button>
+    <div class="err" id="err"></div>
+    <div class="note">העורך פועל על המחשב שלך בלבד. שום שינוי לא מתפרסם לאתר עד שתעבירו לי את קובץ השינויים.</div>
+  </div>
+</div>
+
+<div id="app">
+  <div id="stage">
+    <div class="sbar">
+      <button class="pill on" id="mEdit">✎ עריכה</button>
+      <button class="pill" id="mMove">↕ סידור</button>
+      <button class="pill" id="mDesign">🎨 עיצוב</button>
+      <button class="pill" id="mView">👁 תצוגה</button>
+      <span class="sp"></span>
+      <span id="hint"></span>
+      <span class="sp"></span>
+      <button class="pill on" id="dDesk">מחשב</button>
+      <button class="pill" id="dMob">נייד</button>
+      <span class="url" id="url"></span>
+    </div>
+    <div id="frameWrap"><iframe id="frame" src="about:blank"></iframe></div>
+  </div>
+
+  <div id="panel">
+    <div class="phead">
+      <div class="lg">PMS</div>
+      <div class="t">עורך האתר · פרי מצר סולומון</div>
+    </div>
+
+    <div class="sect">
+      <label class="f"><span>עמוד</span>
+        <select id="page"></select>
+      </label>
+    </div>
+
+    <div class="sect">
+      <h2>פרטי קשר — בכל האתר</h2>
+      <label class="f"><span>טלפון</span><input class="txt" id="gPhone" dir="ltr"></label>
+      <label class="f"><span>וואטסאפ (מספר בינלאומי)</span><input class="txt" id="gWa" dir="ltr"></label>
+      <label class="f" style="margin-bottom:0"><span>אימייל</span><input class="txt" id="gMail" dir="ltr"></label>
+    </div>
+
+    <div class="sect" id="design">
+      <h2>עיצוב האלמנט הנבחר</h2>
+      <div id="dSel"></div>
+      <label class="f"><span>גופן</span>
+        <select id="dFont">
+          <option value="">מקורי</option>
+          <option value='"Heebo",Arial,sans-serif'>Heebo — מודרני</option>
+          <option value='Georgia,"Times New Roman",serif'>Georgia — סריף</option>
+        </select>
+      </label>
+      <div class="rng"><label>גודל טקסט</label><input type="range" id="dSize" min="9" max="120" step="0.5"><span class="v" id="dSizeV"></span></div>
+      <div class="rng"><label>ריווח אותיות</label><input type="range" id="dSpace" min="-2" max="10" step="0.1"><span class="v" id="dSpaceV"></span></div>
+      <div class="rng"><label>גובה שורה</label><input type="range" id="dLine" min="0.9" max="2.4" step="0.05"><span class="v" id="dLineV"></span></div>
+      <div class="rng"><label>מרווח מעל</label><input type="range" id="dMTop" min="-40" max="90" step="1"><span class="v" id="dMTopV"></span></div>
+      <div class="rng"><label>מרווח מתחת</label><input type="range" id="dMBot" min="-40" max="90" step="1"><span class="v" id="dMBotV"></span></div>
+      <div class="seg" id="dWeight"><button data-w="400">רגיל</button><button data-w="700">מודגש</button></div>
+      <div class="seg" id="dAlign"><button data-a="right">ימין</button><button data-a="center">מרכז</button><button data-a="left">שמאל</button></div>
+      <div class="swatches" id="dColors"></div>
+      <div class="dRow"><button id="dHide">הסתרת האלמנט</button><button id="dReset">איפוס העיצוב</button></div>
+    </div>
+
+    <div class="sect" style="border-bottom:0;padding-bottom:8px">
+      <h2>שינויים</h2>
+    </div>
+    <div id="scroll"><div id="list"></div></div>
+
+    <div class="pfoot">
+      <div class="cnt" id="cnt">אין שינויים עדיין</div>
+      <button class="big" id="exp" disabled>העתקת השינויים</button>
+      <button class="lite" id="clr">איפוס הכול</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<div id="out">
+  <div class="box">
+    <h2>השינויים שלך</h2>
+    <p>העתיקו את הטקסט הזה ושלחו לי בצ׳אט — אני אחיל אותו על האתר ואעלה לאוויר. השינויים נשמרים אצלך גם אם תסגרו את החלון.</p>
+    <textarea id="json" readonly spellcheck="false"></textarea>
+    <div class="row">
+      <button class="big" id="cp" style="flex:2">העתקה ללוח</button>
+      <button class="x" id="cls">סגירה</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============ config ============ */
+var CODE = "PMS2026";
+var KEY  = "pms-editor-v2";
+
+var PAGES = [
+  ["/",                             "עמוד הבית"],
+  ["/articles",                     "מדריכים — ריכוז"],
+  ["/traffic-ticket",               "דוח תנועה"],
+  ["/drunk-driving",                "נהיגה בשכרות"],
+  ["/administrative-suspension",    "פסילה מנהלית"],
+  ["/points-system",                "שיטת הניקוד"],
+  ["/speeding",                     "מהירות מופרזת"],
+  ["/mobile-phone",                 "טלפון נייד בנהיגה"],
+  ["/new-driver",                   "נהג חדש"],
+  ["/driving-while-disqualified",   "נהיגה בזמן פסילה"],
+  ["/car-accident",                 "תאונת דרכים"],
+  ["/default-judgment",             "ביטול פסק דין בהיעדר"],
+  ["/police-hearing",               "השימוע אצל הקצין"],
+  ["/red-light",                    "רמזור אדום"],
+  ["/traffic-court-appeal",         "ערעור בתעבורה"]
+];
+
+/* elements whose text we never touch */
+var SKIP = {SCRIPT:1,STYLE:1,NOSCRIPT:1,SVG:1,PATH:1,IMG:1,BR:1,HR:1,INPUT:1,TEXTAREA:1,IFRAME:1};
+/* containers we allow reordering inside */
+var GRIDS = ".hubGrid, .grid, .areas, .cards, .related ul, nav";
+
+/* ============ state ============ */
+var S = load();
+function load(){
+  try{ var r=JSON.parse(localStorage.getItem(KEY)); if(r&&r.pages) return r; }catch(e){}
+  return {pages:{}, global:{}};
+}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+function pg(p){ return S.pages[p] || (S.pages[p]={text:{},order:{}}); }
+function count(){
+  var n=0,k;
+  for(k in S.pages){ n+=Object.keys(S.pages[k].text||{}).length+Object.keys(S.pages[k].order||{}).length+Object.keys(S.pages[k].style||{}).length; }
+  for(k in S.global){ if(S.global[k] && S.global[k].now!==S.global[k].was) n++; }
+  return n;
+}
+
+/* ============ dom refs ============ */
+var $=function(i){return document.getElementById(i)};
+var frame=$("frame"), pageSel=$("page"), mode="edit", cur=PAGES[0][0];
+
+/* ============ gate ============ */
+function unlock(){
+  $("gate").style.display="none";
+  $("app").classList.add("on");
+  boot();
+}
+$("go").onclick=function(){
+  if($("code").value.trim().toUpperCase()===CODE){ sessionStorage.setItem("pms-ok","1"); unlock(); }
+  else { $("err").textContent="קוד שגוי"; $("code").value=""; $("code").focus(); }
+};
+$("code").onkeydown=function(e){ if(e.key==="Enter") $("go").click(); };
+/* defer so the whole script (incl. design-block vars) is evaluated before boot */
+if(sessionStorage.getItem("pms-ok")==="1") setTimeout(unlock,0);
+else setTimeout(function(){$("code").focus()},80);
+
+/* ============ boot ============ */
+function boot(){
+  PAGES.forEach(function(p){
+    var o=document.createElement("option"); o.value=p[0]; o.textContent=p[1]; pageSel.appendChild(o);
+  });
+  pageSel.onchange=function(){ go(pageSel.value) };
+  $("mEdit").onclick=function(){ setMode("edit") };
+  $("mMove").onclick=function(){ setMode("move") };
+  $("mDesign").onclick=function(){ setMode("design") };
+  $("mView").onclick=function(){ setMode("view") };
+  designBoot();
+  $("dDesk").onclick=function(){ dev(false) };
+  $("dMob").onclick =function(){ dev(true) };
+  $("exp").onclick=showOut;
+  $("clr").onclick=clearAll;
+  $("cls").onclick=function(){ $("out").classList.remove("on") };
+  $("cp").onclick=copyOut;
+  ["gPhone","gWa","gMail"].forEach(function(id){
+    $(id).addEventListener("input",function(){ globalEdit(id,this.value) });
+  });
+  frame.addEventListener("load", inject);
+  go(cur);
+  render();
+}
+
+function setMode(m){
+  mode=m;
+  $("mEdit").classList.toggle("on",m==="edit");
+  $("mMove").classList.toggle("on",m==="move");
+  $("mDesign").classList.toggle("on",m==="design");
+  $("mView").classList.toggle("on",m==="view");
+  $("hint").textContent = m==="edit" ? "לחצו על כל טקסט וכתבו"
+                        : m==="move" ? "השתמשו בחיצים כדי לשנות סדר"
+                        : m==="design" ? "לחצו על טקסט כדי לעצב אותו"
+                        : "";
+  if(m!=="design") deselect();
+  applyMode();
+}
+function dev(m){
+  $("frameWrap").classList.toggle("mob",m);
+  $("dMob").classList.toggle("on",m); $("dDesk").classList.toggle("on",!m);
+}
+function go(p){
+  cur=p; pageSel.value=p; $("url").textContent="www.pms.co.il"+p;
+  var local = location.hostname==="localhost"||location.hostname==="127.0.0.1";
+  frame.src = p==="/" ? "/" : (local ? p+".html" : p);
+}
+function toast(t){
+  var el=$("toast"); el.textContent=t; el.classList.add("on");
+  clearTimeout(el._t); el._t=setTimeout(function(){el.classList.remove("on")},1900);
+}
+
+/* ============ path helpers ============ */
+function pathOf(el,doc){
+  var parts=[];
+  while(el && el!==doc.body && el.parentNode){
+    parts.unshift(Array.prototype.indexOf.call(el.parentNode.children,el));
+    el=el.parentNode;
+  }
+  return parts.join(".");
+}
+function byPath(p,doc){
+  var el=doc.body, a=p.split("."), i;
+  for(i=0;i<a.length;i++){ el=el&&el.children[+a[i]]; if(!el) return null; }
+  return el;
+}
+
+/* ============ injection ============ */
+function inject(){
+  var doc;
+  try{ doc=frame.contentDocument; }catch(e){ return; }
+  if(!doc||!doc.body) return;
+
+  var st=doc.createElement("style");
+  st.textContent=
+   'html{scroll-behavior:auto!important}'+
+   '[data-pe]{transition:background .12s,outline-color .12s}'+
+   'body.pe-edit [data-pe]{outline:1px dashed rgba(184,148,79,.5);outline-offset:2px;cursor:text}'+
+   'body.pe-edit [data-pe]:hover{background:rgba(184,148,79,.14)}'+
+   'body.pe-edit [data-pe]:focus{outline:2px solid #b8944f;background:rgba(184,148,79,.09)}'+
+   '[data-pe-dirty]{background:rgba(95,184,127,.16)!important;'+
+     'box-shadow:inset 2px 0 0 #5fb87f}'+
+   '.pe-mv{position:absolute;z-index:2147483000;display:flex;gap:3px;'+
+     'background:#071827;border:1px solid #b8944f;border-radius:7px;padding:3px;'+
+     'box-shadow:0 6px 18px rgba(0,0,0,.4)}'+
+   '.pe-mv button{width:26px;height:24px;border:0;border-radius:4px;background:#b8944f;'+
+     'color:#20160a;font:700 13px/1 sans-serif;cursor:pointer}'+
+   '.pe-mv button:disabled{opacity:.3;cursor:default}'+
+   'body.pe-move [data-pe-mv]{outline:1px dashed rgba(184,148,79,.5);outline-offset:3px}'+
+   'body.pe-design [data-pe]{cursor:pointer}'+
+   'body.pe-design [data-pe]:hover{outline:1px dashed rgba(184,148,79,.55);outline-offset:2px}'+
+   '.pe-sel{outline:2px solid #b8944f!important;outline-offset:2px}';
+  doc.head.appendChild(st);
+
+  mark(doc);
+  restore(doc);
+  deselect();
+  /* design mode: click selects the element for styling */
+  doc.addEventListener("click",function(e){
+    if(mode!=="design") return;
+    var t=e.target.closest && e.target.closest("[data-pe]");
+    if(t){ e.preventDefault(); e.stopPropagation(); selectEl(t,doc); }
+  },true);
+  applyMode();
+  readGlobals(doc);
+}
+
+/* mark editable leaves: top-down, stop at first element holding real text */
+function mark(doc){
+  var out=[];
+  (function walk(el){
+    var i,c,hasText=false;
+    for(i=0;i<el.childNodes.length;i++){
+      c=el.childNodes[i];
+      if(c.nodeType===3 && c.nodeValue.trim()) { hasText=true; break; }
+    }
+    if(hasText && el!==doc.body){ out.push(el); return; }
+    for(i=0;i<el.children.length;i++){
+      c=el.children[i];
+      if(SKIP[c.tagName]) continue;
+      if(c.classList && c.classList.contains("skip")) continue;
+      walk(c);
+    }
+  })(doc.body);
+
+  /* drop anything the user can't actually see change — e.g. the hero image's
+     screen-reader labels sitting on 1×1 hit areas */
+  var win=doc.defaultView;
+  out=out.filter(function(el){
+    var r=el.getBoundingClientRect();
+    if(r.width<3||r.height<3) return false;
+    var cs=win.getComputedStyle(el);
+    if(cs.visibility==="hidden"||cs.display==="none"||parseFloat(cs.opacity)<.08) return false;
+    return true;
+  });
+
+  out.forEach(function(el){
+    var p=pathOf(el,doc);
+    el.setAttribute("data-pe",p);
+    el.setAttribute("contenteditable","true");
+    el.spellcheck=false;
+    var mixed = el.children.length>0;
+    el.setAttribute("data-pe-mix", mixed?"1":"0");
+    el._peWas = mixed ? el.innerHTML : el.textContent;
+
+    el.addEventListener("focus",function(){ this._peFocus = mixed?this.innerHTML:this.textContent; });
+    el.addEventListener("blur",function(){
+      var now = mixed?this.innerHTML:this.textContent;
+      if(now===this._peFocus) return;
+      textEdit(p, this._peWas, now, mixed, el.tagName.toLowerCase());
+      this.toggleAttribute("data-pe-dirty", now!==this._peWas);
+    });
+    el.addEventListener("keydown",function(e){
+      if(e.key==="Enter" && !e.shiftKey && !mixed){ e.preventDefault(); this.blur(); }
+      if(e.key==="Escape"){ if(mixed) this.innerHTML=this._peFocus; else this.textContent=this._peFocus; this.blur(); }
+    });
+  });
+
+  /* block navigation while editing */
+  doc.addEventListener("click",function(e){
+    if(mode==="view") return;
+    var a=e.target.closest && e.target.closest("a");
+    if(a){ e.preventDefault(); e.stopPropagation(); }
+  },true);
+  doc.addEventListener("submit",function(e){ e.preventDefault(); },true);
+
+  /* reorder targets */
+  Array.prototype.forEach.call(doc.querySelectorAll(GRIDS),function(g){
+    var kids=Array.prototype.filter.call(g.children,function(k){ return !SKIP[k.tagName] });
+    if(kids.length<2) return;
+    g.setAttribute("data-pe-g", pathOf(g,doc));
+    kids.forEach(function(k){ k.setAttribute("data-pe-mv","1") });
+  });
+  buildMoveUI(doc);
+}
+
+function buildMoveUI(doc){
+  if(!doc.body) return;
+  var host=doc.createElement("div");
+  host.id="pe-mv-host"; host.style.cssText="position:absolute;inset:0;pointer-events:none;z-index:2147483000";
+  doc.body.style.position=doc.body.style.position||"relative";
+  doc.body.appendChild(host);
+
+  doc.body.addEventListener("mouseover",function(e){
+    if(mode!=="move") return;
+    if(!e.target.closest) return;
+    /* never tear down our own arrows when the cursor moves onto them */
+    if(e.target.closest(".pe-mv")) return;
+    var k=e.target.closest("[data-pe-mv]");
+    if(k && k===host._cur) return;      /* still on the same card */
+    clearMv(doc);
+    host._cur = k || null;
+    if(!k) return;
+    var g=k.parentNode, kids=Array.prototype.filter.call(g.children,function(x){return x.hasAttribute&&x.hasAttribute("data-pe-mv")});
+    var i=kids.indexOf(k);
+    var r=k.getBoundingClientRect(), sy=doc.defaultView.scrollY, sx=doc.defaultView.scrollX;
+    var box=doc.createElement("div");
+    box.className="pe-mv"; box.style.pointerEvents="auto";
+    box.style.top=(r.top+sy+6)+"px";
+    box.style.left=(r.left+sx+6)+"px";
+    box.innerHTML='<button data-d="-1"'+(i===0?" disabled":"")+'>▲</button>'+
+                  '<button data-d="1"'+(i===kids.length-1?" disabled":"")+'>▼</button>';
+    box.onclick=function(ev){
+      var b=ev.target.closest("button"); if(!b||b.disabled) return;
+      ev.preventDefault(); ev.stopPropagation();
+      moveKid(doc,g,i,+b.getAttribute("data-d"));
+    };
+    host.appendChild(box);
+  });
+  doc.body.addEventListener("mouseleave",function(){ clearMv(doc) });
+}
+function clearMv(doc){
+  var h=doc.getElementById("pe-mv-host"); if(h){ h.innerHTML=""; h._cur=null; }
+}
+function moveKid(doc,g,i,d){
+  var kids=Array.prototype.filter.call(g.children,function(x){return x.hasAttribute&&x.hasAttribute("data-pe-mv")});
+  var j=i+d; if(j<0||j>=kids.length) return;
+  if(d<0) g.insertBefore(kids[i],kids[j]); else g.insertBefore(kids[j],kids[i]);
+  clearMv(doc);
+  recordOrder(doc,g);
+}
+function recordOrder(doc,g){
+  var p=g.getAttribute("data-pe-g"); if(!p) return;
+  var kids=Array.prototype.filter.call(g.children,function(x){return x.hasAttribute&&x.hasAttribute("data-pe-mv")});
+  var labels=kids.map(function(k){ return (k.textContent||"").trim().slice(0,42) });
+  var d=pg(cur);
+  d.order[p]={labels:labels, sel:sel(g)};
+  save(); render(); toast("הסדר עודכן");
+}
+function sel(el){
+  var s=el.tagName.toLowerCase();
+  if(el.id) return "#"+el.id;
+  if(el.className && typeof el.className==="string"){
+    var c=el.className.trim().split(/\s+/).filter(function(x){return x.indexOf("pe-")!==0}).join(".");
+    if(c) s+="."+c;
+  }
+  return s;
+}
+
+/* ============ edits ============ */
+function textEdit(path,was,now,mixed,tag){
+  var d=pg(cur);
+  if(now===was) delete d.text[path];
+  else d.text[path]={was:was,now:now,mix:mixed?1:0,tag:tag};
+  save(); render();
+}
+function restore(doc){
+  var d=S.pages[cur]; if(!d) return;
+  Object.keys(d.text||{}).forEach(function(p){
+    var el=byPath(p,doc); if(!el) return;
+    var r=d.text[p];
+    if(r.mix) el.innerHTML=r.now; else el.textContent=r.now;
+    el.setAttribute("data-pe-dirty","");
+  });
+  Object.keys(d.style||{}).forEach(function(p){
+    var el=byPath(p,doc); if(!el) return;
+    var r=d.style[p];
+    Object.keys(r.css).forEach(function(prop){ el.style[prop]=r.css[prop]; });
+  });
+  Object.keys(d.order||{}).forEach(function(p){
+    var g=byPath(p,doc); if(!g) return;
+    var want=d.order[p].labels;
+    var kids=Array.prototype.filter.call(g.children,function(x){return x.hasAttribute&&x.hasAttribute("data-pe-mv")});
+    want.forEach(function(lb){
+      for(var i=0;i<kids.length;i++){
+        if((kids[i].textContent||"").trim().slice(0,42)===lb){ g.appendChild(kids[i]); break; }
+      }
+    });
+  });
+  applyGlobals(doc);
+}
+function applyMode(){
+  var doc; try{ doc=frame.contentDocument; }catch(e){ return; }
+  if(!doc||!doc.body) return;
+  doc.body.classList.toggle("pe-edit",mode==="edit");
+  doc.body.classList.toggle("pe-move",mode==="move");
+  doc.body.classList.toggle("pe-design",mode==="design");
+  Array.prototype.forEach.call(doc.querySelectorAll("[data-pe]"),function(el){
+    el.setAttribute("contenteditable", mode==="edit"?"true":"false");
+  });
+  clearMv(doc);
+}
+
+/* ============ globals ============ */
+function readGlobals(doc){
+  if(S.global.phone) { fill(); return; }
+  var tel=doc.querySelector('a[href^="tel:"]'), wa=doc.querySelector('a[href*="wa.me/"]'),
+      ml=doc.querySelector('a[href^="mailto:"]');
+  if(tel) S.global.phone={was:(tel.getAttribute("href")||"").replace("tel:",""),now:(tel.getAttribute("href")||"").replace("tel:","")};
+  if(wa)  { var m=(wa.getAttribute("href")||"").match(/wa\.me\/(\d+)/); if(m) S.global.wa={was:m[1],now:m[1]}; }
+  if(ml)  S.global.mail={was:(ml.getAttribute("href")||"").replace("mailto:",""),now:(ml.getAttribute("href")||"").replace("mailto:","")};
+  fill();
+}
+function fill(){
+  if(S.global.phone) $("gPhone").value=S.global.phone.now;
+  if(S.global.wa)    $("gWa").value=S.global.wa.now;
+  if(S.global.mail)  $("gMail").value=S.global.mail.now;
+}
+function globalEdit(id,v){
+  var k = id==="gPhone"?"phone" : id==="gWa"?"wa" : "mail";
+  if(!S.global[k]) S.global[k]={was:v,now:v};
+  S.global[k].now=v.trim();
+  save(); render();
+  var doc; try{ doc=frame.contentDocument; }catch(e){ return; }
+  if(doc) applyGlobals(doc);
+}
+/* keep the site's 052-882-2044 display style */
+function dash(v){
+  var n=String(v).replace(/[^\d]/g,"");
+  return n.length===10 ? n.slice(0,3)+"-"+n.slice(3,6)+"-"+n.slice(6)
+       : n.length===9  ? n.slice(0,2)+"-"+n.slice(2,5)+"-"+n.slice(5)
+       : v;
+}
+function applyGlobals(doc){
+  var g=S.global;
+  if(g.phone && g.phone.now!==g.phone.was){
+    Array.prototype.forEach.call(doc.querySelectorAll('a[href^="tel:"]'),function(a){
+      a.setAttribute("href","tel:"+g.phone.now);
+      var shown=(a.textContent||"");
+      if(shown.replace(/[^\d]/g,"")===g.phone.was.replace(/[^\d]/g,""))
+        a.textContent = shown.indexOf("-")>-1 ? dash(g.phone.now) : g.phone.now;
+    });
+  }
+  if(g.wa && g.wa.now!==g.wa.was){
+    Array.prototype.forEach.call(doc.querySelectorAll('a[href*="wa.me/"]'),function(a){
+      a.setAttribute("href",(a.getAttribute("href")||"").replace(/wa\.me\/\d+/,"wa.me/"+g.wa.now));
+    });
+  }
+  if(g.mail && g.mail.now!==g.mail.was){
+    Array.prototype.forEach.call(doc.querySelectorAll('a[href^="mailto:"]'),function(a){
+      a.setAttribute("href","mailto:"+g.mail.now);
+      if((a.textContent||"").trim()===g.mail.was) a.textContent=g.mail.now;
+    });
+  }
+}
+
+/* ============ design mode ============ */
+var dEl=null, dPath=null, dBase=null;
+var COLORS=["#f3ebe0","#ffffff","#e6c983","#b8944f","#8e97a3","#071827","#152331"];
+var PROP_HE={fontSize:"גודל",fontWeight:"משקל",color:"צבע",letterSpacing:"ריווח",
+  lineHeight:"גובה שורה",textAlign:"יישור",marginTop:"מרווח מעל",marginBottom:"מרווח מתחת",
+  display:"הסתרה",fontFamily:"גופן"};
+
+function styleStore(){ var d=pg(cur); if(!d.style) d.style={}; return d.style; }
+
+function rgb2hex(c){
+  var m=String(c).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+  if(!m) return c;
+  function h(x){x=(+x).toString(16);return x.length<2?"0"+x:x}
+  return "#"+h(m[1])+h(m[2])+h(m[3]);
+}
+
+function deselect(){
+  if(dEl){ try{ dEl.classList.remove("pe-sel"); }catch(e){} }
+  dEl=null; dPath=null; dBase=null;
+  var d=$("design"); if(d) d.classList.remove("on");
+}
+
+function selectEl(el,doc){
+  deselect();
+  dEl=el; dPath=el.getAttribute("data-pe");
+  el.classList.add("pe-sel");
+  var cs=doc.defaultView.getComputedStyle(el);
+  var fs=parseFloat(cs.fontSize)||16;
+  dBase={
+    fontSize:cs.fontSize,
+    fontWeight:cs.fontWeight,
+    color:rgb2hex(cs.color),
+    letterSpacing:cs.letterSpacing==="normal"?"0px":cs.letterSpacing,
+    lineHeight:cs.lineHeight==="normal"?(Math.round(fs*1.4*100)/100)+"px":cs.lineHeight,
+    textAlign:cs.textAlign,
+    marginTop:cs.marginTop, marginBottom:cs.marginBottom,
+    display:cs.display, fontFamily:""
+  };
+  fillDesign();
+  $("design").classList.add("on");
+  $("dSel").textContent="נבחר: "+(el.textContent||"").trim().slice(0,46);
+}
+
+function curVal(prop){
+  if(dPath){ var e=styleStore()[dPath]; if(e && e.css[prop]!==undefined) return e.css[prop]; }
+  return dBase?dBase[prop]:"";
+}
+
+function fillDesign(){
+  var fs=parseFloat(curVal("fontSize"))||16;
+  $("dSize").value=fs; $("dSizeV").textContent=fs+"px";
+  var ls=parseFloat(curVal("letterSpacing"))||0;
+  $("dSpace").value=ls; $("dSpaceV").textContent=ls.toFixed(1);
+  var lhRaw=curVal("lineHeight"), lh=parseFloat(lhRaw);
+  var ratio=/px/.test(String(lhRaw)) ? lh/fs : lh;
+  if(!isFinite(ratio)||ratio<=0) ratio=1.4;
+  $("dLine").value=ratio.toFixed(2); $("dLineV").textContent=ratio.toFixed(2);
+  var mt=parseFloat(curVal("marginTop"))||0, mb=parseFloat(curVal("marginBottom"))||0;
+  $("dMTop").value=mt; $("dMTopV").textContent=Math.round(mt)+"px";
+  $("dMBot").value=mb; $("dMBotV").textContent=Math.round(mb)+"px";
+  var wgt=parseInt(curVal("fontWeight"),10)>=600?"700":"400";
+  Array.prototype.forEach.call($("dWeight").children,function(b){b.classList.toggle("on",b.getAttribute("data-w")===wgt)});
+  var al=curVal("textAlign");
+  Array.prototype.forEach.call($("dAlign").children,function(b){b.classList.toggle("on",b.getAttribute("data-a")===al)});
+  var col=String(curVal("color")).toLowerCase();
+  Array.prototype.forEach.call($("dColors").querySelectorAll(".sw[data-c]"),function(b){
+    b.classList.toggle("on", b.getAttribute("data-c")===col);
+  });
+  $("dFont").value=curVal("fontFamily")||"";
+  $("dHide").textContent = curVal("display")==="none" ? "הצגת האלמנט" : "הסתרת האלמנט";
+}
+
+function setStyle(prop,val){
+  if(!dEl||!dPath||!dBase) return;
+  var st=styleStore(), e=st[dPath];
+  if(!e) e=st[dPath]={css:{},was:{},label:(dEl.textContent||"").trim().slice(0,40),tag:dEl.tagName.toLowerCase()};
+  if(e.was[prop]===undefined) e.was[prop]=dBase[prop];
+  if(String(val)===String(e.was[prop])){ delete e.css[prop]; delete e.was[prop]; dEl.style[prop]=""; }
+  else { e.css[prop]=val; dEl.style[prop]=val; }
+  if(!Object.keys(e.css).length) delete st[dPath];
+  save(); render();
+}
+
+function designBoot(){
+  $("dSize").oninput =function(){ $("dSizeV").textContent=this.value+"px"; setStyle("fontSize",this.value+"px"); };
+  $("dSpace").oninput=function(){ $("dSpaceV").textContent=(+this.value).toFixed(1); setStyle("letterSpacing",this.value+"px"); };
+  $("dLine").oninput =function(){ $("dLineV").textContent=(+this.value).toFixed(2); setStyle("lineHeight",String(+this.value)); };
+  $("dMTop").oninput =function(){ $("dMTopV").textContent=this.value+"px"; setStyle("marginTop",this.value+"px"); };
+  $("dMBot").oninput =function(){ $("dMBotV").textContent=this.value+"px"; setStyle("marginBottom",this.value+"px"); };
+  Array.prototype.forEach.call($("dWeight").children,function(b){
+    b.onclick=function(){ setStyle("fontWeight",b.getAttribute("data-w")); fillDesign(); };
+  });
+  Array.prototype.forEach.call($("dAlign").children,function(b){
+    b.onclick=function(){ setStyle("textAlign",b.getAttribute("data-a")); fillDesign(); };
+  });
+  COLORS.forEach(function(c){
+    var b=document.createElement("button"); b.className="sw"; b.style.background=c;
+    b.setAttribute("data-c",c); b.title=c;
+    b.onclick=function(){ setStyle("color",c); fillDesign(); };
+    $("dColors").appendChild(b);
+  });
+  var cust=document.createElement("input"); cust.type="color"; cust.className="sw custom"; cust.title="צבע חופשי";
+  cust.oninput=function(){ setStyle("color",this.value); fillDesign(); };
+  $("dColors").appendChild(cust);
+  $("dHide").onclick=function(){
+    if(!dEl) return;
+    setStyle("display", curVal("display")==="none" ? dBase.display : "none");
+    fillDesign();
+  };
+  $("dReset").onclick=function(){
+    if(!dPath) return;
+    var st=styleStore(), e=st[dPath];
+    if(e){ Object.keys(e.css).forEach(function(p){ dEl.style[p]="" }); delete st[dPath]; }
+    save(); render(); fillDesign();
+  };
+}
+
+/* ============ panel render ============ */
+function pageName(p){ for(var i=0;i<PAGES.length;i++) if(PAGES[i][0]===p) return PAGES[i][1]; return p; }
+function esc(s){ return String(s).replace(/[<>&]/g,function(c){return {"<":"&lt;",">":"&gt;","&":"&amp;"}[c]}) }
+function strip(s){ var d=document.createElement("div"); d.innerHTML=s; return d.textContent }
+
+function render(){
+  var L=$("list"); L.innerHTML="";
+  var n=count();
+  $("cnt").textContent = n ? (n===1?"שינוי אחד":n+" שינויים") : "אין שינויים עדיין";
+  $("exp").disabled = !n;
+
+  var g=S.global, gk=[["phone","טלפון"],["wa","וואטסאפ"],["mail","אימייל"]];
+  gk.forEach(function(k){
+    var r=g[k[0]]; if(!r||r.now===r.was) return;
+    L.appendChild(row("בכל האתר · "+k[1], r.was, r.now, false, function(){
+      r.now=r.was; fill(); save(); render();
+      var doc; try{ doc=frame.contentDocument; }catch(e){}
+      if(doc) frame.src=frame.src;
+    }));
+  });
+
+  Object.keys(S.pages).forEach(function(p){
+    var d=S.pages[p];
+    Object.keys(d.text||{}).forEach(function(path){
+      var r=d.text[path];
+      L.appendChild(row(pageName(p), r.mix?strip(r.was):r.was, r.mix?strip(r.now):r.now, !!r.mix, function(){
+        delete d.text[path]; save(); render();
+        if(p===cur) frame.src=frame.src;
+      }));
+    });
+    Object.keys(d.style||{}).forEach(function(path){
+      var r=d.style[path];
+      var props=Object.keys(r.css).map(function(x){return PROP_HE[x]||x}).join(" · ");
+      L.appendChild(row(pageName(p)+" · עיצוב", r.label||r.tag, props||"—", false, function(){
+        delete d.style[path]; save(); render();
+        if(p===cur) frame.src=frame.src;
+      }));
+    });
+    Object.keys(d.order||{}).forEach(function(path){
+      var r=d.order[path];
+      L.appendChild(row(pageName(p)+" · סדר", "סדר מקורי", "סודר מחדש ("+r.labels.length+" פריטים)", false, function(){
+        delete d.order[path]; save(); render();
+        if(p===cur) frame.src=frame.src;
+      }));
+    });
+  });
+
+  if(!n) L.innerHTML='<div class="empty">לחצו על כל טקסט באתר משמאל<br>וכתבו מה שתרצו.<br><br>הכול נשמר אצלכם אוטומטית.</div>';
+}
+function row(pgName,was,now,mix,undo){
+  var d=document.createElement("div");
+  d.className="chg"+(mix?" mix":"");
+  d.innerHTML='<button class="rm" title="ביטול">×</button>'+
+    '<div class="pg">'+esc(pgName)+'</div>'+
+    '<div class="was">'+esc(was)+'</div>'+
+    '<div class="now">'+esc(now)+'</div>';
+  d.querySelector(".rm").onclick=undo;
+  return d;
+}
+
+/* ============ export ============ */
+function showOut(){
+  var o={site:"www.pms.co.il", generated:new Date().toISOString(), global:{}, pages:{}};
+  var g=S.global;
+  if(g.phone&&g.phone.now!==g.phone.was) o.global.phone={was:g.phone.was,now:g.phone.now};
+  if(g.wa&&g.wa.now!==g.wa.was)          o.global.whatsapp={was:g.wa.was,now:g.wa.now};
+  if(g.mail&&g.mail.now!==g.mail.was)    o.global.email={was:g.mail.was,now:g.mail.now};
+
+  Object.keys(S.pages).forEach(function(p){
+    var d=S.pages[p], t=[], r=[], sst=[];
+    Object.keys(d.text||{}).forEach(function(path){
+      var x=d.text[path];
+      t.push({path:path, tag:x.tag, html:!!x.mix, was:x.was, now:x.now});
+    });
+    Object.keys(d.style||{}).forEach(function(path){
+      var x=d.style[path];
+      sst.push({path:path, tag:x.tag, element:x.label, css:x.css, was:x.was});
+    });
+    Object.keys(d.order||{}).forEach(function(path){
+      r.push({path:path, container:d.order[path].sel, order:d.order[path].labels});
+    });
+    if(t.length||r.length||sst.length){
+      o.pages[p]={};
+      if(t.length)o.pages[p].text=t;
+      if(sst.length)o.pages[p].design=sst;
+      if(r.length)o.pages[p].reorder=r;
+    }
+  });
+
+  $("json").value=JSON.stringify(o,null,2);
+  $("out").classList.add("on");
+}
+function copyOut(){
+  var t=$("json"); t.select(); t.setSelectionRange(0,999999);
+  var ok=false;
+  try{ ok=document.execCommand("copy"); }catch(e){}
+  if(navigator.clipboard){ navigator.clipboard.writeText(t.value).then(function(){},function(){}); ok=true; }
+  toast(ok?"הועתק — שלחו לי בצ׳אט":"בחרו והעתיקו ידנית");
+}
+function clearAll(){
+  if(!confirm("לאפס את כל השינויים? הפעולה אינה הפיכה.")) return;
+  S={pages:{},global:{}}; save();
+  ["gPhone","gWa","gMail"].forEach(function(i){ $(i).value="" });
+  render(); frame.src=frame.src;
+  toast("אופס");
+}
+})();
+</script>
+</body>
+</html>
