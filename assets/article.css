@@ -2,6 +2,7 @@
 @font-face{font-family:"Heebo";src:url("/assets/fonts/heebo-hebrew.woff2") format("woff2");font-weight:100 900;font-display:swap;unicode-range:U+0590-05FF,U+200C-2010,U+20AA,U+25CC,U+FB1D-FB4F}
 @font-face{font-family:"Heebo";src:url("/assets/fonts/heebo-latin.woff2") format("woff2");font-weight:100 900;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:"Suez One";src:url("/assets/fonts/suez-hebrew.woff2") format("woff2");font-weight:400;font-display:swap;unicode-range:U+0590-05FF,U+200C-2010,U+20AA,U+25CC,U+FB1D-FB4F}
+@font-face{font-family:"Bodoni Moda";src:url("/assets/fonts/bodoni-latin.woff2") format("woff2");font-weight:500;font-display:swap}
 :root{--navy:#071827;--navy2:#0b2234;--ivory:#f2ebdd;--paper:#faf6ed;--gold:#b8944f;--ink:#152331;--muted:#8fa0ad;--line:rgba(184,148,79,.32)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}

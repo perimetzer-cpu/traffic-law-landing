@@ -14,6 +14,8 @@
   <meta property="og:image" content="https://www.pms.co.il/assets/images/og-image.png">
   <meta name="theme-color" content="#071827">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/suez-hebrew.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/heebo-hebrew.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/bodoni-latin.woff2" crossorigin>
   <link rel="stylesheet" href="/assets/article.css">
   <script type="application/ld+json">
@@ -40,7 +42,6 @@
   }
   </script>
   <style>
-    @font-face{font-family:"Bodoni Moda";src:url("/assets/fonts/bodoni-latin.woff2") format("woff2");font-weight:500;font-display:swap}
     /* ---- page hero: road curves + ghost numeral, echoing the homepage ---- */
     .hero{position:relative;overflow:hidden}
     .hero .inner{position:relative;z-index:2}
@@ -101,7 +102,7 @@
     .ptable{width:100%;border-collapse:collapse;font-size:14.5px;background:#fff;border:1px solid var(--line)}
     .ptable th{background:var(--navy);color:var(--ivory);padding:12px 14px;text-align:right;font-weight:400;font-family:"Suez One",Georgia,serif}
     .ptable td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top;color:#3d4750}
-    .ptable td.n{font-weight:700;white-space:nowrap;color:var(--navy);font-family:"Bodoni Moda",Georgia,serif;font-size:16px}
+    .ptable td.n{font-weight:500;white-space:nowrap;color:var(--navy);font-family:"Bodoni Moda",Georgia,serif;font-size:16px}
     .ptable tbody tr{transition:background .2s}
     .ptable tbody tr:hover td{background:var(--paper)}
     .ptable tr.danger td{background:#faeceb}.ptable tr.danger td.n{color:#9E2B25}
