@@ -5,6 +5,20 @@
 // Each channel degrades independently: a failure in one never blocks the other.
 
 const SF_API_VERSION = 'v59.0';
+const ASSISTANT_INQUIRY_URL = 'https://dinai-assistant.vercel.app/api/lead/inquiry';
+
+// Primary channel: the firm's AI assistant. Its public inquiry endpoint stores the lead in the
+// assistant's quarantined leads store and emails the lawyer through the assistant's own mail setup.
+async function forwardToAssistant({ name, phone, subject, details }) {
+  const r = await fetch(ASSISTANT_INQUIRY_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, phone, subject, details, source: 'pms.co.il' }),
+  });
+  const out = await r.json().catch(() => ({}));
+  if (!r.ok || !out.ok) throw new Error('assistant forward failed: ' + r.status + ' ' + JSON.stringify(out));
+  return { forwarded: true };
+}
 
 const esc = (s) => String(s || '').replace(/[<>&"]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c]));
 
@@ -131,12 +145,23 @@ export default async function handler(req, res) {
   }
 
   const payload = { name, phone, subject, details };
+
+  // Assistant first; the direct Resend/Salesforce channels only run as fallback if it fails
+  // (and stay inert anyway until their env vars are configured).
+  try {
+    const assistant = await forwardToAssistant(payload);
+    return res.status(200).json({ ok: true, assistant });
+  } catch (e) {
+    console.error('assistant:', e);
+  }
+
   const [email, sf] = await Promise.allSettled([sendEmail(payload), createSfLead(payload)]);
   if (email.status === 'rejected') console.error('email:', email.reason);
   if (sf.status === 'rejected') console.error('salesforce:', sf.reason);
 
   return res.status(200).json({
     ok: email.status === 'fulfilled' || sf.status === 'fulfilled',
+    assistant: { error: true },
     email: email.status === 'fulfilled' ? email.value : { error: true },
     salesforce: sf.status === 'fulfilled' ? sf.value : { error: true },
   });
