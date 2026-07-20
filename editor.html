@@ -213,6 +213,7 @@ select:focus,input.txt:focus{outline:1px solid var(--gold)}
         </select>
       </label>
       <div class="rng"><label>גודל טקסט</label><input type="range" id="dSize" min="9" max="200" step="0.5"><span class="v" id="dSizeV"></span></div>
+      <div class="rng"><label>רוחב התיבה</label><input type="range" id="dWidth" min="80" max="960" step="4"><span class="v" id="dWidthV"></span></div>
       <div class="rng"><label>ריווח אותיות</label><input type="range" id="dSpace" min="-2" max="10" step="0.1"><span class="v" id="dSpaceV"></span></div>
       <div class="rng"><label>גובה שורה</label><input type="range" id="dLine" min="0.9" max="2.4" step="0.05"><span class="v" id="dLineV"></span></div>
       <div class="rng"><label>מרווח מעל</label><input type="range" id="dMTop" min="-40" max="90" step="1"><span class="v" id="dMTopV"></span></div>
@@ -894,7 +895,7 @@ var dEl=null, dPath=null, dBase=null;
 var COLORS=["#f3ebe0","#ffffff","#e6c983","#b8944f","#8e97a3","#071827","#152331"];
 var PROP_HE={fontSize:"גודל",fontWeight:"משקל",color:"צבע",letterSpacing:"ריווח",
   lineHeight:"גובה שורה",textAlign:"יישור",marginTop:"מרווח מעל",marginBottom:"מרווח מתחת",
-  display:"הסתרה",fontFamily:"גופן"};
+  width:"רוחב",display:"הסתרה",fontFamily:"גופן"};
 
 function styleStore(){ var d=pg(cur); if(!d.style) d.style={}; return d.style; }
 
@@ -925,6 +926,7 @@ function selectEl(el,doc){
     lineHeight:cs.lineHeight==="normal"?(Math.round(fs*1.4*100)/100)+"px":cs.lineHeight,
     textAlign:cs.textAlign,
     marginTop:cs.marginTop, marginBottom:cs.marginBottom,
+    width:el.style.width||"", /* "" = auto/original */
     display:cs.display, fontFamily:""
   };
   fillDesign();
@@ -949,6 +951,9 @@ function fillDesign(){
   var mt=parseFloat(curVal("marginTop"))||0, mb=parseFloat(curVal("marginBottom"))||0;
   $("dMTop").value=mt; $("dMTopV").textContent=Math.round(mt)+"px";
   $("dMBot").value=mb; $("dMBotV").textContent=Math.round(mb)+"px";
+  var wRaw=curVal("width"), wMax=+$("dWidth").max;
+  if(wRaw && /px/.test(String(wRaw))){ var w=Math.round(parseFloat(wRaw)); $("dWidth").value=Math.min(w,wMax); $("dWidthV").textContent=w+"px"; }
+  else { $("dWidth").value=wMax; $("dWidthV").textContent="אוטו"; } /* far-right = auto/original */
   var wgt=parseInt(curVal("fontWeight"),10)>=600?"700":"400";
   Array.prototype.forEach.call($("dWeight").children,function(b){b.classList.toggle("on",b.getAttribute("data-w")===wgt)});
   var al=curVal("textAlign");
@@ -974,6 +979,7 @@ function setStyle(prop,val){
 
 function designBoot(){
   $("dSize").oninput =function(){ $("dSizeV").textContent=this.value+"px"; setStyle("fontSize",this.value+"px"); };
+  $("dWidth").oninput=function(){ var mx=+this.max; if(+this.value>=mx){ this.value=mx; $("dWidthV").textContent="אוטו"; setStyle("width",""); } else { $("dWidthV").textContent=this.value+"px"; setStyle("width",this.value+"px"); } };
   $("dSpace").oninput=function(){ $("dSpaceV").textContent=(+this.value).toFixed(1); setStyle("letterSpacing",this.value+"px"); };
   $("dLine").oninput =function(){ $("dLineV").textContent=(+this.value).toFixed(2); setStyle("lineHeight",String(+this.value)); };
   $("dMTop").oninput =function(){ $("dMTopV").textContent=this.value+"px"; setStyle("marginTop",this.value+"px"); };
