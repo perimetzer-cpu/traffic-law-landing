@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>מחשבון נקודות רישיון: כמה עד פסילה | עו״ד פרי מצר סולומון</title>
+  <meta name="description" content="מחשבון נקודות רישיון אינטראקטיבי: הזינו כמה נקודות צברתם וגלו אם צפוי קורס, פסילה ל־3 או ל־9 חודשים, ומה עושים. מדרגות הניקוד ואמצעי התיקון, מעודכן לתקנות.">
+  <link rel="canonical" href="https://www.pms.co.il/points-calculator">
+  <meta property="og:title" content="מחשבון נקודות רישיון — כמה נקודות עד פסילה">
+  <meta property="og:description" content="הזינו את מספר הנקודות וגלו מיד מה צפוי: קורס, פסילה ל־3 חודשים או ל־9 חודשים, ומה הצעד הנכון.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.pms.co.il/points-calculator">
+  <meta property="og:locale" content="he_IL">
+  <meta property="og:image" content="https://www.pms.co.il/assets/images/og-image.png">
+  <meta name="theme-color" content="#071827">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/bodoni-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/article.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "מחשבון נקודות רישיון",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "he",
+    "url": "https://www.pms.co.il/points-calculator",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ILS" },
+    "publisher": { "@type": "LegalService", "name": "משרד עורך הדין פרי מצר סולומון", "url": "https://www.pms.co.il/" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "עמוד הבית", "item": "https://www.pms.co.il/" },
+      { "@type": "ListItem", "position": 2, "name": "מחשבון נקודות רישיון", "item": "https://www.pms.co.il/points-calculator" }
+    ]
+  }
+  </script>
+  <style>
+    @font-face{font-family:"Bodoni Moda";src:url("/assets/fonts/bodoni-latin.woff2") format("woff2");font-weight:500;font-display:swap}
+    /* ---- page hero: road curves + ghost numeral, echoing the homepage ---- */
+    .hero{position:relative;overflow:hidden}
+    .hero .inner{position:relative;z-index:2}
+    .heroArt{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+    .ghostNum{position:absolute;left:4%;bottom:-14%;font:170px "Bodoni Moda",Georgia,serif;font-weight:500;letter-spacing:.1em;color:transparent;-webkit-text-stroke:1.5px rgba(198,160,82,.34);z-index:1;pointer-events:none;user-select:none;line-height:1}
+
+    /* ---- cockpit card (concept A, in the site's dark language) ---- */
+    .dash{background:radial-gradient(circle at 18% 10%,rgba(32,67,91,.5),transparent 44%),linear-gradient(150deg,#061522,#0b2234 60%,#061621);border:1px solid rgba(198,160,82,.4);padding:38px 30px 32px;color:var(--ivory);box-shadow:0 26px 64px rgba(7,24,39,.22);position:relative;overflow:hidden;margin:0 0 14px}
+    .dash:before{content:"";position:absolute;top:0;right:38px;width:56px;height:2px;background:#C6A052}
+    .dash label.q{display:block;text-align:center;font-size:16.5px;color:#e8e2d6;margin-bottom:4px}
+    .dash label.q small{display:block;font-size:12.5px;color:#8fa0ad;margin-top:3px}
+    .gaugeWrap{max-width:440px;margin:22px auto 0}
+    .gaugeWrap svg{width:100%;height:auto;display:block;overflow:visible}
+    #redglow{opacity:0;transition:opacity .4s}
+    #needle{transform-origin:110px 118px;transition:transform .55s cubic-bezier(.3,1.15,.45,1);filter:drop-shadow(0 0 5px rgba(198,160,82,.8))}
+    .gaugeNum{text-align:center;margin-top:-24px;position:relative;z-index:2}
+    .gaugeNum b{display:block;font:66px/.9 "Bodoni Moda",Georgia,serif;font-weight:500;color:#F5EDDF;letter-spacing:.02em}
+    .gaugeNum span{display:block;font-size:10px;letter-spacing:.34em;color:#C6A052;margin-top:6px;padding-right:.34em}
+    .sliderRow{max-width:440px;margin:20px auto 0}
+    .dash input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:4px;background:linear-gradient(90deg,#5f8a6d,#c9b06a 26%,#c7924e 42%,#c96a54 60%,#8a2f28);outline:none;direction:ltr}
+    .dash input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:#0b2234;border:2px solid #C6A052;box-shadow:0 0 0 4px rgba(198,160,82,.12),0 6px 16px rgba(0,0,0,.55);cursor:grab}
+    .dash input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#0b2234;border:2px solid #C6A052;cursor:grab}
+    .dash input[type=range]:focus-visible{outline:2px solid #C6A052;outline-offset:5px}
+    .chk{max-width:440px;margin:16px auto 0;font-size:13.5px;display:flex;align-items:center;justify-content:center;gap:9px;color:#aab5bc}
+    .chk input{width:16px;height:16px;accent-color:#c96a54;flex:0 0 auto}
+    /* warning lamps */
+    .lamps{display:flex;gap:12px;max-width:440px;margin:26px auto 0}
+    .lamp{flex:1;border:1px solid rgba(198,160,82,.2);background:rgba(255,255,255,.02);padding:14px 8px 11px;text-align:center;opacity:.4;transition:opacity .4s,border-color .4s,background .4s}
+    .lamp svg{width:25px;height:25px;color:#6a7a86;transition:color .4s}
+    .lamp b{display:block;font-size:11px;margin-top:7px;color:#7a8792;letter-spacing:.02em;transition:color .4s}
+    .lamp.on{opacity:1}
+    .lamp.on.warn{border-color:rgba(217,168,86,.55);background:rgba(217,168,86,.09)}
+    .lamp.on.warn svg,.lamp.on.warn b{color:#e0b45c}
+    .lamp.on.bad{border-color:rgba(221,122,99,.6);background:rgba(221,122,99,.1);animation:lampPulse 1.7s ease-in-out infinite}
+    .lamp.on.bad svg,.lamp.on.bad b{color:#e07b64}
+    @keyframes lampPulse{0%,100%{box-shadow:0 0 0 0 rgba(221,122,99,0)}50%{box-shadow:0 0 20px 0 rgba(221,122,99,.3)}}
+    /* digital odometer */
+    .odo{display:grid;grid-template-columns:1fr 1fr;gap:1px;max-width:440px;margin:22px auto 0;background:rgba(198,160,82,.22);border:1px solid rgba(198,160,82,.22)}
+    .odo>div{background:#071a28;padding:14px 18px}
+    .odo small{display:block;font-size:10.5px;letter-spacing:.1em;color:#8fa0ad;margin-bottom:6px}
+    .odo b{font:20px "Bodoni Moda",Georgia,serif;color:#C6A052}
+    .odo .val{font-size:16px;font-weight:600;color:#F5EDDF}
+    .odo .u{color:#8fa0ad;font-size:12px}
+    /* status readout (verdict) — full border + leading dot, no side stripe */
+    .status{border:1px solid rgba(198,160,82,.28);background:rgba(255,255,255,.03);padding:22px 26px;position:relative;color:#c3ccd3;margin:24px auto 0;max-width:none;transition:border-color .3s}
+    .status:before{content:"";position:absolute;top:26px;right:26px;width:9px;height:9px;border-radius:50%;background:#C6A052;box-shadow:0 0 12px currentColor;color:#C6A052}
+    .status.s-ok:before{background:#7fae8d;color:#7fae8d}
+    .status.s-course:before{background:#e0b45c;color:#e0b45c}
+    .status.s-bad:before{background:#e07b64;color:#e07b64}
+    .status h3{font-size:21px;padding-right:22px;margin:0 0 6px;font-family:"Suez One",Georgia,serif;font-weight:400;border:0;color:#F5EDDF}
+    .status.s-ok h3{color:#9cd0ac}.status.s-course h3{color:#e6c078}.status.s-bad h3{color:#ec8f79}
+    .status p{margin:8px 0 0;font-size:15px;line-height:1.8;color:#aeb9c1}
+    .status ul{margin:10px 20px 0 0;padding:0;font-size:14.5px;color:#aeb9c1}
+    .status li{margin-bottom:5px;line-height:1.7}
+    .status li::marker{color:#C6A052}
+    .status b{color:#e8e2d6}
+    /* ---- table ---- */
+    .ptable{width:100%;border-collapse:collapse;font-size:14.5px;background:#fff;border:1px solid var(--line)}
+    .ptable th{background:var(--navy);color:var(--ivory);padding:12px 14px;text-align:right;font-weight:400;font-family:"Suez One",Georgia,serif}
+    .ptable td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top;color:#3d4750}
+    .ptable td.n{font-weight:700;white-space:nowrap;color:var(--navy);font-family:"Bodoni Moda",Georgia,serif;font-size:16px}
+    .ptable tbody tr{transition:background .2s}
+    .ptable tbody tr:hover td{background:var(--paper)}
+    .ptable tr.danger td{background:#faeceb}.ptable tr.danger td.n{color:#9E2B25}
+    .ptable tr.danger:hover td{background:#f6e2e0}
+    .tableScroll{overflow-x:auto;margin:0 0 6px}
+    /* ---- scroll reveal (same language as the homepage) ---- */
+    .rv{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
+    .rv.in{opacity:1;transform:none}
+    @media(prefers-reduced-motion:reduce){#needle,.status,.lamp{transition:none}.lamp.on.bad{animation:none}.rv{opacity:1!important;transform:none!important;transition:none}}
+    @media(max-width:640px){.ghostNum{font-size:110px;bottom:-10%}.gaugeNum b{font-size:52px}.dash{padding:28px 16px 26px}.lamps{gap:8px}.lamp b{font-size:10px}.lamp svg{width:22px;height:22px}.odo b{font-size:18px}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#content">דילוג לתוכן</a>
+  <div class="topbar"><div class="inner">
+    <a class="brand" href="/"><img src="/assets/images/logo.webp" alt="פרי מצר סולומון · PERI METZER SOLOMON"></a>
+    <nav aria-label="ניווט"><a href="/">עמוד הבית</a><a href="/articles">כל המדריכים</a><a href="/points-system">שיטת הניקוד</a><a href="/traffic-ticket">דוח תנועה</a></nav>
+  </div></div>
+  <header class="hero">
+    <svg class="heroArt" viewBox="0 0 1400 380" preserveAspectRatio="none" aria-hidden="true">
+      <g fill="none" stroke-linecap="round" stroke="#c9b68b">
+        <path d="M1150 0 C1090 120 1180 230 1090 380" stroke-width="1.6" stroke-opacity=".2"/>
+        <path d="M1235 0 C1175 130 1268 245 1175 380" stroke-width="1.6" stroke-opacity=".2"/>
+        <path d="M1192 0 C1132 125 1225 238 1132 380" stroke-width="1.1" stroke-opacity=".16" stroke-dasharray="22 18"/>
+        <path d="M120 380 C260 300 420 290 640 296" stroke-width="1.3" stroke-opacity=".12"/>
+      </g>
+    </svg>
+    <div class="ghostNum" aria-hidden="true">36</div>
+    <div class="inner">
+      <p class="kicker">כלי חינמי · דיני תעבורה</p>
+      <h1>מחשבון נקודות רישיון</h1>
+      <p class="lead">כמה נקודות מפרידות אתכם מקורס חובה או מפסילת רישיון? הזיזו את המחוון, וקבלו מיד תמונה ברורה של מה שצפוי ומה הצעד הנכון. הכלי הוא מידע כללי בלבד ואינו תחליף לבדיקה פרטנית.</p>
+    </div>
+  </header>
+  <div class="crumbs"><a href="/">עמוד הבית</a> · מחשבון נקודות רישיון</div>
+  <main id="content">
+    <article>
+      <h2 class="rv">בדקו את עצמכם: מה צפוי לכם?</h2>
+      <div class="dash rv">
+        <label class="q" for="ptsRange">כמה נקודות תקפות צברתם?<small>אפשר לבדוק חינם באתר משרד התחבורה</small></label>
+        <div class="gaugeWrap">
+          <svg viewBox="-24 -6 264 150" role="img" aria-label="מד נקודות">
+            <defs><filter id="soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.6"/></filter></defs>
+            <path id="redglow" d="M 110.00 26.00 A 92 92 0 0 1 202.00 118.00" fill="none" stroke="#e07b64" stroke-width="15" stroke-linecap="round" filter="url(#soft)"/>
+            <g fill="none" stroke-width="13" stroke-linecap="round">
+              <path d="M 18.04 115.43 A 92 92 0 0 1 26.89 78.54" stroke="#7fae8d"/>
+              <path d="M 29.23 73.96 A 92 92 0 0 1 53.87 45.11" stroke="#c9b06a"/>
+              <path d="M 58.02 42.09 A 92 92 0 0 1 93.08 27.57" stroke="#c7924e"/>
+              <path d="M 98.15 26.77 A 92 92 0 0 1 196.67 87.14" stroke="#c96a54"/>
+              <path d="M 198.26 92.02 A 92 92 0 0 1 201.96 115.43" stroke="#b23b32"/>
+            </g>
+            <g stroke="rgba(245,237,223,.42)" stroke-width="1.3">
+              <line x1="27.00" y1="118.00" x2="9.00" y2="118.00"/>
+              <line x1="36.05" y1="80.32" x2="20.01" y2="72.15"/>
+              <line x1="61.21" y1="50.85" x2="50.63" y2="36.29"/>
+              <line x1="97.02" y1="36.02" x2="94.20" y2="18.24"/>
+              <line x1="188.94" y1="92.35" x2="206.06" y2="86.79"/>
+              <line x1="193.00" y1="118.00" x2="211.00" y2="118.00"/>
+            </g>
+            <g font-family="Bodoni Moda,Georgia,serif" font-size="12" fill="#8fa0ad" text-anchor="middle">
+              <text x="-3.00" y="122.00">0</text>
+              <text x="9.32" y="70.70">12</text>
+              <text x="43.58" y="30.58">24</text>
+              <text x="92.32" y="10.39">36</text>
+              <text x="217.47" y="87.08">72</text>
+              <text x="223.00" y="122.00">80</text>
+            </g>
+            <g id="needle">
+              <line x1="110" y1="118" x2="110" y2="42" stroke="#C6A052" stroke-width="3.4" stroke-linecap="round"/>
+              <line x1="110" y1="118" x2="110" y2="130" stroke="#C6A052" stroke-width="3.4" stroke-linecap="round" opacity=".5"/>
+            </g>
+            <circle cx="110" cy="118" r="7.5" fill="#0b2234" stroke="#C6A052" stroke-width="2.4"/>
+          </svg>
+          <div class="gaugeNum"><b id="ptsVal">12</b><span>נקודות תקפות</span></div>
+        </div>
+        <div class="sliderRow"><input type="range" id="ptsRange" min="0" max="80" step="2" value="12" aria-label="מספר נקודות"></div>
+        <div class="chk"><input type="checkbox" id="repeat36"><label for="repeat36">זו הפעם השנייה שאני מגיע/ה ל־36 נקודות בתוך 6 שנים</label></div>
+        <div class="lamps" aria-hidden="true">
+          <div class="lamp" data-kind="warn" id="lampCourse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16"/><path d="M6 19V9l6-4 6 4v10"/><path d="M9.5 19v-4.5h5V19"/></svg><b>קורס חובה</b></div>
+          <div class="lamp" data-kind="bad" id="lampSusp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="9.5" rx="1.6"/><path d="M8 10.5V7.2a4 4 0 0 1 8 0v3.3"/></svg><b>פסילה</b></div>
+          <div class="lamp" data-kind="bad" id="lampMed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v8M8 12h8"/></svg><b>מרב״ד + טסט</b></div>
+        </div>
+        <div class="odo">
+          <div><small>המדרגה הנוכחית</small><span class="val" id="odoTier">קורס בסיסי</span></div>
+          <div><small>עד המדרגה הבאה</small><b id="odoNext">12</b> <span class="u">נקודות</span></div>
+        </div>
+        <div class="status s-course" id="verdict" aria-live="polite"></div>
+      </div>
+      <p class="rv" style="font-size:13.5px;color:#8a857d">התוצאה היא הערכה כללית לפי מדרגות הניקוד בתקנות. חישוב הצבירה בפועל תלוי במועדי העבירות וההרשעות, ולכן כדאי לבדוק את המצב המדויק במרשם רשות הרישוי.</p>
+
+      <h2 class="rv">נקודות זה לא בית משפט</h2>
+      <p class="rv">הנקודות נרשמות בידי <b>רשות הרישוי (משרד התחבורה)</b>, לא בידי בית המשפט ולא בידי המשטרה. וזה החלק שרוב הנהגים לא יודעים: <a href="/traffic-ticket" style="border-bottom:1px solid var(--gold)">תשלום דוח</a> כמוהו ככלל כהודאה והרשעה, והנקודות נרשמות אוטומטית. לכן לעולם לא משלמים דוח לפני שבודקים כמה נקודות מתלוות אליו. הסבר מלא על שיטת הניקוד תמצאו במדריך <a href="/points-system" style="border-bottom:1px solid var(--gold)">שיטת הניקוד</a>.</p>
+
+      <h2 class="rv">טבלת המדרגות</h2>
+      <div class="tableScroll rv"><table class="ptable">
+        <tr><th style="width:96px">נקודות</th><th>אמצעי התיקון</th><th>מה זה אומר בפועל</th><th style="width:140px">מחיקת הנקודות</th></tr>
+        <tr><td class="n">עד 10</td><td>אין אמצעי תיקון</td><td>הנקודות ״ממתינות״ במרשם. כל עבירה נוספת מקרבת למדרגה הבאה.</td><td>שנתיים מיום העבירה</td></tr>
+        <tr><td class="n">12–22</td><td><b>קורס נהיגה נכונה בסיסי</b> + מבחן</td><td>קורס עיוני על חשבונכם. לא ביצעתם — הרישיון עלול להיות מותלה.</td><td>שנתיים; מ־22 ומעלה — 4 שנים</td></tr>
+        <tr><td class="n">24–34</td><td><b>קורס נהיגה מתקדם</b> + מבחן</td><td>קורס ייעודי נוסף. מי שסיים קורס לא יחויב בקורס נוסף בתוך שנה.</td><td>4 שנים</td></tr>
+        <tr class="danger"><td class="n">36+</td><td><b>פסילה ל־3 חודשים + תאוריה</b></td><td>משרד הרישוי פוסל את הרישיון. אפשר לגשת לתאוריה בזמן הפסילה, אך הרישיון חוזר רק בתום 3 חודשים ולאחר המבחן.</td><td>רק אחרי השלמת הפסילה והמבחן</td></tr>
+        <tr class="danger"><td class="n">72, או 36 שנייה</td><td><b>פסילה ל־9 חודשים + מרב״ד + תאוריה + טסט</b></td><td>בדיקות רפואיות במכון הרפואי לבטיחות בדרכים, מבחן עיוני ומבחן מעשי כתנאי לחידוש הרישיון.</td><td>רק אחרי כל אמצעי התיקון</td></tr>
+      </table></div>
+      <p class="rv" style="font-size:13.5px;color:#8a857d">הניקוד נצבר בקפיצות של 2–10 נקודות לעבירה, ולכן די בשלוש–ארבע עבירות ״יקרות״ כדי להגיע ממדרגה נמוכה לפסילה.</p>
+
+      <h2 class="rv">המלכודות שרוב הנהגים לא מכירים</h2>
+      <ul class="rv">
+        <li><b>״שילמתי, נגמר הסיפור.״</b> לא. התשלום הוא הרשעה, ואת הנזק מגלים לעיתים רק כשמגיע מכתב ממשרד הרישוי — אחרי שכבר מאוחר לפעול על הדוח עצמו.</li>
+        <li><b>אף אחד לא מתקשר להזהיר.</b> ההודעות מגיעות בדואר לכתובת הרשומה. נהגים שלא עדכנו כתובת גילו שנפסלו בלי שידעו.</li>
+        <li><b>נהיגה בזמן פסילת ניקוד היא עבירה פלילית.</b> <a href="/driving-while-disqualified" style="border-bottom:1px solid var(--gold)">נהיגה בפסילה</a> גוררת כתב אישום, גם אם ״לא ידעתם״ על הפסילה.</li>
+        <li><b>התעלמות מקורס = התליה.</b> לא ביצעתם את אמצעי התיקון בתוך 6 חודשים מההודעה? רשות הרישוי רשאית להתלות את הרישיון עד שתשלימו.</li>
+      </ul>
+
+      <h2 class="rv">קיבלתם הודעה? יש לכם 30 יום</h2>
+      <p class="rv">על הודעת אמצעי תיקון ניתן להגיש <b>בקשה להשמעת טענות (שימוע) בתוך 30 יום</b>, ועד להחלטה ביצוע אמצעי התיקון נדחה. במקרים מתאימים ניתן לבקש המרת אמצעי תיקון או לתקוף רישום שגוי. לעיתים הדרך האפקטיבית ביותר היא לטפל בנקודות <b>לפני שנרשמו</b> — <a href="/trial-request" style="border-bottom:1px solid var(--gold)">בקשה להישפט</a> על הדוח, או הסדר שממיר את הסעיף בסעיף ללא נקודות.</p>
+      <div class="note rv"><b>חמישה כללי זהב</b>
+        1. לעולם אל תשלמו דוח לפני שבדקתם כמה נקודות מתלוות אליו. 2. בדקו את מצב הנקודות באתר משרד התחבורה — חינם, בכל עת. 3. עדכנו כתובת במשרד הפנים — ההודעות הגורליות מגיעות בדואר. 4. קיבלתם הודעה על קורס או פסילה? אל תתעלמו — יש 30 יום לפעול. 5. מתקרבים ל־24 נקודות? זה הזמן לייעוץ, לפני הדוח הבא ולא אחריו.</div>
+    </article>
+    <section class="cta"><div class="inner">
+      <h2>מתלבטים אם לשלם דוח? קיבלתם זימון לקורס או הודעת פסילה?</h2>
+      <p>בדיקה משפטית ראשונית של המקרה, בדיסקרטיות מלאה.</p>
+      <div class="actions"><a class="btn" href="https://wa.me/972528822044">שליחת הודעת WhatsApp</a><a class="btn ghost" href="tel:039405151">03-940-5151</a></div>
+    </div></section>
+    <section class="related">
+      <h2>מידע נוסף</h2>
+      <ul>
+        <li><a href="/points-system"><span>שיטת הניקוד — המדריך המלא</span><b>←</b></a></li>
+        <li><a href="/traffic-ticket"><span>קיבלתם דוח תנועה? מה עושים</span><b>←</b></a></li>
+        <li><a href="/trial-request"><span>בקשה להישפט על דוח</span><b>←</b></a></li>
+        <li><a href="/speeding"><span>מהירות מופרזת — אכיפה והגנות</span><b>←</b></a></li>
+      </ul>
+    </section>
+  </main>
+  <footer><div class="inner">
+    <strong>משרד עורך דין פרי מצר סולומון · PERI METZER SOLOMON</strong>
+    <p>המידע בעמוד זה הוא מידע כללי בלבד, נכון למועד הפרסום ועל פי תקנות התעבורה, אינו מהווה ייעוץ משפטי, אינו תחליף לבדיקה פרטנית של נסיבות המקרה ואינו התחייבות לתוצאה. הדין המחייב הוא הדין המעודכן במועד האירוע.</p>
+    <p><a href="/">עמוד הבית</a> · <a href="/articles">כל המדריכים</a> · <a href="tel:039405151">03-940-5151</a> · <a href="mailto:peri@bettylaw.co.il">peri@bettylaw.co.il</a> · שד׳ אבא אבן 8, הרצליה</p>
+    <p>© 2026 כל הזכויות שמורות</p>
+  </div></footer>
+  <script>
+    var range=document.getElementById('ptsRange'),val=document.getElementById('ptsVal'),verdict=document.getElementById('verdict'),
+        repeat36=document.getElementById('repeat36'),needle=document.getElementById('needle'),redglow=document.getElementById('redglow'),
+        lampCourse=document.getElementById('lampCourse'),lampSusp=document.getElementById('lampSusp'),lampMed=document.getElementById('lampMed'),
+        odoTier=document.getElementById('odoTier'),odoNext=document.getElementById('odoNext');
+    function tierName(p){return p>=72?'פסילה 9 חודשים':p>=36?'פסילה 3 חודשים':p>=24?'קורס מתקדם':p>=12?'קורס בסיסי':'ללא אמצעי תיקון';}
+    function nextGap(p){var t=[12,24,36,72],i;for(i=0;i<t.length;i++){if(p<t[i])return t[i]-p;}return 0;}
+    function lamp(el,on,kind){el.classList.toggle('on',on);el.classList.toggle(kind,on);}
+    function verdictOf(p,rep){
+      if((p>=36&&rep)||p>=72)return['s-bad','<h3>פסילה ל־9 חודשים — המדרגה החמורה ביותר</h3><p>'+(p>=72?'עם 72 נקודות ומעלה':'הגעה שנייה ל־36 נקודות בתוך 6 שנים')+' — משרד הרישוי פוסל את הרישיון ל־<b>9 חודשים</b>, וחידושו מותנה ב:</p><ul><li>בדיקות רפואיות במכון הרפואי לבטיחות בדרכים (מרב״ד)</li><li>מבחן עיוני (תאוריה)</li><li>מבחן מעשי (טסט)</li></ul><p><b>יש 30 יום לבקש שימוע.</b> בשלב הזה אל תעשו צעד בלי ליווי משפטי.</p>'];
+      if(p>=36)return['s-bad','<h3>פסילה ל־3 חודשים על ידי משרד הרישוי</h3><p>ב־36 נקודות תקפות ומעלה משרד הרישוי — לא בית המשפט — פוסל את הרישיון ל־<b>3 חודשים</b>, וחידושו מותנה במבחן עיוני חוזר. אפשר לגשת לתאוריה כבר בתקופת הפסילה, אך הרישיון יוחזר רק בתום 3 החודשים.</p><p><b>יש לכם 30 יום להגיש בקשה לשימוע</b>, ועד להחלטה הפסילה נדחית. נהיגה בזמן הפסילה היא עבירה פלילית.</p>'];
+      if(p>=24)return['s-course','<h3>קורס נהיגה מתקדם + מבחן</h3><p>ב־24 עד 34 נקודות תחויבו ב<b>קורס נהיגה מתקדם</b> עם מבחן בסופו. הנקודות ילוו אתכם <b>4 שנים</b>. שימו לב: אתם במרחק עבירה אחת–שתיים בלבד מפסילת 3 חודשים — זה השלב לעצור ולקבל ייעוץ לפני כל דוח נוסף.</p>'];
+      if(p>=12)return['s-course','<h3>קורס נהיגה נכונה בסיסי + מבחן</h3><p>ב־12 עד 22 נקודות תחויבו ב<b>קורס נהיגה נכונה בסיסי</b> (על חשבונכם) עם מבחן בסופו. אי־ביצוע הקורס בתוך 6 חודשים מההודעה עלול להוביל להתליית הרישיון. אם לא תצברו נקודות נוספות, הנקודות יימחקו אחרי שנתיים (ומ־22 ומעלה: 4 שנים).</p>'];
+      return['s-ok','<h3>אין אמצעי תיקון — אבל הנקודות נרשמות</h3><p>עד 10 נקודות אין קורס ואין פסילה, אך הנקודות ממתינות במרשם למשך שנתיים. עוד עבירה אחת של 4 נקודות ומעלה — ואתם במדרגת הקורס. זה הזמן לבדוק כל דוח לפני שמשלמים אותו.</p>'];
+    }
+    function render(){
+      var p=parseInt(range.value,10),rep=repeat36.checked;
+      val.textContent=p;
+      needle.style.transform='rotate('+((p/80)*180-90)+'deg)';
+      redglow.style.opacity=p>=36?Math.min(1,(p-30)/60+0.28):0;
+      lamp(lampCourse,p>=12,'warn');
+      lamp(lampSusp,p>=36,'bad');
+      lamp(lampMed,(p>=36&&rep)||p>=72,'bad');
+      odoTier.textContent=tierName(p);
+      var g=nextGap(p);odoNext.textContent=g||'—';
+      var v=verdictOf(p,rep);
+      verdict.className='status '+v[0];verdict.innerHTML=v[1];
+    }
+    range.addEventListener('input',render);repeat36.addEventListener('change',render);render();
+
+    /* scroll reveal — same language as the homepage */
+    (function(){
+      var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var els=[].slice.call(document.querySelectorAll('.rv'));
+      if(reduce||!('IntersectionObserver' in window)){els.forEach(function(el){el.classList.add('in')});return}
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}
+        });
+      },{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
+      els.forEach(function(el){io.observe(el)});
+    })();
+  </script>
+</body>
+</html>
