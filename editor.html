@@ -433,7 +433,12 @@ function inject(){
      'padding:4px;box-shadow:0 6px 18px rgba(0,0,0,.4)}'+
    '.pe-addbar button{border:0;border-radius:4px;background:#b8944f;color:#20160a;'+
      'font:600 12px/1 sans-serif;padding:6px 10px;cursor:pointer}'+
-   '.pe-addbar button:last-child{background:transparent;color:#f3ebe0;border:1px solid rgba(184,148,79,.4)}';
+   '.pe-addbar button:last-child{background:transparent;color:#f3ebe0;border:1px solid rgba(184,148,79,.4)}'+
+   /* Neutralise entrance animations so every element sits at its final, visible
+      state before mark() scans. Without this, elements that start at opacity:0
+      (e.g. the hero headline/lead/kicker) are filtered out as "invisible" and
+      never become editable. Editor-only — the live site keeps its animations. */
+   '*{animation:none!important}.heroX *{opacity:1!important;transform:none!important}';
   doc.head.appendChild(st);
 
   mark(doc);
