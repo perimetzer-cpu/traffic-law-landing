@@ -16,20 +16,27 @@ Read this file before making any change. Preserve the approved visual identity a
 - The style must feel premium, authoritative, calm, precise, and editorial. Avoid flashy gradients, generic startup styling, oversized glass effects, neon colors, and decorative 3D treatments.
 - Preserve excellent readability and generous spacing.
 
-## Approved hero section
+## Hero section (live HTML, since 2026-07-20)
 
-The desktop hero is intentionally rendered from `assets/images/approved-hero-reference.webp`. It is the exact approved composition with the dark portrait panel, diagonal ivory cut, thin gold edge, PMS logo, Hebrew and English name, headline, road motif, navigation, and calls to action.
+The desktop hero is real HTML/CSS in `index.html` (`.heroX`): full-viewport (`min(100svh,68vw)`), navy portrait panel clipped along the approved diagonal (47.9% top to 30.6% bottom) with a gold SVG line, the official logo (`assets/images/logo.webp`) with the caption "משרד עורך דין - מקבוצת BML", live Hebrew copy, and the "living road" background: an SVG road network with flowing dashed lanes, a light pulse, and gold light-dots traveling on a canvas (`.hCars`). All motion respects `prefers-reduced-motion`. Mobile uses a separate stacked hero with a hamburger menu.
 
-Do not recreate, crop, replace, recolor, animate, or redesign the desktop hero without explicit approval from the site owner. The invisible navigation and CTA hit areas in `index.html` are positioned over this image, so coordinate changes must be verified carefully.
+Do not change the hero composition, the diagonal geometry, the portrait, or the logo without explicit approval from the site owner. `assets/images/approved-hero-reference.webp` is the historical design reference (kept for rollback/reference only).
 
-Mobile uses a separate responsive composition. It may be refined only if the brand, text hierarchy, portrait integrity, and conversion actions remain intact.
+## Typography
+
+Hebrew headings: Suez One. Body: Heebo. Numerals and the PMS mark: Bodoni Moda. English name: Cormorant Garamond. All self-hosted in `assets/fonts/`. Never use em-dashes (—) in site copy — the owner explicitly banned them; rephrase with commas, colons, sentence splits, or connective words.
 
 ## Images
 
-- `assets/images/approved-hero-reference.webp`: approved desktop hero reference. Treat as locked.
-- `assets/images/peri-metzer-solomon-warm.webp`: warm portrait used later on the page and as the mobile portrait source.
-- Do not replace local images with temporary or third-party URLs.
-- Do not generate a new face or materially alter the attorney's appearance.
+- `assets/images/logo.webp`: official logo. Do not recreate it as text.
+- `assets/images/hero-portrait.webp`: desktop hero portrait (natural aspect, clipped in CSS).
+- `assets/images/peri-metzer-solomon-warm.webp`: warm portrait, mobile hero + mid-page section.
+- Do not replace local images with temporary or third-party URLs, and do not alter the attorney's appearance.
+
+## Editor and leads
+
+- `/editor` is the owner's visual editor (noindex). Access code 100100; a hidden padlock at the end of the homepage footer (3 clicks) opens a password overlay that goes straight in.
+- The contact form opens WhatsApp AND posts to `/api/lead`, which emails the inquiry via Resend (`RESEND_API_KEY` env; `LEAD_TO`/`LEAD_FROM` optional). Keep both paths working.
 
 ## Required content and contact details
 
