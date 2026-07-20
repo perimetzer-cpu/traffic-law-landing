@@ -40,8 +40,9 @@ Hebrew headings: Suez One. Body: Heebo. Numerals and the PMS mark: Bodoni Moda. 
 
 ## Required content and contact details
 
-- Phone display: `052-882-2044`.
-- Telephone link: `tel:0528822044`.
+- Office phone display: `03-940-5151`.
+- Telephone link: `tel:039405151`.
+- Office address: שד׳ אבא אבן 8, הרצליה (shown in the contact section and article footers).
 - WhatsApp number: `972528822044`.
 - Email: `peri@bettylaw.co.il`.
 - Main domain: `https://www.pms.co.il`.
