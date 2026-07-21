@@ -136,8 +136,20 @@
     .orbitB{transform-origin:130px 130px;animation:spin 26s linear infinite reverse}
     .radar{transform-origin:130px 130px;animation:spin 9s linear infinite;opacity:.5}
     @keyframes spin{to{transform:rotate(360deg)}}
+    /* ---- danger (suspension) state ---- */
+    .haloPulse{transform-origin:130px 130px;opacity:0}
+    .calcPanel.danger .haloPulse{animation:haloPulse 2.1s ease-out infinite}
+    @keyframes haloPulse{0%{transform:scale(.97);opacity:.5}75%{transform:scale(1.13);opacity:0}100%{transform:scale(1.13);opacity:0}}
+    .calcPanel.danger{border-color:rgba(220,133,111,.55);box-shadow:0 34px 90px rgba(2,8,16,.55),0 0 46px rgba(220,133,111,.16)}
+    .calcPanel.danger:before{background:radial-gradient(420px 300px at var(--mx) var(--my),rgba(220,133,111,.10),transparent 70%)}
+    .calcPanel.danger .radar{fill:url(#sweepDanger);animation-duration:5.5s}
+    .calcPanel.danger .tierChip{border-color:rgba(220,133,111,.65);color:#ecA28e;animation:chipAlert 1.6s ease-in-out infinite}
+    @keyframes chipAlert{0%,100%{box-shadow:0 0 0 0 rgba(220,133,111,0)}50%{box-shadow:0 0 14px 1px rgba(220,133,111,.4)}}
+    .calcPanel.danger .liveChip{color:var(--bad)}
+    .calcPanel.danger .liveChip i{background:var(--bad);animation-name:livePulseBad}
+    @keyframes livePulseBad{0%{box-shadow:0 0 0 0 rgba(220,133,111,.5)}70%{box-shadow:0 0 0 9px rgba(220,133,111,0)}100%{box-shadow:0 0 0 0 rgba(220,133,111,0)}}
     .gaugeCenter{position:absolute;inset:0;display:grid;place-content:center;text-align:center;pointer-events:none}
-    .gaugeCenter b{display:block;font:64px/1 "Bodoni Moda",Georgia,serif;font-weight:500;color:var(--ivory);letter-spacing:.02em}
+    .gaugeCenter b{display:block;font:200 66px/1 "Heebo",Arial,sans-serif;font-variant-numeric:tabular-nums;color:var(--ivory);letter-spacing:.015em}
     .gaugeCenter b.bump{animation:numBump .45s cubic-bezier(.3,1.4,.5,1)}
     @keyframes numBump{0%{transform:scale(.86);opacity:.35}100%{transform:scale(1);opacity:1}}
     .gaugeCenter small{display:block;margin-top:6px;font-size:10px;letter-spacing:.32em;padding-right:.32em;color:var(--gold)}
@@ -154,9 +166,16 @@
     .rCard.tone-warning h3{color:var(--gold-2)}
     .rCard.tone-danger h3{color:#ecA28e}
     .rCard p{font-size:13.5px;color:#aeb9c6;line-height:1.75}
-    .rCard .gapNum{font:26px/1 "Bodoni Moda",Georgia,serif;color:var(--gold-2);margin-inline-end:4px}
+    .rCard .gapNum{font:300 38px/1 "Heebo",Arial,sans-serif;font-variant-numeric:tabular-nums;color:var(--gold-2);margin-inline-end:5px}
     .rCard .reco{display:block;margin-top:8px;font-size:12.5px;color:var(--sub)}
     .rCard .reco b{color:var(--gold-2);font-weight:600}
+    /* insight card — the highlighted one */
+    #insightCard{background:linear-gradient(155deg,rgba(199,166,106,.13),rgba(199,166,106,.03) 70%);border-color:rgba(228,196,126,.55);box-shadow:0 0 34px rgba(199,166,106,.12),inset 0 1px 0 rgba(228,196,126,.22)}
+    #insightCard:before{content:"";position:absolute;top:0;right:0;left:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold-2),transparent)}
+    #insightCard .cardTag{color:var(--gold-2)}
+    #insightCard .cardTag svg{color:var(--gold-2);filter:drop-shadow(0 0 5px rgba(228,196,126,.7))}
+    #insightCard h3{font-size:19px}
+    #insightCard:hover{border-color:var(--gold-2);box-shadow:0 0 44px rgba(199,166,106,.2),0 16px 40px rgba(2,8,16,.4)}
     /* ---- controls ---- */
     .controls{grid-column:1/-1;margin-top:14px}
     .sliderRow{display:flex;align-items:center;gap:12px}
@@ -277,7 +296,8 @@
     /* ================= reduced motion ================= */
     @media(prefers-reduced-motion:reduce){
       html{scroll-behavior:auto}
-      .orbitA,.orbitB,.radar,.liveChip i,.blob{animation:none!important}
+      .orbitA,.orbitB,.radar,.liveChip i,.blob,.haloPulse,.calcPanel.danger .tierChip{animation:none!important}
+      .calcPanel.danger .haloPulse{opacity:.25}
       .radar{display:none}
       .ringProgress,.tlFill,.tlMarker,.rCard,.tCard,.gCta,.heroCta,.btn,.preset,.stepBtn{transition:none!important}
       .gaugeCenter b.bump{animation:none}
@@ -341,7 +361,12 @@
                     <linearGradient id="sweepGrad" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="0" stop-color="rgba(199,166,106,.16)"/><stop offset="1" stop-color="rgba(199,166,106,0)"/>
                     </linearGradient>
+                    <linearGradient id="sweepDanger" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="rgba(220,133,111,.22)"/><stop offset="1" stop-color="rgba(220,133,111,0)"/>
+                    </linearGradient>
+                    <filter id="haloBlur" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6"/></filter>
                   </defs>
+                  <circle class="haloPulse" cx="130" cy="130" r="102" fill="none" stroke="#DC856F" stroke-width="10" filter="url(#haloBlur)"/>
                   <path class="radar" d="M130 130 L130 30 A100 100 0 0 1 195 55 Z" fill="url(#sweepGrad)"/>
                   <circle cx="130" cy="130" r="112" fill="none" stroke="rgba(199,166,106,.16)" stroke-width="1" stroke-dasharray="2 7"/>
                   <circle cx="130" cy="130" r="122" fill="none" stroke="rgba(145,161,181,.12)" stroke-width="1"/>
@@ -651,6 +676,7 @@
     els.num.textContent=points;
     if(!reduceMotion){els.num.classList.remove('bump');void els.num.offsetWidth;els.num.classList.add('bump');}
     els.chip.textContent=tier.shortTitle;
+    els.panel.classList.toggle('danger',tier.tone==='danger');
   }
 
   /* =====================================================================
