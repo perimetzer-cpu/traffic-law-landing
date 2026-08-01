@@ -315,6 +315,34 @@
     #aiTool .aiHead h2 em{font-style:normal;color:#E4C47E}
     #aiTool .aiSub{color:#c4cdd7;max-width:54ch;margin:14px auto 0;font-size:15px}
     #aiTool .aiPanel{background:linear-gradient(158deg,var(--panel),#0B1828 72%);border:1px solid var(--line);border-radius:8px;box-shadow:0 30px 80px rgba(2,8,16,.5);overflow:hidden}
+    #aiTool .aiSteps{display:flex;align-items:center;justify-content:center;gap:8px;padding:24px 24px 4px}
+    #aiTool .aiStep{display:flex;align-items:center;gap:8px;color:var(--sub);font-size:13px;transition:color .3s}
+    #aiTool .aiStep .dot{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:600 13px "Heebo",Arial,sans-serif;border:1px solid var(--line);color:var(--sub);background:rgba(255,255,255,.02);transition:.35s}
+    #aiTool .aiStep b{font-weight:600}
+    #aiTool .aiStep.on{color:var(--ivory)}
+    #aiTool .aiStep.on .dot{background:linear-gradient(120deg,#E4C47E,var(--gold));color:#07182B;border-color:#E4C47E;box-shadow:0 0 0 4px rgba(199,166,106,.16)}
+    #aiTool .aiStep.done{color:#c4cdd7}
+    #aiTool .aiStep.done .dot{background:rgba(199,166,106,.92);color:#07182B;border-color:#E4C47E}
+    #aiTool .aiStepBar{flex:0 1 42px;height:2px;background:var(--line);border-radius:2px;overflow:hidden;position:relative}
+    #aiTool .aiStepBar i{position:absolute;top:0;bottom:0;right:0;width:0;background:linear-gradient(90deg,#E4C47E,var(--gold));transition:width .5s ease}
+    #aiTool .aiStepBar.done i{width:100%}
+    #aiTool .aiPane{display:none}
+    #aiTool .aiPane.on{display:block;animation:aiPaneIn .45s cubic-bezier(.22,.61,.36,1)}
+    @keyframes aiPaneIn{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
+    #aiTool .aiNav{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 24px 22px}
+    #aiTool .aiNav.solo{justify-content:center}
+    #aiTool .aiNav .aiBtn{margin-top:0}
+    #aiTool .aiGhost{background:none;border:0;color:var(--sub);font:14px "Heebo",Arial,sans-serif;cursor:pointer;padding:8px 6px;text-decoration:underline;text-underline-offset:3px}
+    #aiTool .aiGhost:hover{color:var(--ivory)}
+    #aiTool .aiChosen{display:flex;align-items:center;gap:12px;margin:0 24px 4px;padding:14px 16px;border:1px solid rgba(117,183,168,.4);border-radius:6px;background:rgba(117,183,168,.08);animation:aiPaneIn .4s ease}
+    #aiTool .aiChosen>svg{width:20px;height:20px;color:var(--ok);flex:0 0 auto}
+    #aiTool .aiChosen span{flex:1;font-size:14px;color:var(--ivory);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    #aiTool .aiChosen button{background:none;border:0;color:#E4C47E;font:13px "Heebo",Arial,sans-serif;cursor:pointer;text-decoration:underline;text-underline-offset:2px;flex:0 0 auto}
+    #aiTool .aiReview{margin:20px 24px 4px;padding:16px 18px;border:1px solid var(--line);border-radius:6px;background:rgba(255,255,255,.02);font-size:13.5px;color:#c4cdd7;line-height:1.9}
+    #aiTool .aiReview b{color:var(--ivory);font-weight:600}
+    #aiTool .aiPulse{animation:aiPulse 2.4s ease-in-out infinite}
+    @keyframes aiPulse{0%,100%{box-shadow:0 0 0 0 rgba(199,166,106,0)}50%{box-shadow:0 0 22px 2px rgba(199,166,106,.32)}}
+    @media(prefers-reduced-motion:reduce){#aiTool .aiPane.on{animation:none}#aiTool .aiPulse{animation:none}#aiTool .aiChosen{animation:none}#aiTool .aiStepBar i{transition:none}}
     #aiTool .aiForm{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;padding:22px 24px 4px}
     #aiTool .aiForm label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--sub)}
     #aiTool .aiForm input{background:#071a28;border:1px solid var(--line);border-radius:5px;color:var(--ivory);padding:11px 12px;font:14px "Heebo",Arial,sans-serif}
@@ -556,25 +584,46 @@
         </div>
         <div class="aiPanel">
           <div id="ai_idle">
-            <div class="aiForm" id="ai_form">
-              <label>שם מלא<input type="text" id="ai_name" autocomplete="name" placeholder="שם פרטי ומשפחה"></label>
-              <label>תעודת זהות<input type="text" id="ai_id" inputmode="numeric" autocomplete="off" maxlength="9" placeholder="9 ספרות"></label>
-              <label>טלפון<input type="tel" id="ai_phone" inputmode="tel" autocomplete="tel" placeholder="050-0000000"></label>
+            <div class="aiSteps" aria-hidden="true">
+              <div class="aiStep on" data-step="1"><span class="dot">1</span><b>פרטים</b></div>
+              <div class="aiStepBar"><i></i></div>
+              <div class="aiStep" data-step="2"><span class="dot">2</span><b>התדפיס</b></div>
+              <div class="aiStepBar"><i></i></div>
+              <div class="aiStep" data-step="3"><span class="dot">3</span><b>שליחה</b></div>
             </div>
-            <p class="aiFormNote">כדי לקבל ניתוח נדרשים פרטי יצירת קשר — הפנייה תגיע לעו״ד מצר סולומון שיוכל לחזור אליכם.</p>
-            <div class="aiDrop" id="ai_drop">
-              <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></div>
-              <h3>גררו לכאן את תדפיס הניקוד, או בחרו קובץ</h3>
-              <p>PDF או צילום ברור · עד 3MB</p>
-              <button class="aiBtn" id="ai_pick" type="button">בחירת קובץ &nbsp;↑</button>
-              <input type="file" id="ai_file" accept=".pdf,image/*" hidden>
+
+            <div class="aiPane on" data-pane="1">
+              <div class="aiForm" id="ai_form">
+                <label>שם מלא<input type="text" id="ai_name" autocomplete="name" placeholder="שם פרטי ומשפחה"></label>
+                <label>תעודת זהות<input type="text" id="ai_id" inputmode="numeric" autocomplete="off" maxlength="9" placeholder="9 ספרות"></label>
+                <label>טלפון<input type="tel" id="ai_phone" inputmode="tel" autocomplete="tel" placeholder="050-0000000"></label>
+              </div>
+              <p class="aiFormNote">כדי לקבל ניתוח נדרשים פרטי יצירת קשר — הפנייה תגיע לעו״ד מצר סולומון שיוכל לחזור אליכם.</p>
+              <div class="aiNav solo"><button class="aiBtn aiPulse" id="ai_next1" type="button">להעלאת התדפיס &nbsp;←</button></div>
             </div>
-            <label class="aiConsent" id="ai_consentRow">
-              <input type="checkbox" id="ai_consent">
-              <span>אני מסכים/ה שפרטיי (שם, ת.ז, טלפון) יישלחו למשרד לצורך המשך טיפול, ושהתדפיס יעובד לניתוח אוטומטי חד־פעמי. הקובץ אינו נשמר. <a href="#aiDisc">פרטים</a></span>
-            </label>
-            <input type="text" id="ai_company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0">
-            <div class="aiPriv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>הקובץ מעובד באופן מאובטח ואינו נשמר. הבדיקה חסויה.</div>
+
+            <div class="aiPane" data-pane="2">
+              <div class="aiDrop" id="ai_drop">
+                <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></div>
+                <h3>גררו לכאן את תדפיס הניקוד, או בחרו קובץ</h3>
+                <p>PDF או צילום ברור · עד 3MB</p>
+                <button class="aiBtn" id="ai_pick" type="button">בחירת קובץ &nbsp;↑</button>
+                <input type="file" id="ai_file" accept=".pdf,image/*" hidden>
+              </div>
+              <div class="aiChosen" id="ai_chosen" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span id="ai_chosenName"></span><button id="ai_clearFile" type="button">החלפה</button></div>
+              <div class="aiNav"><button class="aiGhost" id="ai_back2" type="button">→ חזרה</button><button class="aiBtn" id="ai_next2" type="button" disabled>המשך &nbsp;←</button></div>
+            </div>
+
+            <div class="aiPane" data-pane="3">
+              <div class="aiReview" id="ai_review"></div>
+              <label class="aiConsent" id="ai_consentRow">
+                <input type="checkbox" id="ai_consent">
+                <span>אני מסכים/ה שפרטיי (שם, ת.ז, טלפון) יישלחו למשרד לצורך המשך טיפול, ושהתדפיס יעובד לניתוח אוטומטי חד־פעמי. הקובץ אינו נשמר. <a href="#aiDisc">פרטים</a></span>
+              </label>
+              <input type="text" id="ai_company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0">
+              <div class="aiNav"><button class="aiGhost" id="ai_back3" type="button">→ חזרה</button><button class="aiBtn aiSubmit aiPulse" id="ai_submit" type="button">שליחה לניתוח &nbsp;↑</button></div>
+              <div class="aiPriv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>הקובץ מעובד באופן מאובטח ואינו נשמר. הבדיקה חסויה.</div>
+            </div>
           </div>
 
           <div class="aiScan" id="ai_scan">
@@ -946,7 +995,7 @@
     var MAX=3*1024*1024;
     function esc(s){return String(s==null?'':s).replace(/[<>&]/g,function(c){return{'<':'&lt;','>':'&gt;','&':'&amp;'}[c];});}
     function show(el){idle.style.display='none';scan.classList.remove('on');result.classList.remove('on');fb.classList.remove('on');el.classList?el.classList.add('on'):(el.style.display='block');}
-    function reset(){result.classList.remove('on');fb.classList.remove('on');scan.classList.remove('on');idle.style.display='block';document.getElementById('aiTool').scrollIntoView({behavior:rm?'auto':'smooth',block:'start'});}
+    function reset(){result.classList.remove('on');fb.classList.remove('on');scan.classList.remove('on');idle.style.display='block';clearFile();setStep(1);document.getElementById('aiTool').scrollIntoView({behavior:rm?'auto':'smooth',block:'start'});}
     function fbState(title,text){document.getElementById('ai_fbTitle').textContent=title;document.getElementById('ai_fbText').textContent=text;idle.style.display='none';scan.classList.remove('on');result.classList.remove('on');fb.classList.add('on');}
     function toB64(file){return new Promise(function(res,rej){var r=new FileReader();r.onload=function(){res(String(r.result).split(',')[1]);};r.onerror=rej;r.readAsDataURL(file);});}
 
@@ -976,19 +1025,45 @@
       result.scrollIntoView({behavior:rm?'auto':'smooth',block:'start'});
     }
 
-    async function analyze(file){
-      if(!file)return;
+    var chosenFile=null, STEP=1;
+    var panes=[].slice.call(idle.querySelectorAll('.aiPane'));
+    var stepEls=[].slice.call(idle.querySelectorAll('.aiStep'));
+    var bars=[].slice.call(idle.querySelectorAll('.aiStepBar'));
+    function setStep(n){
+      STEP=n;
+      panes.forEach(function(p){p.classList.toggle('on',+p.getAttribute('data-pane')===n);});
+      stepEls.forEach(function(e){var s=+e.getAttribute('data-step');e.classList.toggle('on',s===n);e.classList.toggle('done',s<n);});
+      bars.forEach(function(b,i){b.classList.toggle('done',n>=i+2);});
+    }
+    function validDetails(){
       var nm=(nameEl.value||'').trim(),idn=d(idEl.value),ph=d(phoneEl.value);
       var badName=nm.length<2,badId=idn.length<5||idn.length>9,badPh=ph.length<9||ph.length>10;
       markErr(nameEl,badName);markErr(idEl,badId);markErr(phoneEl,badPh);
-      if(badName||badId||badPh){(badName?nameEl:badId?idEl:phoneEl).focus();return;}
+      if(badName||badId||badPh){(badName?nameEl:badId?idEl:phoneEl).focus();return false;}
+      return true;
+    }
+    function setFile(f){
+      if(!f)return;
+      if(f.size>MAX){fbState('הקובץ גדול מדי','הקובץ חורג מ־3MB. נסו לצלם מחדש באיכות נמוכה יותר, או שלחו אותו ישירות למשרד.');return;}
+      chosenFile=f;
+      document.getElementById('ai_chosenName').textContent=f.name||'קובץ נבחר';
+      document.getElementById('ai_chosen').hidden=false;
+      document.getElementById('ai_next2').disabled=false;
+    }
+    function clearFile(){chosenFile=null;if(fileInput)fileInput.value='';var c=document.getElementById('ai_chosen');if(c)c.hidden=true;var n2=document.getElementById('ai_next2');if(n2)n2.disabled=true;}
+    function fillReview(){
+      var nm=esc((nameEl.value||'').trim()),ph=esc(d(phoneEl.value)),fn=esc((chosenFile&&chosenFile.name)||'');
+      document.getElementById('ai_review').innerHTML='הפרטים שיישלחו: <b>'+nm+'</b> · '+ph+'<br>קובץ לניתוח: <b>'+fn+'</b>';
+    }
+    async function submitCheck(){
+      if(!chosenFile){setStep(2);return;}
       if(!consent.checked){consentRow.classList.add('err');consent.focus();return;}
       consentRow.classList.remove('err');
-      if(file.size>MAX){fbState('הקובץ גדול מדי','הקובץ חורג מ־3MB. נסו לצלם מחדש באיכות נמוכה יותר, או שלחו אותו ישירות למשרד.');return;}
+      var nm=(nameEl.value||'').trim(),idn=d(idEl.value),ph=d(phoneEl.value);
       idle.style.display='none';scan.classList.add('on');
       try{
-        var b64=await toB64(file);
-        var r=await fetch('/api/analyze-points',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fileBase64:b64,mediaType:file.type||'application/pdf',consent:true,name:nm,idNumber:idn,phone:ph,company:company.value})});
+        var b64=await toB64(chosenFile);
+        var r=await fetch('/api/analyze-points',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fileBase64:b64,mediaType:chosenFile.type||'application/pdf',consent:true,name:nm,idNumber:idn,phone:ph,company:company.value})});
         var out=await r.json().catch(function(){return{};});
         scan.classList.remove('on');
         if(out.error==='rate'){fbState('יותר מדי בקשות','ביצעתם מספר בדיקות בזמן קצר. נסו שוב בעוד מספר דקות, או שלחו את התדפיס ישירות למשרד.');return;}
@@ -999,11 +1074,17 @@
       }catch(e){scan.classList.remove('on');fbState('לא הצלחנו לנתח את התדפיס','אירעה תקלה בשליחה. אפשר לנסות שוב, או לשלוח את התדפיס ישירות למשרד.');}
     }
 
+    document.getElementById('ai_next1').addEventListener('click',function(){if(validDetails())setStep(2);});
     pick.addEventListener('click',function(e){e.stopPropagation();fileInput.click();});
     drop.addEventListener('click',function(){fileInput.click();});
-    fileInput.addEventListener('change',function(){analyze(fileInput.files&&fileInput.files[0]);});
+    fileInput.addEventListener('change',function(){setFile(fileInput.files&&fileInput.files[0]);});
     drop.addEventListener('dragover',function(e){e.preventDefault();});
-    drop.addEventListener('drop',function(e){e.preventDefault();var f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];analyze(f);});
+    drop.addEventListener('drop',function(e){e.preventDefault();setFile(e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0]);});
+    document.getElementById('ai_clearFile').addEventListener('click',clearFile);
+    document.getElementById('ai_back2').addEventListener('click',function(){setStep(1);});
+    document.getElementById('ai_next2').addEventListener('click',function(){if(chosenFile){fillReview();setStep(3);}else{setStep(2);}});
+    document.getElementById('ai_back3').addEventListener('click',function(){setStep(2);});
+    document.getElementById('ai_submit').addEventListener('click',submitCheck);
     document.getElementById('ai_fbAgain').addEventListener('click',reset);
   })();
   </script>
