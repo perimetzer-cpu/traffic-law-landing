@@ -139,10 +139,6 @@ export default async function handler(req, res) {
     return res.status(200).json({ ok: true, ...result });
   } catch (e) {
     console.error('analyze-points failed:', e.message); // never logs the document itself
-    // temporary: surface the error detail only when ?debug=1 is passed (removed after diagnosis)
-    if (req.query && req.query.debug === '1') {
-      return res.status(200).json({ ok: true, mode: 'error', detail: String(e.message).slice(0, 500) });
-    }
     return res.status(200).json({ ok: true, mode: 'error' });
   }
 }
