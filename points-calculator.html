@@ -304,6 +304,102 @@
       .calcPanel{transform:none!important}
       #particles{display:none}
     }
+
+    /* ===== AI printout analysis (real; scoped) ===== */
+    #aiTool{background:radial-gradient(120% 80% at 20% 0%,rgba(23,48,74,.4),transparent 50%),var(--bg);padding:72px 22px 84px;border-top:1px solid rgba(145,161,181,.12)}
+    #aiTool .aiInner{max-width:820px;margin:0 auto}
+    #aiTool .aiHead{text-align:center;margin-bottom:28px}
+    #aiTool .aiKick{display:inline-flex;align-items:center;gap:9px;color:var(--gold);font-size:12px;letter-spacing:.22em;padding-right:.22em;margin-bottom:14px}
+    #aiTool .aiBadge{background:linear-gradient(120deg,#E4C47E,var(--gold));color:#07182B;font-weight:700;border-radius:99px;padding:2px 9px;letter-spacing:.05em}
+    #aiTool .aiHead h2{font-size:clamp(26px,3.4vw,40px);line-height:1.14;color:var(--ivory)}
+    #aiTool .aiHead h2 em{font-style:normal;color:#E4C47E}
+    #aiTool .aiSub{color:#c4cdd7;max-width:54ch;margin:14px auto 0;font-size:15px}
+    #aiTool .aiPanel{background:linear-gradient(158deg,var(--panel),#0B1828 72%);border:1px solid var(--line);border-radius:8px;box-shadow:0 30px 80px rgba(2,8,16,.5);overflow:hidden}
+    #aiTool .aiDrop{padding:42px 30px;text-align:center;border:2px dashed rgba(199,166,106,.4);border-radius:8px;margin:24px 24px 14px;transition:border-color .3s,background .3s;cursor:pointer}
+    #aiTool .aiDrop:hover{border-color:#E4C47E;background:rgba(199,166,106,.05)}
+    #aiTool .aiDrop .ic{width:60px;height:60px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);color:#E4C47E;background:rgba(199,166,106,.06)}
+    #aiTool .aiDrop .ic svg{width:27px;height:27px}
+    #aiTool .aiDrop h3{font-family:"Suez One",Georgia,serif;font-weight:400;font-size:19px;margin-bottom:8px;color:var(--ivory)}
+    #aiTool .aiDrop p{color:var(--sub);font-size:13.5px}
+    #aiTool .aiBtn{margin-top:18px;display:inline-flex;align-items:center;gap:9px;min-height:48px;padding:0 26px;border-radius:4px;background:linear-gradient(120deg,#E4C47E,#b8965a);color:#07182B;font-weight:700;font-size:14.5px;border:0;cursor:pointer;font-family:inherit}
+    #aiTool .aiBtn[disabled]{opacity:.5;cursor:not-allowed;filter:grayscale(.3)}
+    #aiTool .aiConsent{display:flex;align-items:flex-start;gap:10px;max-width:560px;margin:0 auto;padding:0 24px 8px;font-size:13px;color:#aeb9c6;line-height:1.6}
+    #aiTool .aiConsent input{width:17px;height:17px;margin-top:2px;accent-color:#C7A66A;flex:0 0 auto}
+    #aiTool .aiConsent a{color:#E4C47E;text-decoration:underline;text-underline-offset:2px}
+    #aiTool .aiConsent.err{color:#ecA28e}
+    #aiTool .aiPriv{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--sub);font-size:12px;padding:6px 24px 22px;text-align:center}
+    #aiTool .aiPriv svg{width:14px;height:14px;color:var(--ok);flex:0 0 auto}
+    #aiTool .aiScan{display:none;padding:56px 30px;text-align:center}
+    #aiTool .aiScan.on{display:block}
+    #aiTool .aiDoc{position:relative;width:112px;height:142px;margin:0 auto 24px;border:1px solid var(--line);border-radius:6px;background:rgba(255,255,255,.03);overflow:hidden}
+    #aiTool .aiDoc:before{content:"";position:absolute;inset:14px;background:repeating-linear-gradient(transparent 0 9px,rgba(145,161,181,.25) 9px 10px)}
+    #aiTool .aiLine{position:absolute;left:0;right:0;height:20px;background:linear-gradient(transparent,rgba(228,196,126,.55),transparent);animation:aiScanMove 1.5s ease-in-out infinite}
+    @keyframes aiScanMove{0%{top:-20px}100%{top:142px}}
+    #aiTool .aiScan h3{font-family:"Suez One",Georgia,serif;font-weight:400;font-size:18px;margin-bottom:8px;color:var(--ivory)}
+    #aiTool .aiScan p{color:var(--sub);font-size:13.5px}
+    #aiTool .aiDots:after{content:"";animation:aiDots 1.4s steps(4,end) infinite}
+    @keyframes aiDots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+    #aiTool .aiResult{display:none}
+    #aiTool .aiResult.on{display:block;animation:aiFade .5s ease}
+    @keyframes aiFade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+    #aiTool .aiTop{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;padding:26px 28px;border-bottom:1px solid rgba(145,161,181,.15)}
+    #aiTool .aiScore{width:114px;height:114px;border-radius:50%;display:grid;place-content:center;text-align:center;flex:0 0 auto;position:relative}
+    #aiTool .aiScore:before{content:"";position:absolute;inset:8px;border-radius:50%;background:var(--panel)}
+    #aiTool .aiScore b,#aiTool .aiScore span{position:relative;z-index:1}
+    #aiTool .aiScore b{display:block;font:300 40px/1 "Heebo";color:var(--ivory)}
+    #aiTool .aiScore span{font-size:10px;letter-spacing:.12em;color:#E4C47E}
+    #aiTool .aiTier{display:inline-block;font-size:12px;border-radius:99px;padding:3px 12px;margin-bottom:10px;border:1px solid}
+    #aiTool .t-calm{color:var(--ok);border-color:rgba(117,183,168,.5)}
+    #aiTool .t-warning{color:#E4C47E;border-color:rgba(199,166,106,.5)}
+    #aiTool .t-danger{color:var(--bad);border-color:rgba(220,133,111,.5)}
+    #aiTool .aiTop h3{font-family:"Suez One",Georgia,serif;font-weight:400;font-size:22px;margin-bottom:4px;color:var(--ivory)}
+    #aiTool .aiTop p{color:var(--sub);font-size:13.5px}
+    #aiTool .aiSecB{padding:22px 28px;border-bottom:1px solid rgba(145,161,181,.12)}
+    #aiTool .aiSt{font-size:11px;letter-spacing:.16em;color:var(--sub);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+    #aiTool .aiSt svg{width:15px;height:15px;color:#E4C47E}
+    #aiTool .aiViol{display:flex;align-items:center;gap:14px;padding:11px 0;border-bottom:1px dashed rgba(145,161,181,.14)}
+    #aiTool .aiViol:last-child{border-bottom:0}
+    #aiTool .aiPts{font:500 20px "Bodoni Moda",serif;color:#E4C47E;width:34px;text-align:center;flex:0 0 auto}
+    #aiTool .aiViol .info{flex:1}
+    #aiTool .aiViol .info b{font-size:14.5px;font-weight:600;color:var(--ivory)}
+    #aiTool .aiViol .info small{display:block;color:var(--sub);font-size:12px}
+    #aiTool .aiBg{font-size:11px;padding:3px 10px;border-radius:99px;white-space:nowrap;flex:0 0 auto}
+    #aiTool .aiBg.active{color:var(--bad);background:rgba(220,133,111,.12);border:1px solid rgba(220,133,111,.35)}
+    #aiTool .aiBg.expiring{color:#E4C47E;background:rgba(199,166,106,.1);border:1px solid rgba(199,166,106,.35)}
+    #aiTool .aiBg.expired{color:var(--sub);background:rgba(145,161,181,.1);border:1px solid rgba(145,161,181,.3)}
+    #aiTool .aiInsight{background:linear-gradient(150deg,rgba(199,166,106,.13),rgba(199,166,106,.03));border:1px solid rgba(228,196,126,.45);border-radius:8px;padding:22px 24px;position:relative}
+    #aiTool .aiInsight:before{content:"";position:absolute;top:0;right:0;left:0;height:2px;background:linear-gradient(90deg,transparent,#E4C47E,transparent)}
+    #aiTool .aiInsight .tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;color:#E4C47E;letter-spacing:.1em;margin-bottom:10px}
+    #aiTool .aiInsight .tag b{background:linear-gradient(120deg,#E4C47E,var(--gold));color:#07182B;border-radius:99px;padding:2px 8px;font-size:10px}
+    #aiTool .aiInsight p{font-size:15px;line-height:1.85;color:#e7ded0}
+    #aiTool .aiPlan{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    #aiTool .aiCol{border:1px solid var(--line);border-radius:8px;padding:18px 20px;background:rgba(255,255,255,.02)}
+    #aiTool .aiCol.do{border-color:rgba(117,183,168,.35)}
+    #aiTool .aiCol.dont{border-color:rgba(220,133,111,.3)}
+    #aiTool .aiCol h4{font-family:"Heebo";font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+    #aiTool .aiCol.do h4{color:var(--ok)}#aiTool .aiCol.dont h4{color:var(--bad)}
+    #aiTool .aiCol h4 svg{width:17px;height:17px}
+    #aiTool .aiCol li{list-style:none;font-size:13px;color:#c4cdd7;padding:6px 0;line-height:1.6;display:flex;gap:8px}
+    #aiTool .aiCol li:before{content:"";width:5px;height:5px;border-radius:50%;margin-top:8px;flex:0 0 auto}
+    #aiTool .aiCol.do li:before{background:var(--ok)}#aiTool .aiCol.dont li:before{background:var(--bad)}
+    #aiTool .aiCta{padding:26px 28px;text-align:center}
+    #aiTool .aiCta a{display:inline-flex;align-items:center;gap:10px;min-height:50px;padding:0 30px;border-radius:4px;background:linear-gradient(120deg,#E4C47E,#b8965a);color:#07182B;font-weight:700;font-size:15px;text-decoration:none}
+    #aiTool .aiAgain{display:block;margin-top:16px;color:var(--sub);font-size:13px;background:none;border:0;cursor:pointer;font-family:inherit;text-decoration:underline;text-underline-offset:3px}
+    #aiTool .aiDisc{font-size:12px;color:var(--sub);line-height:1.7;padding:18px 28px;background:rgba(0,0,0,.2);border-top:1px solid rgba(145,161,181,.12)}
+    #aiTool .aiDisc b{color:#c4cdd7}
+    #aiTool .aiFallback{display:none;padding:44px 30px;text-align:center}
+    #aiTool .aiFallback.on{display:block}
+    #aiTool .aiFallback .ic{width:58px;height:58px;margin:0 auto 16px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);color:#E4C47E}
+    #aiTool .aiFallback .ic svg{width:26px;height:26px}
+    #aiTool .aiFallback h3{font-family:"Suez One",Georgia,serif;font-weight:400;font-size:20px;color:var(--ivory);margin-bottom:8px}
+    #aiTool .aiFallback p{color:#aeb9c6;font-size:14px;max-width:44ch;margin:0 auto 18px;line-height:1.7}
+    #aiTool .aiFallback .acts{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    #aiTool .aiFallback .acts a{min-height:46px;display:inline-flex;align-items:center;padding:0 22px;border-radius:4px;font-weight:700;font-size:14px;text-decoration:none}
+    #aiTool .aiFallback .acts .wa{background:linear-gradient(120deg,#E4C47E,#b8965a);color:#07182B}
+    #aiTool .aiFallback .acts .tel{color:var(--ivory);border:1px solid var(--line)}
+    #aiTool .aiFallback .aiAgain{margin-top:18px}
+    @media(max-width:600px){#aiTool .aiTop{grid-template-columns:1fr;text-align:center;justify-items:center}#aiTool .aiPlan{grid-template-columns:1fr}}
+    @media(prefers-reduced-motion:reduce){#aiTool .aiLine{animation:none}#aiTool .aiResult.on{animation:none}}
   </style>
 </head>
 <body>
@@ -442,6 +538,56 @@
     </section>
 
     <!-- ================= Tiers (ivory) ================= -->
+    
+    <!-- ================= AI printout analysis (the calculator above stays) ================= -->
+    <section id="aiTool" aria-label="ניתוח תדפיס ניקוד בבינה מלאכותית">
+      <div class="aiInner">
+        <div class="aiHead">
+          <p class="aiKick"><span class="aiBadge">AI</span> לא בטוחים בכמה נקודות?</p>
+          <h2>או, תנו ל־AI לקרוא את <em>תדפיס הניקוד</em></h2>
+          <p class="aiSub">במקום להזין ידנית למעלה — העלו את התדפיס הרשמי מרשות הרישוי, והמערכת תזהה את העבירות, המועדים והניקוד התקף ותחזיר תובנות מותאמות אישית ותוכנית פעולה.</p>
+        </div>
+        <div class="aiPanel">
+          <div id="ai_idle">
+            <div class="aiDrop" id="ai_drop">
+              <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></div>
+              <h3>גררו לכאן את תדפיס הניקוד, או בחרו קובץ</h3>
+              <p>PDF או צילום ברור · עד 3MB</p>
+              <button class="aiBtn" id="ai_pick" type="button">בחירת קובץ &nbsp;↑</button>
+              <input type="file" id="ai_file" accept=".pdf,image/*" hidden>
+            </div>
+            <label class="aiConsent" id="ai_consentRow">
+              <input type="checkbox" id="ai_consent">
+              <span>אני מסכים/ה שהתדפיס יעובד לצורך ניתוח אוטומטי חד־פעמי. הקובץ אינו נשמר במערכת. <a href="#aiDisc">פרטים</a></span>
+            </label>
+            <input type="text" id="ai_company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0">
+            <div class="aiPriv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>הקובץ מעובד באופן מאובטח ואינו נשמר. הבדיקה חסויה.</div>
+          </div>
+
+          <div class="aiScan" id="ai_scan">
+            <div class="aiDoc"><div class="aiLine"></div></div>
+            <h3>המערכת קוראת את התדפיס<span class="aiDots"></span></h3>
+            <p>מזהה עבירות, מועדים וניקוד תקף</p>
+          </div>
+
+          <div class="aiResult" id="ai_result"></div>
+
+          <div class="aiFallback" id="ai_fallback">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v5M12 16.5h.01"/><circle cx="12" cy="12" r="9"/></svg></div>
+            <h3 id="ai_fbTitle">לא הצלחנו לנתח את התדפיס</h3>
+            <p id="ai_fbText">אפשר לשלוח את התדפיס ישירות למשרד ועו״ד יבחן אותו אישית.</p>
+            <div class="acts">
+              <a class="wa" href="https://wa.me/972528822044?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9C%D7%95%D7%97%20%D7%AA%D7%93%D7%A4%D7%99%D7%A1%20%D7%A0%D7%99%D7%A7%D7%95%D7%93%20%D7%9C%D7%91%D7%93%D7%99%D7%A7%D7%94">שליחת התדפיס ב־WhatsApp</a>
+              <a class="tel" href="tel:039405151">03-940-5151</a>
+            </div>
+            <button class="aiAgain" id="ai_fbAgain" type="button">נסו קובץ אחר</button>
+          </div>
+
+          <div class="aiDisc" id="aiDisc"><b>הבהרה:</b> הניתוח מבוצע אוטומטית ומספק הערכה כללית בלבד — אינו ייעוץ משפטי, חוות דעת או תחליף לבדיקה פרטנית. חישוב תוקף הנקודות תלוי במועדי העבירות, ההרשעות והשלמת אמצעי התיקון, ויש לאמתו מול תדפיס רשות הרישוי העדכני. הקובץ מעובד לצורך הבדיקה בלבד ואינו נשמר.</div>
+        </div>
+      </div>
+    </section>
+
     <section class="tiersSec" id="tiers">
       <div class="inner">
         <p class="secKick">מדרגות הניקוד</p>
@@ -772,6 +918,73 @@
 
   /* first paint */
   render();
+  </script>
+
+  <script>
+  (function(){
+    var idle=document.getElementById('ai_idle'),scan=document.getElementById('ai_scan'),result=document.getElementById('ai_result'),fb=document.getElementById('ai_fallback');
+    if(!idle)return;
+    var fileInput=document.getElementById('ai_file'),drop=document.getElementById('ai_drop'),pick=document.getElementById('ai_pick');
+    var consent=document.getElementById('ai_consent'),consentRow=document.getElementById('ai_consentRow'),company=document.getElementById('ai_company');
+    var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var MAX=3*1024*1024;
+    function esc(s){return String(s==null?'':s).replace(/[<>&]/g,function(c){return{'<':'&lt;','>':'&gt;','&':'&amp;'}[c];});}
+    function show(el){idle.style.display='none';scan.classList.remove('on');result.classList.remove('on');fb.classList.remove('on');el.classList?el.classList.add('on'):(el.style.display='block');}
+    function reset(){result.classList.remove('on');fb.classList.remove('on');scan.classList.remove('on');idle.style.display='block';document.getElementById('aiTool').scrollIntoView({behavior:rm?'auto':'smooth',block:'start'});}
+    function fbState(title,text){document.getElementById('ai_fbTitle').textContent=title;document.getElementById('ai_fbText').textContent=text;idle.style.display='none';scan.classList.remove('on');result.classList.remove('on');fb.classList.add('on');}
+    function toB64(file){return new Promise(function(res,rej){var r=new FileReader();r.onload=function(){res(String(r.result).split(',')[1]);};r.onerror=rej;r.readAsDataURL(file);});}
+
+    function render(a){
+      var pct=Math.max(0,Math.min(100,(a.points||0)/80*100));
+      var tone=a.tierTone||'warning';
+      var ringColor=tone==='danger'?'var(--bad)':tone==='calm'?'var(--ok)':'#E4C47E';
+      var viol=(a.violations||[]).map(function(v){
+        var st=v.status==='expired'?'expired':v.status==='expiring'?'expiring':'active';
+        var lbl=st==='expired'?'התיישנה':st==='expiring'?'מתיישנת בקרוב':'פעילה';
+        return '<div class="aiViol"><span class="aiPts">'+esc(v.points)+'</span><div class="info"><b>'+esc(v.name)+'</b><small>'+esc(v.recorded)+(v.expiry?' · '+esc(v.expiry):'')+'</small></div><span class="aiBg '+st+'">'+lbl+'</span></div>';
+      }).join('');
+      var dos=(a.dos||[]).map(function(x){return '<li>'+esc(x)+'</li>';}).join('');
+      var donts=(a.donts||[]).map(function(x){return '<li>'+esc(x)+'</li>';}).join('');
+      var gapLine=(a.gap!=null&&a.nextThreshold!=null)?('המדרגה הבאה מתחילה ב־'+esc(a.nextThreshold)+' נקודות ('+esc(a.gap)+' נקודות מכאן).'):'';
+      result.innerHTML=
+        '<div class="aiTop"><div class="aiScore" style="background:conic-gradient('+ringColor+' 0 '+pct+'%,#1B2C41 '+pct+'% 100%)"><b>'+esc(a.points)+'</b><span>נקודות תקפות</span></div>'+
+        '<div><span class="aiTier t-'+esc(tone)+'">'+esc(a.tier)+'</span><h3>'+esc(a.headline)+'</h3><p>'+esc(a.summary)+' '+gapLine+'</p></div></div>'+
+        (viol?'<div class="aiSecB"><div class="aiSt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>מה זיהינו בתדפיס</div>'+viol+'</div>':'')+
+        (a.insight?'<div class="aiSecB"><div class="aiInsight"><div class="tag"><b>AI</b> תובנה מותאמת אישית</div><p>'+esc(a.insight)+'</p></div></div>':'')+
+        ((dos||donts)?'<div class="aiSecB"><div class="aiSt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg>תוכנית פעולה מומלצת</div><div class="aiPlan">'+
+          '<div class="aiCol do"><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>כדאי לעשות</h4><ul>'+(dos||'<li>—</li>')+'</ul></div>'+
+          '<div class="aiCol dont"><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>ממה להימנע</h4><ul>'+(donts||'<li>—</li>')+'</ul></div></div></div>':'')+
+        '<div class="aiCta"><a href="/#contact">לבדיקת עומק עם עו״ד מצר סולומון &nbsp;←</a><button class="aiAgain" id="ai_again" type="button">בדיקת תדפיס נוסף</button></div>';
+      idle.style.display='none';scan.classList.remove('on');fb.classList.remove('on');result.classList.add('on');
+      var again=document.getElementById('ai_again');if(again)again.addEventListener('click',reset);
+      result.scrollIntoView({behavior:rm?'auto':'smooth',block:'start'});
+    }
+
+    async function analyze(file){
+      if(!file)return;
+      if(!consent.checked){consentRow.classList.add('err');consent.focus();return;}
+      consentRow.classList.remove('err');
+      if(file.size>MAX){fbState('הקובץ גדול מדי','הקובץ חורג מ־3MB. נסו לצלם מחדש באיכות נמוכה יותר, או שלחו אותו ישירות למשרד.');return;}
+      idle.style.display='none';scan.classList.add('on');
+      try{
+        var b64=await toB64(file);
+        var r=await fetch('/api/analyze-points',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fileBase64:b64,mediaType:file.type||'application/pdf',consent:true,company:company.value})});
+        var out=await r.json().catch(function(){return{};});
+        scan.classList.remove('on');
+        if(!out.ok||out.mode==='error'){fbState('לא הצלחנו לנתח את התדפיס','אירעה תקלה בניתוח. אפשר לנסות קובץ אחר, או לשלוח את התדפיס ישירות למשרד לבדיקה אישית.');return;}
+        if(out.mode==='unavailable'){fbState('הניתוח האוטומטי אינו פעיל כרגע','שלחו את התדפיס ישירות למשרד ועו״ד מצר סולומון יבחן אותו אישית ויחזור אליכם.');return;}
+        if(out.mode==='ai'&&out.analysis&&out.analysis.readable){render(out.analysis);return;}
+        fbState('לא הצלחנו לקרוא את התדפיס','ייתכן שהצילום אינו ברור או שאינו תדפיס ניקוד. נסו צילום חד יותר, או שלחו את התדפיס ישירות למשרד.');
+      }catch(e){scan.classList.remove('on');fbState('לא הצלחנו לנתח את התדפיס','אירעה תקלה בשליחה. אפשר לנסות שוב, או לשלוח את התדפיס ישירות למשרד.');}
+    }
+
+    pick.addEventListener('click',function(e){e.stopPropagation();fileInput.click();});
+    drop.addEventListener('click',function(){fileInput.click();});
+    fileInput.addEventListener('change',function(){analyze(fileInput.files&&fileInput.files[0]);});
+    drop.addEventListener('dragover',function(e){e.preventDefault();});
+    drop.addEventListener('drop',function(e){e.preventDefault();var f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];analyze(f);});
+    document.getElementById('ai_fbAgain').addEventListener('click',reset);
+  })();
   </script>
 </body>
 </html>
