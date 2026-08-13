@@ -131,6 +131,23 @@ async function sendEmail({ name, phone, subject, details }) {
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
+
+  // GET reports which delivery channels are wired up, so the notification path can be checked
+  // without filing a lead just to find out. Booleans and the (already public) office address
+  // only — never a key or any part of one.
+  if (req.method === 'GET') {
+    return res.status(200).json({
+      ok: true,
+      channels: {
+        assistant: true,
+        email: !!process.env.RESEND_API_KEY,
+        emailTo: process.env.LEAD_TO || 'peri@bettylaw.co.il',
+        emailFrom: process.env.LEAD_FROM || 'onboarding@resend.dev (ברירת מחדל)',
+        salesforce: !!(process.env.SALESFORCE_USERNAME && process.env.SALESFORCE_PASSWORD && process.env.SALESFORCE_SECURITY_TOKEN),
+      },
+    });
+  }
+
   if (req.method !== 'POST') return res.status(405).json({ ok: false, error: 'method' });
 
   let body = req.body;
