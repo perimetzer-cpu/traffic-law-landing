@@ -93,33 +93,95 @@
     @font-face{font-family:"Cormorant Garamond";src:url("assets/fonts/cormorant-latin.woff2") format("woff2");font-weight:500;font-display:swap}
     :root{--navy:#071827;--navy2:#0b2234;--ivory:#f2ebdd;--paper:#faf6ed;--gold:#b8944f;--ink:#152331;--muted:#8fa0ad;--line:rgba(184,148,79,.32)}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--ivory);color:var(--ink);font-family:"Heebo",Arial,"Noto Sans Hebrew",sans-serif}a{color:inherit;text-decoration:none}h1,h2,h3{font-family:"Suez One",Georgia,"Times New Roman",serif;font-weight:400;margin:0}.skip{position:fixed;top:-60px;right:16px;z-index:999;background:#fff;padding:12px}.skip:focus{top:12px}
-    .heroX{position:relative;width:100%;height:min(100vh,68vw);height:min(100svh,68vw);min-height:540px;overflow:hidden;background:#F5EDDF;font-size:min(1vw,1.6vh)}.heroX a{text-decoration:none}
-    .hPhoto{position:absolute;inset:0;clip-path:polygon(0 0,47.9% 0,30.6% 100%,0 100%);background:#0a1a2c}.hPhoto img{position:absolute;left:0;bottom:0;height:100%;width:auto;clip-path:polygon(0 0,97.8% 0,62.4% 100%,0 100%)}.hPhoto:after{content:"";position:absolute;inset:0;background:linear-gradient(102deg,transparent 52%,rgba(3,18,34,.32) 82%,rgba(3,18,34,.52) 100%),linear-gradient(0deg,rgba(3,18,34,.28),transparent 24%)}
-    .hSvg,.hRoadsSvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.hRoadsSvg{will-change:transform}
-    .hCars{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;will-change:transform}
-    .hRoadsSvg .dash{animation:roadFlow 46s linear infinite}.hRoadsSvg .d2{animation-duration:38s;animation-direction:reverse}.hRoadsSvg .d3{animation-duration:60s}
-    @keyframes roadFlow{to{stroke-dashoffset:-480}}
-    .hPulse{animation:roadPulse 11s cubic-bezier(.4,0,.3,1) 2.4s infinite}
-    @keyframes roadPulse{0%{stroke-dashoffset:109}55%{stroke-dashoffset:-91}100%{stroke-dashoffset:-91}}
-    .hNum{position:absolute;top:70.92%;left:71.88%;margin:0;font-family:"Bodoni Moda",Georgia,serif;font-weight:500;font-size:20.13em;line-height:1;letter-spacing:.16em;color:transparent;-webkit-text-stroke:1.5px rgba(198,160,82,.5);z-index:2;pointer-events:none;user-select:none;will-change:transform}
-    .kickRule{position:absolute;left:44.2%;top:31.0%;width:24.78%;height:1px;background:linear-gradient(270deg,rgba(198,160,82,.8),rgba(198,160,82,.22));z-index:3}.baseRule{position:absolute;left:40.98%;top:91.83%;width:29.57%;height:1px;background:rgba(198,160,82,.55);z-index:3}
-    .hNav{position:absolute;left:4.5%;top:5.0%;width:41%;display:flex;justify-content:flex-start;gap:.9em;align-items:center;font-size:1.1em;color:#e8e2d6;z-index:6}.hNav a{color:inherit;white-space:nowrap;transition:color .25s}.hNav a:hover{color:#e6c983}.hNav i{width:1px;height:1.5em;background:rgba(198,160,82,.6)}
-    .hLogo{position:absolute;top:6%;right:5.86%;width:40%;z-index:5}.hLogo img{width:100%;height:auto;display:block}.hLogoTag{display:block;text-align:center;margin-top:.9em;font-size:1.06em;letter-spacing:.24em;color:#8a6d3b;padding-right:.24em;white-space:nowrap}
-    .hKick{position:absolute;left:51.85%;top:28.4%;margin:0;font-size:1.135em;line-height:1.4;letter-spacing:.212em;color:#2b333c;z-index:5;white-space:nowrap}
-    .hHead{position:absolute;right:4.45%;top:35.2%;margin:0;font-family:"Suez One",Georgia,serif;font-weight:400;letter-spacing:.01em;font-size:6.79em;line-height:.975;color:#07192E;text-align:right;z-index:5;white-space:nowrap}
-    .hLead{position:absolute;right:4.45%;top:58.1%;margin:0;font-size:1.565em;line-height:1.468;color:#4D5260;text-align:right;z-index:5}
-    .hPrimary{position:absolute;left:59.21%;top:74.6%;width:14.81%;height:6.25%;display:grid;place-items:center;background:#04142f;color:#F5EDDF;font-size:1.14em;z-index:5;transition:transform .28s,box-shadow .28s,filter .28s}.hPrimary:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(4,20,47,.32);filter:brightness(1.22)}
-    .hSecondary{position:absolute;left:49.94%;top:76.55%;font-size:1.14em;color:#131c26;border-bottom:1px solid #C6A052;padding-bottom:.45em;z-index:5;white-space:nowrap;transition:transform .28s,color .25s}.hSecondary:hover{transform:translateY(-2px);color:#000}
-    .hNav a:focus-visible,.hPrimary:focus-visible,.hSecondary:focus-visible{outline:2px solid #C6A052;outline-offset:3px}
-    @keyframes hUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
-    @keyframes hFade{from{opacity:0}to{opacity:1}}
-    @keyframes hPhotoIn{from{opacity:0;transform:scale(1.02) translateY(8px)}to{opacity:1;transform:none}}
-    @keyframes hSweep{0%{stroke-dashoffset:112}45%{stroke-dashoffset:-90}100%{stroke-dashoffset:-90}}
-    .hPhoto img{animation:hPhotoIn 1.1s ease-out .05s backwards}.hNav{animation:hFade .8s ease .15s backwards}.hLogo{animation:hUp .9s cubic-bezier(.22,.61,.36,1) .3s backwards}.hKick{animation:hUp .7s cubic-bezier(.22,.61,.36,1) .6s backwards}.kickRule{animation:hFade .9s ease .7s backwards}.hHead{animation:hUp .9s cubic-bezier(.22,.61,.36,1) .72s backwards}.hLead{animation:hUp .9s cubic-bezier(.22,.61,.36,1) .9s backwards}.hPrimary,.hSecondary{animation:hUp .8s cubic-bezier(.22,.61,.36,1) 1.05s backwards}.hNum,.baseRule{animation:hFade 1.2s ease 1.15s backwards}.hRoadsSvg{animation:hFade 1.4s ease 1.25s backwards}
-    .hSweep{animation:hSweep 8.5s cubic-bezier(.45,0,.25,1) 1.8s infinite}
-    .menuBtn,.mobileMenu{display:none}
-    .mobileHero{display:none;background:var(--ivory)}.mobileBrand{position:relative;height:76px;display:flex;align-items:center;justify-content:center;gap:14px;border-bottom:1px solid var(--line)}.mobileBrand img{height:36px;width:auto;display:block}.mBrandWrap{display:grid;justify-items:center;gap:3px}.mBrandWrap small{font-size:8px;letter-spacing:.2em;color:#8a6d3b;padding-right:.2em;white-space:nowrap}.mobileBrand b{font:32px "Bodoni Moda",Georgia,serif}.mobileBrand i{height:44px;width:1px;background:var(--gold)}.mobileBrand strong{display:block;font:18px "Suez One",Georgia,serif}.mobileBrand small{font:7px "Cormorant Garamond",Georgia;letter-spacing:.17em}.mobilePortrait{height:52vh;min-height:410px;background:var(--navy);overflow:hidden}.mobilePortrait img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;filter:grayscale(1) contrast(1.12) brightness(.84)}.mobileCopy{padding:64px 25px 82px;position:relative}.mobileCopy .eyebrow,.kicker{color:var(--gold);font-size:11px;letter-spacing:.14em}.mobileCopy h1{font-size:48px;line-height:1.05;margin:24px 0;color:var(--navy)}.mobileCopy p{line-height:1.8;color:#4f4c46}.actions{display:flex;gap:14px;margin-top:28px}.primary{background:var(--navy);color:#fff;padding:17px 28px}.secondary{padding:17px 12px;border-bottom:1px solid var(--gold)}
-    .section{padding:110px 8vw;position:relative}.about{background:var(--paper);display:grid;grid-template-columns:1fr 1fr;gap:10vw}.sectionNo{position:absolute;left:5vw;top:42px;color:rgba(184,148,79,.18);font:90px "Bodoni Moda",Georgia,serif}.kicker{margin:0 0 22px;font-size:20px}.section h2,.contact h2{font-size:clamp(42px,4.2vw,66px);line-height:1.12}.aboutCopy{padding-top:30px;color:#62605b;font-size:16px;line-height:2}.aboutCopy p:first-child{font-size:19px;color:var(--ink)}.signature{border-top:1px solid var(--line);padding-top:24px;margin-top:30px;display:flex;justify-content:space-between}.signature span{font:25px "Suez One",Georgia,serif}.signature small{display:block;font-size:10px;color:var(--gold)}.signature b{font:9px "Heebo",Arial,sans-serif;color:var(--gold);letter-spacing:.22em}
+    .mg{position:relative;min-height:100vh;min-height:100svh;width:100%;overflow:hidden;isolation:isolate;background:#010711;color:#f5f2eb;font-family:"Heebo",Arial,"Noto Sans Hebrew",sans-serif;--n0:#010711;--n1:#03101e;--g:#c99542;--g2:#f0c873;--pl:#f5f2eb;--mu:#aab7c9;--ln:rgba(218,226,236,.30)}
+    .mg a{color:inherit;text-decoration:none}
+    .mg-bg{position:absolute;inset:0;z-index:0}
+    .mg-base{position:absolute;inset:0;background:radial-gradient(150% 130% at 15% 0%,#0b2440 0%,#071d34 30%,var(--n1) 58%,var(--n0) 100%)}
+    .mg-dots{position:absolute;inset:0;opacity:.55;mix-blend-mode:screen;background:radial-gradient(1.6px 1.6px at 30% 40%,rgba(150,185,235,.55),transparent 60%),radial-gradient(1.6px 1.6px at 44% 30%,rgba(150,190,240,.45),transparent 60%),radial-gradient(1.4px 1.4px at 55% 46%,rgba(120,160,220,.45),transparent 60%),radial-gradient(1.4px 1.4px at 24% 55%,rgba(120,160,220,.4),transparent 60%),radial-gradient(1.6px 1.6px at 66% 22%,rgba(160,200,255,.4),transparent 60%),radial-gradient(1.4px 1.4px at 74% 60%,rgba(120,160,220,.32),transparent 60%)}
+    .mg-roads{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;will-change:transform}
+    .mg-flare{position:absolute;left:4%;bottom:-6%;width:64%;height:64%;pointer-events:none;background:radial-gradient(circle at 34% 66%,rgba(240,200,115,.22),rgba(240,200,115,.05) 42%,transparent 62%);filter:blur(6px)}
+    .mg-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(1,7,17,.04) 0%,rgba(1,7,17,.28) 44%,rgba(1,7,17,.52) 100%),linear-gradient(0deg,var(--n0) 1%,transparent 30%)}
+    .mg-comet{position:absolute;z-index:1;width:11px;height:11px;border-radius:50%;background:radial-gradient(circle,#fff3da 0%,var(--g2) 44%,rgba(201,149,66,0) 72%);filter:blur(.3px) drop-shadow(0 0 14px rgba(240,200,115,1)) drop-shadow(0 0 26px rgba(240,200,115,.6));offset-path:path("M -60 640 C 260 590 470 540 760 545 S 1240 560 1620 470");animation:mgRun 8s cubic-bezier(.5,.1,.5,.9) infinite}
+    .mg-comet.c2{width:8px;height:8px;offset-path:path("M -80 700 C 250 660 470 610 760 612 S 1240 632 1600 520");animation-duration:6.5s;animation-delay:1.6s;background:radial-gradient(circle,#eaf3ff 0%,#8fb6e6 46%,rgba(76,127,192,0) 72%);filter:blur(.3px) drop-shadow(0 0 12px rgba(143,182,230,.95))}
+    .mg-comet.c3{width:9px;height:9px;offset-path:path("M -80 800 C 300 770 560 720 840 726 S 1300 742 1620 640");animation-duration:10s;animation-delay:3.4s}
+    .mg-caption{position:absolute;z-index:3;bottom:16px;inset-inline-start:26px;display:flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.06em;color:var(--mu);opacity:.72}
+    .mg-caption:before{content:"";width:22px;height:1px;background:var(--g)}
+    .mg-portrait{position:absolute;z-index:2;left:0;bottom:0;top:0;width:48%;max-width:780px;pointer-events:none;will-change:transform}
+    .mg-portrait img{position:absolute;left:0;bottom:0;height:100%;width:100%;object-fit:cover;object-position:66% 12%;filter:grayscale(.32) contrast(1.05) brightness(1.02);-webkit-mask-image:linear-gradient(90deg,#000 54%,transparent 98%);mask-image:linear-gradient(90deg,#000 54%,transparent 98%)}
+    .mg-portrait:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,var(--n0) 1%,transparent 24%),linear-gradient(90deg,rgba(201,149,66,.16) 0%,transparent 20%),linear-gradient(270deg,rgba(36,78,130,.20) 0%,transparent 40%);-webkit-mask-image:linear-gradient(90deg,#000 54%,transparent 98%);mask-image:linear-gradient(90deg,#000 54%,transparent 98%)}
+    .mg-nav{position:absolute;z-index:8;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:24px clamp(22px,3.4vw,58px);border-bottom:1px solid rgba(218,226,236,.08)}
+    .mg-brand{display:flex;align-items:center}
+    .mg-logo{height:44px;width:auto;display:block;filter:brightness(0) invert(1);opacity:.97}
+    .mg-menu{display:flex;align-items:center;gap:26px;font-weight:500;font-size:15px;color:#cfd8e4}
+    .mg-menu a{position:relative;padding:8px 0;transition:color .2s}.mg-menu a:hover{color:#fff}
+    .mg-menu a.on{color:var(--g2)}
+    .mg-menu a.on:after{content:"";position:absolute;right:0;left:0;bottom:0;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,var(--g2),transparent)}
+    .mg .menuBtn{background:none;border:0}.mg .menuBtn span{background:#F5EDDF}
+    .mg-frame{position:relative;max-width:1500px;height:100vh;height:100svh;min-height:800px;margin:0 auto;padding:0 clamp(22px,3.4vw,58px)}
+    .mg-card{position:absolute;z-index:6;top:16.5vh;inset-inline-end:auto;inset-inline-start:clamp(22px,3.4vw,58px);width:47%;max-width:700px;padding:46px 50px 44px;border-radius:26px;background:linear-gradient(145deg,rgba(7,23,42,.79),rgba(1,11,20,.62));backdrop-filter:blur(17px) saturate(1.1);-webkit-backdrop-filter:blur(17px) saturate(1.1);border:1px solid var(--ln);box-shadow:0 50px 110px -44px rgba(0,0,0,.75),inset 0 1px 0 rgba(255,255,255,.06)}
+    .mg-eyebrow{font-weight:600;font-size:15px;letter-spacing:.10em;color:var(--mu);text-align:right}
+    .mg-erule{height:2px;width:66%;margin:14px 0 0 auto;border-radius:2px;background:linear-gradient(270deg,var(--g) 20%,rgba(201,149,66,0))}
+    .mg-h1{font-family:"Heebo";font-weight:700;line-height:1.27;letter-spacing:-.01em;text-align:right;font-size:clamp(33px,4.05vw,60px);color:var(--pl);margin:28px 0 0}
+    .mg-h1 .g{color:#ecc06f}
+    .mg-meta{display:flex;gap:14px;align-items:center;justify-content:flex-start;margin-top:26px;font-size:18px;color:#dbe2ec;font-weight:500}
+    .mg-meta i{width:1px;height:16px;background:rgba(201,149,66,.55);display:inline-block}
+    .mg-cta{display:flex;gap:16px;justify-content:flex-start;flex-direction:row-reverse;margin-top:30px}
+    .mg-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:700;font-size:17px;height:62px;padding:0 34px;border-radius:9px;cursor:pointer;transition:transform .2s,box-shadow .3s,background .3s,border-color .3s;border:1px solid transparent;white-space:nowrap}
+    .mg-btn.gold{background:linear-gradient(125deg,#aa7025 0%,#f1c772 58%,#dcae5f 100%);color:#1c1308;box-shadow:0 18px 38px -16px rgba(201,149,66,.75)}
+    .mg-btn.gold:hover{transform:translateY(-2px);box-shadow:0 24px 48px -16px rgba(240,200,115,.85)}
+    .mg-btn.glass{background:rgba(3,15,29,.48);color:var(--pl);border-color:rgba(222,183,112,.7)}
+    .mg-btn.glass:hover{border-color:var(--g2);transform:translateY(-2px)}
+    .mg-btn.glass svg{width:19px;height:19px}
+    .mg-btn.glass{flex:1}.mg-btn.gold{flex:1.15}
+    .mg-status{position:absolute;z-index:7;top:40vh;inset-inline-start:44.5%;width:186px;padding:20px 22px;border-radius:18px;background:linear-gradient(155deg,rgba(10,31,55,.86),rgba(1,10,20,.72));backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);border:1px solid rgba(222,183,112,.34);box-shadow:0 34px 70px -28px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.05)}
+    .mg-status .row{display:flex;align-items:center;justify-content:space-between;font-size:12.5px;color:var(--mu)}
+    .mg-status .dot{width:8px;height:8px;border-radius:50%;background:var(--g2);box-shadow:0 0 10px var(--g2)}
+    .mg-status .big{font-weight:700;font-size:20px;color:var(--pl);margin-top:14px}
+    .mg-status .sm{font-size:13px;color:var(--mu);margin-top:6px;line-height:1.5}
+    .mg-status .bar{display:flex;gap:5px;margin-top:16px}
+    .mg-status .bar i{height:5px;border-radius:3px;flex:1;background:rgba(170,183,201,.22)}
+    .mg-status .bar i.a{background:linear-gradient(90deg,#244e82,var(--g2))}
+    .mg-trust{position:absolute;z-index:5;bottom:4vh;inset-inline-start:clamp(22px,3.4vw,58px);width:69%;max-width:1030px;display:grid;grid-template-columns:repeat(4,1fr);background:linear-gradient(145deg,rgba(6,24,44,.81),rgba(2,10,20,.66));backdrop-filter:blur(17px);-webkit-backdrop-filter:blur(17px);border:1px solid rgba(209,221,235,.34);border-radius:23px;overflow:hidden}
+    .mg-cell{display:flex;align-items:center;gap:16px;padding:22px 22px;position:relative}
+    .mg-cell + .mg-cell:before{content:"";position:absolute;inset-inline-end:0;top:20%;height:60%;width:1px;background:linear-gradient(rgba(201,149,66,0),rgba(201,149,66,.30),rgba(201,149,66,0))}
+    .mg-cell .ic{flex:none;width:46px;height:46px;display:grid;place-items:center;color:var(--g2)}
+    .mg-cell .ic svg{width:30px;height:30px}
+    .mg-cell .tt{font-weight:700;font-size:16px;color:var(--pl)}
+    .mg-cell .dd{font-weight:400;font-size:13px;color:var(--mu);margin-top:3px;line-height:1.4}
+    .mg-cell .tx{text-align:right}
+    @media (prefers-reduced-motion:no-preference){
+     .mg-card>*{animation:mgRise .8s cubic-bezier(.2,.7,.2,1) both}
+     .mg-card>*:nth-child(2){animation-delay:.06s}.mg-card>*:nth-child(3){animation-delay:.12s}
+     .mg-card>*:nth-child(4){animation-delay:.18s}.mg-card>*:nth-child(5){animation-delay:.24s}
+     .mg-portrait img{animation:mgFade 1.1s ease both}
+     .mg-status{animation:mgRise .9s .42s cubic-bezier(.2,.7,.2,1) both}
+     .mg-cell{animation:mgRise .7s both}
+     .mg-cell:nth-child(1){animation-delay:.5s}.mg-cell:nth-child(2){animation-delay:.6s}
+     .mg-cell:nth-child(3){animation-delay:.7s}.mg-cell:nth-child(4){animation-delay:.8s}}
+    @keyframes mgRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+    @keyframes mgFade{from{opacity:0}to{opacity:1}}
+    @keyframes mgRun{0%{offset-distance:0%;opacity:0}10%{opacity:1}84%{opacity:1}100%{offset-distance:100%;opacity:0}}
+    @media(max-width:1024px){
+     .mg-menu{display:none}
+     .mg-portrait{width:100%;max-width:none;opacity:.42;-webkit-mask-image:linear-gradient(0deg,#000 24%,transparent 74%);mask-image:linear-gradient(0deg,#000 24%,transparent 74%)}
+     .mg-portrait img{-webkit-mask-image:none;mask-image:none;object-position:66% 6%}
+     .mg-portrait:after{-webkit-mask-image:none;mask-image:none}
+     .mg-frame{height:auto;min-height:0;display:flex;flex-direction:column;padding-top:118px;padding-bottom:56px}
+     .mg-card{position:static;width:100%;max-width:none;inset:auto;margin:0 auto}
+     .mg-status{display:none}
+     .mg-trust{position:static;width:100%;max-width:none;margin:22px auto 0;grid-template-columns:1fr 1fr}
+     .mg-cell:nth-child(2):before,.mg-cell:nth-child(4):before{display:none}
+     .mg-cell{padding:22px 26px}
+    }
+    @media(max-width:600px){
+     .mg-logo{height:34px}
+     .mg-card{padding:30px 24px}
+     .mg-cta{flex-direction:column}.mg-btn{width:100%;flex:none}
+     .mg-meta{flex-wrap:wrap;justify-content:center;font-size:16px}
+     .mg-trust{grid-template-columns:1fr}
+     .mg-cell:before{display:none}.mg-cell{border-top:1px solid rgba(209,221,235,.12)}.mg-cell:first-child{border-top:0}
+    }
+        .section{padding:110px 8vw;position:relative}.about{background:var(--paper);display:grid;grid-template-columns:1fr 1fr;gap:10vw}.sectionNo{position:absolute;left:5vw;top:42px;color:rgba(184,148,79,.18);font:90px "Bodoni Moda",Georgia,serif}.kicker{margin:0 0 22px;font-size:20px}.section h2,.contact h2{font-size:clamp(42px,4.2vw,66px);line-height:1.12}.aboutCopy{padding-top:30px;color:#62605b;font-size:16px;line-height:2}.aboutCopy p:first-child{font-size:19px;color:var(--ink)}.signature{border-top:1px solid var(--line);padding-top:24px;margin-top:30px;display:flex;justify-content:space-between}.signature span{font:25px "Suez One",Georgia,serif}.signature small{display:block;font-size:10px;color:var(--gold)}.signature b{font:9px "Heebo",Arial,sans-serif;color:var(--gold);letter-spacing:.22em}
     .portraitStatement{min-height:720px;display:grid;grid-template-columns:42% 58%;direction:ltr;background:#0a1d2c;color:var(--ivory);overflow:hidden}.portraitStatement figure{margin:0;position:relative;overflow:hidden}.portraitStatement figure:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(10,29,44,.4))}.portraitStatement img{width:100%;height:100%;object-fit:cover;object-position:50% 16%}.portraitStatement>div{direction:rtl;padding:110px 9vw;display:flex;flex-direction:column;justify-content:center}.portraitStatement h2{font-size:clamp(48px,4.7vw,76px);line-height:1.1}.portraitStatement .body{color:#aab5bc;line-height:1.9;max-width:590px}.textLink{margin-top:28px;color:#e6c983;width:max-content;border-bottom:1px solid var(--gold);padding-bottom:10px}
     .dark{background:radial-gradient(circle at 16% 18%,rgba(32,67,91,.42),transparent 32%),linear-gradient(145deg,#061522,#081d2d 55%,#061621);color:var(--ivory);overflow:hidden}.head{display:flex;justify-content:space-between;align-items:end;gap:70px;margin-bottom:55px}.head>p{max-width:420px;color:var(--muted);line-height:1.8}.areas{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.area{position:relative;min-height:350px;padding:34px;border:1px solid rgba(207,178,112,.23);background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.012));display:flex;flex-direction:column;transition:.4s;overflow:hidden}.area:before{content:"";position:absolute;top:0;right:34px;width:54px;height:2px;background:var(--gold);transition:.4s}.area:hover{transform:translateY(-8px);border-color:rgba(207,178,112,.58);box-shadow:0 28px 70px rgba(0,0,0,.2)}.area:hover:before{width:calc(100% - 68px)}.areaNo{position:absolute;left:27px;top:24px;color:rgba(237,227,207,.32);font:12px Georgia}.areaIcon{width:60px;height:60px;display:grid;place-items:center;color:#d3ad5c;border:1px solid rgba(207,178,112,.34);transform:rotate(45deg);margin:8px 0 42px;font:26px Georgia}.areaIcon span{transform:rotate(-45deg);display:grid;place-items:center}.areaIcon span svg{width:30px;height:30px;display:block}.area small{color:var(--gold);font-size:9px;letter-spacing:.2em}.area h3{font-size:29px;margin:12px 0 15px}.area p{color:#9cabb5;font-size:13px;line-height:1.8}.area a{margin-top:auto;padding-top:25px;border-top:1px solid rgba(207,178,112,.15);color:#d6b76f;font-size:12px;display:flex;justify-content:space-between}
     .process{background:var(--ivory)}.steps{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-right:1px solid var(--line)}.step{display:flex;gap:22px;padding:34px;border-left:1px solid var(--line);border-bottom:1px solid var(--line)}.step b{font:29px "Bodoni Moda",Georgia,serif;color:var(--gold)}.step h3{font-size:22px;margin-bottom:8px}.step p{color:#77736c;font-size:13px;line-height:1.65}
@@ -139,50 +201,88 @@
     @media(max-width:800px){.heroX{display:none}.mobileHero{display:block}.menuBtn{display:flex;position:absolute;left:20px;top:24px;width:32px;height:28px;background:none;border:0;flex-direction:column;justify-content:center;gap:7px;cursor:pointer;padding:0;z-index:70}.menuBtn span{display:block;height:1.5px;background:#0A1A2C;width:100%;transition:transform .3s,opacity .3s}.menuBtn[aria-expanded="true"] span:nth-child(1){transform:translateY(8.5px) rotate(45deg)}.menuBtn[aria-expanded="true"] span:nth-child(2){opacity:0}.menuBtn[aria-expanded="true"] span:nth-child(3){transform:translateY(-8.5px) rotate(-45deg)}.mobileMenu:not([hidden]){display:flex;position:fixed;inset:0;z-index:80;background:#071B2B;color:#F5EDDF;flex-direction:column;justify-content:center;padding:70px 34px}.mobileMenu nav{display:flex;flex-direction:column}.mobileMenu nav a{font-family:"Suez One",Georgia,serif;font-size:29px;padding:17px 0;border-bottom:1px solid rgba(198,160,82,.25);color:#F5EDDF}.mobileMenu nav a:first-child{border-top:1px solid rgba(198,160,82,.25)}.menuClose{position:absolute;top:22px;left:22px;background:none;border:0;color:#F5EDDF;font-size:24px;cursor:pointer;padding:8px}.menuContact{margin-top:36px;display:flex;gap:26px;font-size:15px}.menuContact a{color:#C6A052;border-bottom:1px solid rgba(198,160,82,.45);padding-bottom:6px}.section,.contact{padding:78px 24px}.about,.portraitStatement,.faq,.contact{grid-template-columns:1fr}.portraitStatement figure{height:560px}.portraitStatement>div{padding:78px 28px}.head{display:block}.head>p{margin-top:20px}.areas,.steps{grid-template-columns:repeat(2,1fr)}.guidesGrid{grid-template-columns:1fr}.wa{display:none}.mobileBar{position:fixed;z-index:50;bottom:0;left:0;right:0;height:58px;display:grid;grid-template-columns:repeat(3,1fr);background:var(--navy);color:#fff}.mobileBar a{display:grid;place-items:center;border-left:1px solid rgba(255,255,255,.15);font-size:12px}.mobileBar a:last-child{background:var(--gold);color:var(--navy)}footer{padding-bottom:82px;align-items:flex-start;flex-direction:column;gap:15px}}
     @media(max-width:560px){.areas,.steps,.form{grid-template-columns:1fr}.area{min-height:315px}.form{padding:25px}.form label{grid-column:1/-1}.signature{flex-direction:column;gap:15px}.portraitStatement figure{height:480px}}
     .rv{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.22,.61,.36,1),transform .75s cubic-bezier(.22,.61,.36,1)}.rv.in{opacity:1;transform:none}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.area{transition:none}.heroX *{animation:none!important}.hSweep{display:none}.hCars{display:none}.rv{opacity:1!important;transform:none!important;transition:none}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.area{transition:none}.mg *{animation:none!important}.mg-comet{display:none}.rv{opacity:1!important;transform:none!important;transition:none}}
   </style>
 </head>
 <body>
   <a class="skip" href="#content">דילוג לתוכן</a>
-  <section class="heroX" aria-label="עורך הדין פרי מצר סולומון">
-    <div class="hPhoto"><img src="assets/images/hero-portrait.webp" alt="עורך הדין פרי מצר סולומון, ייצוג משפטי בדיני תעבורה" fetchpriority="high"></div>
-    <svg class="hRoadsSvg" viewBox="0 0 1586 992" preserveAspectRatio="none" aria-hidden="true">
-      <g fill="none" stroke-linecap="round" stroke="#c9b68b">
-        <path class="edge carPath" d="M1160 0 C1100 240 1195 470 1105 700 C1045 850 1065 930 1025 992" stroke-width="1.8" stroke-opacity=".34"/>
-        <path class="edge" d="M1246 0 C1186 245 1281 475 1191 705 C1131 855 1151 933 1111 992" stroke-width="1.8" stroke-opacity=".34"/>
-        <path class="dash d1 carPath" d="M1203 0 C1143 242 1238 472 1148 702 C1088 852 1108 931 1068 992" stroke-width="1.3" stroke-opacity=".3" stroke-dasharray="26 22"/>
-        <path class="edge carPath" d="M1586 330 C1400 430 1300 620 1330 992" stroke-width="1.6" stroke-opacity=".28"/>
-        <path class="edge" d="M1586 402 C1452 492 1364 662 1394 992" stroke-width="1.6" stroke-opacity=".28"/>
-        <path class="dash d2 carPath" d="M1586 366 C1426 461 1332 640 1362 992" stroke-width="1.2" stroke-opacity=".26" stroke-dasharray="24 20"/>
-        <path class="edge" d="M842 0 C912 250 1090 296 1330 322 C1436 333 1520 348 1586 362" stroke-width="1.3" stroke-opacity=".14"/>
-        <path class="dash d3" d="M872 0 C936 236 1102 278 1336 303 C1440 314 1522 330 1586 344" stroke-width="1" stroke-opacity=".12" stroke-dasharray="18 16"/>
-        <path class="edge" d="M1178 560 C1260 520 1350 496 1462 486" stroke-width="1.2" stroke-opacity=".2" stroke-dasharray="4 14"/>
-        <path class="edge" d="M1042 826 C940 878 838 922 748 964" stroke-width="1.3" stroke-opacity=".22"/>
-        <path class="edge" d="M1070 858 C968 908 874 948 792 986" stroke-width="1.1" stroke-opacity=".15"/>
-      </g>
-      <path class="hPulse" d="M1160 0 C1100 240 1195 470 1105 700 C1045 850 1065 930 1025 992" fill="none" stroke="#e5cd96" stroke-width="2.4" stroke-linecap="round" pathLength="100" stroke-dasharray="9 91" stroke-dashoffset="109" stroke-opacity=".55"/>
-    </svg>
-    <canvas class="hCars" aria-hidden="true"></canvas>
-    <svg class="hSvg" viewBox="0 0 1586 992" preserveAspectRatio="none" aria-hidden="true">
-      <line x1="760" y1="0" x2="485" y2="992" stroke="#C6A052" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
-      <line x1="800" y1="0" x2="525" y2="992" stroke="#C6A052" stroke-width="1" stroke-opacity=".38" vector-effect="non-scaling-stroke"/>
-      <line class="hSweep" x1="760" y1="0" x2="485" y2="992" pathLength="100" stroke="#EED9A6" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="14 86" stroke-dashoffset="112" opacity=".85" vector-effect="non-scaling-stroke"/>
-    </svg>
-    <div class="hNum" aria-hidden="true">01</div>
-    <div class="kickRule" aria-hidden="true"></div>
-    <div class="baseRule" aria-hidden="true"></div>
-    <nav class="hNav" aria-label="ניווט ראשי"><a href="#about">אודות</a><i></i><a href="#areas">תחומי עיסוק</a><i></i><a href="#process">דרך הטיפול</a><i></i><a href="/points-calculator">מחשבון נקודות</a><i></i><a href="#faq">שאלות</a><i></i><a href="#contact">יצירת קשר</a></nav>
-    <div class="hLogo"><img src="assets/images/logo.webp" alt="פרי מצר סולומון · PERI METZER SOLOMON" fetchpriority="high"><span class="hLogoTag">משרד עורך דין - מקבוצת BML</span></div>
-    <p class="hKick">דיני תעבורה ורישוי נהיגה</p>
-    <h1 class="hHead">כשכל נקודה<br>משנה את הדרך.</h1>
-    <p class="hLead">ייצוג משפטי מדויק בדיני תעבורה, פסילות רישיון והליכים<br>בפני בתי המשפט לתעבורה.</p>
-    <a class="hPrimary" href="#contact">לבדיקת המקרה</a>
-    <a class="hSecondary" href="tel:039405151">שיחה מיידית</a>
-  </section>
-  <section class="mobileHero">
-    <div class="mobileBrand"><button class="menuBtn" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="פתיחת תפריט"><span></span><span></span><span></span></button><div class="mBrandWrap"><img src="assets/images/logo.webp" alt="פרי מצר סולומון · PERI METZER SOLOMON"><small>משרד עורך דין - מקבוצת BML</small></div></div>
-    <div class="mobilePortrait"><img src="assets/images/peri-metzer-solomon-warm.webp" alt="עורך הדין פרי מצר סולומון"></div>
-    <div class="mobileCopy"><span class="eyebrow">דיני תעבורה ורישוי נהיגה</span><h1>כשכל נקודה<br>משנה את הדרך.</h1><p>ייצוג משפטי מדויק בדיני תעבורה, פסילות רישיון והליכים בפני בתי המשפט לתעבורה.</p><div class="actions"><a class="primary" href="#contact">לבדיקת המקרה</a><a class="secondary" href="tel:039405151">שיחה מיידית</a></div></div>
+  <section class="mg" aria-label="עורך הדין פרי מצר סולומון">
+    <div class="mg-bg">
+      <div class="mg-base"></div>
+      <svg class="mg-roads" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <filter id="mgS1" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="8"/></filter>
+          <filter id="mgS2" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.2"/></filter>
+          <linearGradient id="mgBlu" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#1B3A63" stop-opacity="0"/><stop offset=".45" stop-color="#3567A6" stop-opacity="1"/><stop offset="1" stop-color="#5E92D2" stop-opacity="0"/></linearGradient>
+          <linearGradient id="mgGld" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#C99542" stop-opacity="0"/><stop offset=".5" stop-color="#F5CE7E" stop-opacity="1"/><stop offset="1" stop-color="#C99542" stop-opacity="0"/></linearGradient>
+        </defs>
+        <g filter="url(#mgS1)" fill="none" opacity="1">
+          <path d="M -80 700 C 250 660 470 610 760 612 S 1240 632 1600 520" stroke="url(#mgBlu)" stroke-width="13"/>
+          <path d="M -80 800 C 300 770 560 720 840 726 S 1300 742 1620 640" stroke="url(#mgBlu)" stroke-width="9"/>
+          <path d="M -60 560 C 240 540 470 470 720 430 S 1180 330 1600 210" stroke="url(#mgBlu)" stroke-width="6" opacity=".7"/>
+          <path d="M -60 640 C 260 590 470 540 760 545 S 1240 560 1620 470" stroke="url(#mgGld)" stroke-width="9"/>
+          <path d="M -80 900 C 200 850 360 760 470 600 S 560 360 640 240" stroke="url(#mgGld)" stroke-width="5" opacity=".65"/>
+        </g>
+        <g filter="url(#mgS2)" fill="none">
+          <path d="M -80 700 C 250 660 470 610 760 612 S 1240 632 1600 520" stroke="#A9CBF2" stroke-width="2" opacity=".9"/>
+          <path d="M -60 640 C 260 590 470 540 760 545 S 1240 560 1620 470" stroke="#FCE9BE" stroke-width="2.4" opacity="1"/>
+          <path d="M -80 800 C 300 770 560 720 840 726 S 1300 742 1620 640" stroke="#96B9E4" stroke-width="1.4" opacity=".7"/>
+          <path d="M -80 900 C 200 850 360 760 470 600 S 560 360 640 240" stroke="#F6DFA9" stroke-width="1.4" opacity=".7"/>
+        </g>
+      </svg>
+      <div class="mg-flare"></div>
+      <div class="mg-dots"></div>
+      <div class="mg-comet"></div>
+      <div class="mg-comet c2"></div>
+      <div class="mg-comet c3"></div>
+      <div class="mg-veil"></div>
+      <div class="mg-caption">כביש ואורות בתנועה חיה</div>
+    </div>
+
+    <div class="mg-portrait"><picture>
+      <source media="(max-width:800px)" srcset="assets/images/peri-metzer-solomon-warm.webp">
+      <img src="assets/images/hero-portrait.webp" alt="עורך הדין פרי מצר סולומון, ייצוג משפטי בדיני תעבורה" fetchpriority="high" width="777" height="992">
+    </picture></div>
+
+    <nav class="mg-nav" aria-label="ניווט ראשי">
+      <a class="mg-brand" href="/" aria-label="פרי מצר סולומון · עמוד הבית"><img class="mg-logo" src="assets/images/logo.webp" alt="פרי מצר סולומון · PERI METZER SOLOMON"></a>
+      <div class="mg-menu">
+        <a class="on" href="/">ראשי</a><a href="#about">אודות</a><a href="#areas">תחומי עיסוק</a>
+        <a href="#process">דרך הטיפול</a><a href="/points-calculator">מחשבון נקודות</a><a href="#faq">שאלות</a><a href="#contact">יצירת קשר</a>
+      </div>
+      <button class="menuBtn" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="פתיחת תפריט"><span></span><span></span><span></span></button>
+    </nav>
+
+    <div class="mg-frame">
+      <section class="mg-card">
+        <div class="mg-eyebrow">דיני תעבורה ורישוי נהיגה</div>
+        <div class="mg-erule"></div>
+        <h1 class="mg-h1">הגנה משפטית מדויקת.<br><span class="g">תוצאה משנה את הדרך.</span></h1>
+        <div class="mg-meta"><span>תגובה מהירה</span><i></i><span>ליווי אישי</span><i></i><span>ייצוג בכל הארץ</span></div>
+        <div class="mg-cta">
+          <a class="mg-btn gold" href="#contact">בדיקת תיק ראשונית</a>
+          <a class="mg-btn glass" href="tel:039405151"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.1a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2Z"/></svg>חייגו עכשיו</a>
+        </div>
+      </section>
+
+      <aside class="mg-status" aria-label="סטטוס">
+        <div class="row"><span>סטטוס תיק</span><span class="dot"></span></div>
+        <div class="big">תגובה מהירה</div>
+        <div class="sm">זמינות גבוהה<br>עד 2 שעות</div>
+        <div class="bar"><i class="a"></i><i class="a"></i><i class="a"></i><i></i><i></i></div>
+      </aside>
+
+      <div class="mg-trust">
+        <div class="mg-cell"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 4 40 10v12c0 10-6.5 18-16 22C14.5 40 8 32 8 22V10l16-6Z"/><path d="m18 24 4 4 8-8"/></svg></span>
+          <div class="tx"><div class="tt">מומחיות ייחודית</div><div class="dd">בדיני תעבורה<br>ורישוי נהיגה</div></div></div>
+        <div class="mg-cell"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="20" r="6"/><path d="M24 44s14-13.5 14-26a14 14 0 1 0-28 0c0 12.5 14 26 14 26Z"/></svg></span>
+          <div class="tx"><div class="tt">פריסה ארצית</div><div class="dd">ייצוג בבתי המשפט<br>בכל הארץ</div></div></div>
+        <div class="mg-cell"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="18"/><path d="M24 13v12l8 5"/></svg></span>
+          <div class="tx"><div class="tt">זמינות גבוהה</div><div class="dd">מענה מהיר<br>וטיפול יעיל</div></div></div>
+        <div class="mg-cell"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 42v-4a8 8 0 0 0-8-8H14a8 8 0 0 0-8 8v4"/><circle cx="19" cy="14" r="8"/><path d="M42 42v-4a8 8 0 0 0-6-7.7"/></svg></span>
+          <div class="tx"><div class="tt">אלפי תיקים</div><div class="dd">ניסיון מוכח<br>ותוצאות מוכחות</div></div></div>
+      </div>
+    </div>
   </section>
   <div class="mobileMenu" id="mobileMenu" hidden><button class="menuClose" type="button" aria-label="סגירת תפריט">✕</button><nav aria-label="תפריט נייד"><a href="#about">אודות</a><a href="#areas">תחומי עיסוק</a><a href="#process">דרך הטיפול</a><a href="/points-calculator">מחשבון נקודות</a><a href="#faq">שאלות</a><a href="#contact">יצירת קשר</a></nav><div class="menuContact"><a href="tel:039405151">03-940-5151</a><a href="https://wa.me/972528822044">WhatsApp</a></div></div>
   <main id="content">
@@ -232,31 +332,8 @@
     const menuBtn=document.querySelector(".menuBtn"),mobileMenu=document.getElementById("mobileMenu");
     if(menuBtn&&mobileMenu){const closeMenu=()=>{mobileMenu.hidden=true;menuBtn.setAttribute("aria-expanded","false");document.body.style.overflow=""};menuBtn.addEventListener("click",()=>{if(mobileMenu.hidden){mobileMenu.hidden=false;menuBtn.setAttribute("aria-expanded","true");document.body.style.overflow="hidden"}else closeMenu()});mobileMenu.querySelector(".menuClose").addEventListener("click",closeMenu);mobileMenu.querySelectorAll("a").forEach(a=>a.addEventListener("click",e=>{const href=a.getAttribute("href");closeMenu();if(href.startsWith("#")){e.preventDefault();document.querySelector(href)?.scrollIntoView();history.replaceState(null,"",href)}}));addEventListener("keydown",e=>{if(e.key==="Escape"&&!mobileMenu.hidden)closeMenu()})}
     if(!matchMedia("(prefers-reduced-motion: reduce)").matches){
-      const roads=document.querySelector(".hRoadsSvg"),num=document.querySelector(".hNum"),cars=document.querySelector(".hCars");
-      let ticking=false;addEventListener("scroll",()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{const y=Math.min(scrollY,innerHeight);if(roads)roads.style.transform=`translateY(${y*-0.06}px)`;if(cars)cars.style.transform=`translateY(${y*-0.06}px)`;if(num)num.style.transform=`translateY(${y*-0.04}px)`;ticking=false})},{passive:true});
-      if(cars){
-        const hero=document.querySelector(".heroX"),ctx=cars.getContext("2d"),dpr=Math.min(devicePixelRatio||1,2);
-        const paths=[...document.querySelectorAll(".hRoadsSvg .carPath")];
-        const lights=[];
-        paths.forEach((p,i)=>{const L=p.getTotalLength();for(let k=0;k<2;k++)lights.push({p,L,t:Math.abs(Math.sin(i*3+k*7))*L,v:(0.35+0.25*((i+k)%3))*(i%2?1:-1)})});
-        const size=()=>{const r=hero.getBoundingClientRect();cars.width=r.width*dpr;cars.height=r.height*dpr};
-        size();addEventListener("resize",size);
-        (function frame(){
-          const r=hero.getBoundingClientRect();
-          if(r.width>0){
-            const sx=r.width*dpr/1586,sy=r.height*dpr/992;
-            ctx.clearRect(0,0,cars.width,cars.height);
-            for(const c of lights){
-              c.t+=c.v;if(c.t>c.L)c.t=0;if(c.t<0)c.t=c.L;
-              const pt=c.p.getPointAtLength(c.t),x=pt.x*sx,y=pt.y*sy,rad=7*dpr;
-              const g=ctx.createRadialGradient(x,y,0,x,y,rad);
-              g.addColorStop(0,"rgba(232,207,150,.85)");g.addColorStop(1,"rgba(232,207,150,0)");
-              ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,rad,0,7);ctx.fill();
-            }
-          }
-          requestAnimationFrame(frame);
-        })();
-      }
+      const road=document.querySelector(".mg-roads"),port=document.querySelector(".mg-portrait");
+      let t=false;addEventListener("scroll",()=>{if(t)return;t=true;requestAnimationFrame(()=>{const y=Math.min(scrollY,innerHeight);if(road)road.style.transform=`translateY(${y*0.05}px)`;if(port)port.style.transform=`translateY(${y*-0.03}px)`;t=false})},{passive:true});
     }
     ;(function(){var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;var sel="#about > div, .portraitStatement > *, #areas .head, #areas .area, #process .head, #process .step, #faq > div, #faq .accordion article, #guides .head, #guides .guidesGrid a, #contact .contactInfo, #contact .form";var els=[].slice.call(document.querySelectorAll(sel));els.forEach(function(el){el.classList.add("rv")});if(reduce||!("IntersectionObserver" in window)){els.forEach(function(el){el.classList.add("in")});return}var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var sibs=[].slice.call(e.target.parentNode.querySelectorAll(".rv"));var i=Math.max(0,sibs.indexOf(e.target));e.target.style.transitionDelay=(i*0.07)+"s";e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:0.12,rootMargin:"0px 0px -6% 0px"});els.forEach(function(el){io.observe(el)})})();
   </script>
