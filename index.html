@@ -279,6 +279,30 @@
     /* gentle gold hairline between stacked sections for rhythm */
     #content>section+section{border-top:1px solid rgba(201,149,66,.10)}
     
+
+    /* --- MG fix: areas + portrait statement were still the old language --- */
+    /* deep-navy grounds, matched to the rest of the page (no light blue wash) */
+    #content .dark{background:radial-gradient(120% 90% at 14% 6%,rgba(36,78,130,.16),transparent 46%),linear-gradient(180deg,#010711 0%,#03101e 55%,#010711 100%)}
+    #content .portraitStatement{background:linear-gradient(180deg,#03101e,#010711)}
+    #content .portraitStatement figure:after{background:linear-gradient(90deg,transparent,rgba(1,7,17,.55))}
+    /* practice-area cards -> rounded glass, same family as the hero trust bar */
+    #content .area{border:1px solid rgba(218,226,236,.14);border-radius:16px;
+      background:linear-gradient(160deg,rgba(15,41,72,.34),rgba(6,20,38,.14));
+      backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+      padding:32px 30px;min-height:340px;
+      transition:border-color .35s,transform .35s,box-shadow .35s}
+    #content .area:hover{transform:translateY(-6px);border-color:rgba(240,200,115,.5);box-shadow:0 26px 60px rgba(0,0,0,.5)}
+    /* retire the old sliding gold hairline */
+    #content .area:before{content:none}
+    /* icon: rounded gold-framed tile instead of the rotated diamond */
+    #content .areaIcon{width:52px;height:52px;border-radius:13px;transform:none;margin:2px 0 30px;
+      border:1px solid rgba(201,149,66,.38);color:#f0c873;background:rgba(201,149,66,.07)}
+    #content .areaIcon span{transform:none}
+    #content .areaIcon span svg{width:26px;height:26px}
+    #content .areaNo{left:26px;top:22px;color:rgba(170,183,201,.45);font:12px "Bodoni Moda",Georgia,serif}
+    #content .area small{letter-spacing:.18em}
+    #content .area h3{margin:10px 0 14px}
+    
   </style>
 </head>
 <body>
