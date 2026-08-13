@@ -146,23 +146,28 @@ export default async function handler(req, res) {
 
   const payload = { name, phone, subject, details };
 
-  // Assistant first; the direct Resend/Salesforce channels only run as fallback if it fails
-  // (and stay inert anyway until their env vars are configured).
-  try {
-    const assistant = await forwardToAssistant(payload);
-    return res.status(200).json({ ok: true, assistant });
-  } catch (e) {
-    console.error('assistant:', e);
+  // Storing the lead and notifying the office are INDEPENDENT jobs, so they run together.
+  // They used to be chained: a successful hand-off to the assistant returned early, which meant
+  // the notification email below never ran for any lead that filed correctly — every submission,
+  // in other words. The office then relied solely on the assistant's own Salesforce mail channel.
+  const [assistant, email] = await Promise.allSettled([
+    forwardToAssistant(payload),
+    sendEmail(payload),
+  ]);
+  if (assistant.status === 'rejected') console.error('assistant:', assistant.reason);
+  if (email.status === 'rejected') console.error('email:', email.reason);
+
+  // Salesforce stays a fallback: while the assistant is reachable the lead is deliberately held in
+  // its quarantined store until the lawyer approves it, so writing a Lead here too would duplicate it.
+  let sf = { skipped: true };
+  if (assistant.status === 'rejected') {
+    try { sf = await createSfLead(payload); } catch (e) { console.error('salesforce:', e); sf = { error: true }; }
   }
 
-  const [email, sf] = await Promise.allSettled([sendEmail(payload), createSfLead(payload)]);
-  if (email.status === 'rejected') console.error('email:', email.reason);
-  if (sf.status === 'rejected') console.error('salesforce:', sf.reason);
-
   return res.status(200).json({
-    ok: email.status === 'fulfilled' || sf.status === 'fulfilled',
-    assistant: { error: true },
+    ok: assistant.status === 'fulfilled' || email.status === 'fulfilled' || !!sf.id,
+    assistant: assistant.status === 'fulfilled' ? assistant.value : { error: true },
     email: email.status === 'fulfilled' ? email.value : { error: true },
-    salesforce: sf.status === 'fulfilled' ? sf.value : { error: true },
+    salesforce: sf,
   });
 }
