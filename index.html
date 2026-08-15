@@ -108,7 +108,13 @@
     .mg-portrait img{position:absolute;left:0;bottom:0;height:100%;width:100%;object-fit:cover;object-position:66% 12%;filter:grayscale(.32) contrast(1.05) brightness(1.02);-webkit-mask-image:linear-gradient(90deg,#000 54%,transparent 98%);mask-image:linear-gradient(90deg,#000 54%,transparent 98%)}
     .mg-portrait:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,var(--n0) 1%,transparent 24%),linear-gradient(90deg,rgba(201,149,66,.16) 0%,transparent 20%),linear-gradient(270deg,rgba(36,78,130,.20) 0%,transparent 40%);-webkit-mask-image:linear-gradient(90deg,#000 54%,transparent 98%);mask-image:linear-gradient(90deg,#000 54%,transparent 98%)}
     .mg-nav{position:absolute;z-index:8;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:24px clamp(22px,3.4vw,58px);border-bottom:1px solid rgba(218,226,236,.08)}
-    .mg-brand{display:flex;align-items:center}
+    .mg-brand{display:flex;align-items:center;gap:15px}
+    .mg-bmlRule{width:1px;align-self:stretch;margin:3px 0;background:linear-gradient(transparent,rgba(201,149,66,.55),transparent)}
+    .mg-bml{display:flex;align-items:center;gap:10px}
+    .mg-bmlSeal{width:36px;height:36px;display:block;flex:none}
+    .mg-bmlTxt{line-height:1.25;text-align:right}
+    .mg-bmlTxt .k{display:block;font-size:8.5px;letter-spacing:.30em;color:var(--g2);font-weight:600}
+    .mg-bmlTxt .v{display:block;font-size:11.5px;color:#cfd8e4;font-weight:500;margin-top:2px;white-space:nowrap}
     .mg-logo{height:44px;width:auto;display:block;filter:brightness(0) invert(1);opacity:.97}
     .mg-menu{display:flex;align-items:center;gap:26px;font-weight:500;font-size:15px;color:#cfd8e4}
     .mg-menu a{position:relative;padding:8px 0;transition:color .2s}.mg-menu a:hover{color:#fff}
@@ -163,6 +169,8 @@
     @keyframes mgFlow{to{stroke-dashoffset:-260}}
     @media(max-width:1024px){
      .mg-menu{display:none}
+     .mg-brand{gap:12px}
+     .mg-bmlTxt .v{font-size:11px}
      .mg-portrait{width:100%;max-width:none;opacity:.42;-webkit-mask-image:linear-gradient(0deg,#000 24%,transparent 74%);mask-image:linear-gradient(0deg,#000 24%,transparent 74%)}
      .mg-portrait img{-webkit-mask-image:none;mask-image:none;object-position:66% 6%}
      .mg-portrait:after{-webkit-mask-image:none;mask-image:none}
@@ -175,6 +183,9 @@
     }
     @media(max-width:600px){
      .mg-logo{height:34px}
+     .mg-brand{gap:10px}
+     .mg-bmlSeal{width:30px;height:30px}
+     .mg-bmlTxt{display:none}
      .mg-card{padding:30px 24px}
      .mg-cta{flex-direction:column}.mg-btn{width:100%;flex:none}
      .mg-meta{flex-wrap:wrap;justify-content:center;font-size:16px}
@@ -349,7 +360,14 @@
     </picture></div>
 
     <nav class="mg-nav" aria-label="ניווט ראשי">
-      <a class="mg-brand" href="/" aria-label="פרי מצר סולומון · עמוד הבית"><img class="mg-logo" src="assets/images/logo.webp" alt="פרי מצר סולומון · PERI METZER SOLOMON"></a>
+      <div class="mg-brand">
+        <a href="/" aria-label="פרי מצר סולומון · עמוד הבית"><img class="mg-logo" src="assets/images/logo.webp" alt="פרי מצר סולומון · PERI METZER SOLOMON"></a>
+        <span class="mg-bmlRule" aria-hidden="true"></span>
+        <span class="mg-bml">
+          <img class="mg-bmlSeal" src="assets/images/bml-seal.webp" alt="" width="160" height="160">
+          <span class="mg-bmlTxt"><span class="k">MEMBER OF</span><span class="v">מקבוצת משרד עורכי דין BML</span></span>
+        </span>
+      </div>
       <div class="mg-menu">
         <a class="on" href="/">ראשי</a><a href="#about">אודות</a><a href="#areas">תחומי עיסוק</a>
         <a href="#process">דרך הטיפול</a><a href="/points-calculator">מחשבון נקודות</a><a href="#faq">שאלות</a><a href="#contact">יצירת קשר</a>
