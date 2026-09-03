@@ -29,7 +29,7 @@ h1,h2,h3{font-family:"Heebo",Arial,"Noto Sans Hebrew",sans-serif;font-weight:800
 .brand strong{display:block;font:600 17px "Heebo",Arial,sans-serif;color:var(--pearl)}
 .brand small{font:7px "Bodoni Moda",Georgia,serif;letter-spacing:.22em;color:var(--muted)}
 .topbar nav{display:flex;gap:26px;font-size:14px;color:#cfd8e4}
-.topbar nav a{border-bottom:1px solid transparent;padding-bottom:4px;transition:color .25s,border-color .25s}
+.topbar nav a{display:inline-flex;align-items:center;min-height:44px;border-bottom:1px solid transparent;padding:0 2px;transition:color .25s,border-color .25s}
 .topbar nav a:hover,.topbar nav a:focus-visible{color:var(--gold2);border-color:var(--gold)}
 
 /* ---- hero ---- */

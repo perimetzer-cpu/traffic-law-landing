@@ -13,7 +13,6 @@
 .
 ├── assets/
 │   └── images/
-│       ├── approved-hero-reference.webp
 │       └── peri-metzer-solomon-warm.webp
 ├── CLAUDE.md
 ├── README.md
