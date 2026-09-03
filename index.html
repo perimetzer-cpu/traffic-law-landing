@@ -379,6 +379,36 @@
     }
     @media(prefers-reduced-motion:reduce){#content .steps .rd-svg .glow{transition:none;stroke-dashoffset:0}#content .steps .rd-comet{display:none}#content .step b{opacity:1;transform:none}}
 
+
+/* ===== AREAS: «מסך רחב» — six full-width cinematic statements: giant numeral, huge title, watermark icon, cursor glow ===== */
+    @media(min-width:1025px){
+    #content .areas{display:block;border-top:1px solid rgba(201,149,66,.32)}
+    #content .area{position:relative;display:grid;grid-template-columns:150px 1.05fr 1fr;grid-template-areas:"no ttl desc" "no ttl link";column-gap:36px;row-gap:6px;align-items:center;
+      min-height:auto;margin:0;padding:50px 26px 46px;border:0;border-bottom:1px solid rgba(201,149,66,.22);border-radius:0;background:none;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;overflow:hidden;--mx:60%;--my:50%}
+    #content .area::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .45s;background:radial-gradient(560px circle at var(--mx) var(--my),rgba(240,200,115,.13),transparent 62%)}
+    #content .area:hover::before{opacity:1}
+    #content .area:hover{transform:none;box-shadow:none;border-bottom-color:rgba(240,200,115,.5)}
+    #content .area::after{content:"";position:absolute;right:0;bottom:-1px;height:2px;width:100%;background:linear-gradient(270deg,#f0c873,rgba(240,200,115,0) 70%);transform:scaleX(0);transform-origin:right;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+    #content .area:hover::after{transform:scaleX(1)}
+    #content .area>*{position:relative;z-index:1}
+    /* watermark icon — huge, faint, drifts on hover */
+    #content .areaIcon{grid-area:auto;position:absolute;z-index:0;left:34%;top:50%;width:300px;height:300px;margin:0;border:0;border-radius:0;background:none;color:rgba(240,200,115,.075);
+      transform:translate(-50%,-50%) rotate(-10deg);transition:color .6s,transform .9s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+    #content .areaIcon span svg{width:300px;height:300px;stroke-width:.8}
+    #content .area:hover .areaIcon{color:rgba(240,200,115,.17);transform:translate(-50%,-50%) rotate(0deg) scale(1.06)}
+    /* numeral */
+    #content .areaNo{grid-area:no;position:static;font:400 112px "Bodoni Moda",serif;line-height:.9;color:transparent;-webkit-text-stroke:1px rgba(240,200,115,.6);transition:color .4s,-webkit-text-stroke .4s;align-self:center}
+    #content .area:hover .areaNo{color:#f0c873;-webkit-text-stroke:0}
+    #content .area small{display:none}
+    #content .area h3{grid-area:ttl;margin:0;font-size:clamp(38px,3.8vw,56px);letter-spacing:-.025em;line-height:1.02;color:#f5f2eb}
+    #content .area p{grid-area:desc;margin:0;font-size:17px;line-height:1.75;color:#aab7c9;max-width:38ch;align-self:end}
+    #content .area a{grid-area:link;margin:0;padding:0;border:0;justify-content:flex-start;gap:12px;font-size:14px;color:#f0c873;align-self:start;transition:gap .3s}
+    #content .area:hover a{gap:20px}
+    /* scroll reveal: slide in from the right, staggered (the site's .rv/.in still drives opacity) */
+    #content .area.rv{transform:translateX(56px)}
+    #content .area.rv.in{transform:none}
+    }
+
   </style>
 </head>
 <body>
@@ -570,6 +600,13 @@
       }
       
       road('#steps','.step b',{caps:true,drawIn:true,legend:'מהבדיקה הראשונה ועד להכרעה'});
+    })();
+  </script>
+<script>
+    // «מסך רחב» — practice areas as full-width cinematic statements; cursor glow follows the pointer
+
+    (function(){if(matchMedia('(max-width:1024px)').matches)return;
+      document.querySelectorAll('#areasGrid .area').forEach(el=>el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();el.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');el.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%')}));
     })();
   </script>
 </body>
