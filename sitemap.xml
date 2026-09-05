@@ -115,6 +115,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.pms.co.il/traffic-tribunal</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.pms.co.il/points-calculator</loc>
     <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
