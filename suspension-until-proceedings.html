@@ -15,7 +15,7 @@
   <meta name="theme-color" content="#010711">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/heebo-hebrew.woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/article.css?v=20260905">
+  <link rel="stylesheet" href="/assets/article.css?v=20260918">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -58,8 +58,28 @@
   <a class="skip" href="#content">דילוג לתוכן</a>
   <div class="topbar"><div class="inner">
     <a class="brand" href="/"><img src="/assets/images/logo.webp" width="1400" height="296" alt="פרי מצר סולומון · PERI METZER SOLOMON"></a>
-    <nav aria-label="ניווט"><a href="/">עמוד הבית</a><a href="/articles">כל המדריכים</a><a href="/points-calculator">מחשבון נקודות</a><a href="/administrative-suspension">פסילה מנהלית</a><a href="/points-system">שיטת הניקוד</a></nav>
+    <nav class="siteNav" aria-label="ניווט ראשי">
+        <a href="/">עמוד הבית</a>
+        <a href="/articles">כל המדריכים</a>
+        <a href="/points-calculator">מחשבון נקודות</a>
+        <a href="/#areas">תחומי עיסוק</a>
+      </nav>
+      <a class="navCta" href="/#contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>בדיקת המקרה</a>
+      <button class="navBtn" id="navBtn" type="button" aria-expanded="false" aria-controls="navSheet" aria-label="פתיחת תפריט">
+        <svg class="ic icMenu" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="ic icClose" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
   </div></div>
+  <div class="navSheet" id="navSheet">
+    <a class="row" href="/">עמוד הבית<b>←</b></a>
+    <a class="row" href="/articles">כל המדריכים<b>←</b></a>
+    <a class="row" href="/points-calculator">מחשבון נקודות<b>←</b></a>
+    <a class="row" href="/#areas">תחומי עיסוק<b>←</b></a>
+    <div class="sheetActions">
+      <a class="btn" href="/#contact">בדיקת המקרה</a>
+      <a class="sheetCall" href="tel:039405151">03-940-5151</a>
+    </div>
+  </div>
   <header class="hero"><div class="lv-bg" aria-hidden="true">
   <svg viewBox="0 0 1440 520" preserveAspectRatio="xMidYMid slice">
     <defs>
@@ -145,6 +165,23 @@
     <section class="cta"><div class="inner">
       <h2>הוגשה נגדכם בקשה לפסילה עד תום ההליכים?</h2>
       <p>בדיקה משפטית ראשונית של המקרה, בדיסקרטיות מלאה.</p>
+      <form class="gForm" id="guideForm" novalidate>
+        <label>שם מלא<input name="name" required autocomplete="name" placeholder="איך לפנות אליך?"></label>
+        <label>מספר טלפון<input name="phone" required type="tel" inputmode="tel" autocomplete="tel" placeholder="050-0000000"></label>
+        <label class="wide">נושא הפנייה<select name="subject" required>
+          <option selected>פסילה מנהלית</option>
+          <option>דוח תנועה או נקודות</option>
+          <option>הזמנה לדין</option>
+          <option>נהיגה בשכרות</option>
+          <option>אחר</option>
+        </select></label>
+        <label class="wide">תיאור קצר, לא חובה<textarea name="details" rows="2" placeholder="אפשר לכתוב בכמה מילים"></textarea></label>
+        <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn submit" type="submit">שליחת הפנייה</button>
+        <p class="gErr" id="gErr" role="alert" hidden></p>
+        <small>הפנייה נשלחת ישירות למשרד ותיבדק בהקדם. אין בשליחתה כדי ליצור יחסי עורך דין ולקוח או אישור לקבלת הייצוג.</small>
+      </form>
+      <div class="ctaOr">או</div>
       <div class="actions"><a class="btn" href="https://wa.me/972528822044">שליחת הודעת WhatsApp</a><a class="btn ghost" href="tel:039405151">03-940-5151</a></div>
     </div></section>
     <section class="related">
@@ -163,5 +200,12 @@
     <p><a href="/">עמוד הבית</a> · <a href="/articles">כל המדריכים</a> · <a href="tel:039405151">03-940-5151</a> · <a href="mailto:peri@bettylaw.co.il">peri@bettylaw.co.il</a> · שד׳ אבא אבן 8, הרצליה</p>
     <p>© 2026 כל הזכויות שמורות</p>
   </div></footer>
+  <a class="waFab" href="https://wa.me/972528822044" aria-label="פתיחת WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.7.2s-.8 1-1 1.2c-.2.2-.4.2-.7 0-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.2 3.1 1.3 3.3c.2.2 2.3 3.5 5.5 4.9.8.3 1.4.5 1.8.7.8.2 1.5.2 2 .1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.4z"/><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg></a>
+  <div class="guideBar" aria-label="פעולות מהירות">
+    <a href="tel:039405151">חייגו</a>
+    <a href="https://wa.me/972528822044">WhatsApp</a>
+    <a class="lead" href="#guideForm">שליחת פרטים</a>
+  </div>
+  <script src="/assets/site.js?v=20260918" defer></script>
 </body>
 </html>

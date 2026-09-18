@@ -433,6 +433,63 @@
     #aiTool .aiFallback .aiAgain{margin-top:18px}
     @media(max-width:600px){#aiTool .aiTop{grid-template-columns:1fr;text-align:center;justify-items:center}#aiTool .aiPlan{grid-template-columns:1fr}}
     @media(prefers-reduced-motion:reduce){#aiTool .aiLine{animation:none}#aiTool .aiResult.on{animation:none}}
+  
+    /* ===== one navigation, also on the phone ===== */
+    .gNav a[aria-current="page"]{color:var(--gold-2);border-bottom-color:var(--gold)}
+    .navBtn{display:none;width:44px;height:44px;flex:none;align-items:center;justify-content:center;position:relative;
+      background:none;border:0;color:var(--ivory);cursor:pointer;border-radius:10px;margin-inline-start:auto;
+      transition-property:background-color,transform;transition-duration:.18s;transition-timing-function:cubic-bezier(.2,0,0,1)}
+    .navBtn:active{transform:scale(.96)}
+    .navBtn .ic{position:absolute;width:22px;height:22px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;
+      transition-property:opacity,transform,filter;transition-duration:.3s;transition-timing-function:cubic-bezier(.2,0,0,1)}
+    .navBtn .icClose{opacity:0;transform:scale(.25);filter:blur(4px)}
+    .navBtn[aria-expanded="true"] .icMenu{opacity:0;transform:scale(.25);filter:blur(4px)}
+    .navBtn[aria-expanded="true"] .icClose{opacity:1;transform:scale(1);filter:blur(0)}
+    .navSheet{position:fixed;inset-inline:0;top:66px;z-index:59;background:rgba(3,16,30,.97);
+      -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);
+      padding:6px 22px 22px;max-height:calc(100dvh - 66px);overflow-y:auto;
+      opacity:0;transform:translateY(-8px);visibility:hidden;pointer-events:none;
+      transition-property:opacity,transform,visibility;transition-duration:.2s;transition-timing-function:cubic-bezier(.2,0,0,1)}
+    .navSheet.open{opacity:1;transform:translateY(0);visibility:visible;pointer-events:auto}
+    .navSheet a.row{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:56px;
+      border-bottom:1px solid rgba(199,166,106,.18);color:var(--ivory);font-size:17px;font-weight:600;
+      transition-property:color;transition-duration:.18s;transition-timing-function:cubic-bezier(.2,0,0,1)}
+    .navSheet a.row:hover,.navSheet a.row:focus-visible{color:var(--gold-2)}
+    .navSheet a.row b{color:var(--gold);font-weight:400;font-size:19px;line-height:1}
+    .navSheet a.row[aria-current="page"]{color:var(--gold-2)}
+    .navSheet .sheetActions{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:18px}
+    .navSheet .btn,.navSheet .sheetCall{display:inline-flex;align-items:center;justify-content:center;min-height:52px;
+      padding:0 20px;border-radius:12px;font-weight:700;
+      transition-property:transform,border-color,color;transition-duration:.18s;transition-timing-function:cubic-bezier(.2,0,0,1)}
+    .navSheet .btn{background:linear-gradient(120deg,var(--gold),#b8965a);color:var(--navy)}
+    .navSheet .sheetCall{border:1px solid rgba(199,166,106,.28);color:var(--ivory);font-variant-numeric:tabular-nums}
+    .navSheet .sheetCall:hover{border-color:var(--gold);color:var(--gold-2)}
+    .navSheet .btn:active,.navSheet .sheetCall:active{transform:scale(.96)}
+    body.navOpen{overflow:hidden}
+    .glassBar a:focus-visible,.glassBar button:focus-visible,.navSheet a:focus-visible{outline:2px solid var(--gold-2);outline-offset:3px;border-radius:6px}
+    .waFab{position:fixed;z-index:30;inset-inline-start:24px;bottom:24px;width:54px;height:54px;border-radius:50%;
+      background:#28c76f;color:#fff;display:grid;place-items:center;box-shadow:0 14px 30px -10px rgba(40,199,111,.7);
+      transition-property:transform;transition-duration:.18s;transition-timing-function:cubic-bezier(.2,0,0,1)}
+    .waFab:hover{transform:translateY(-2px)}
+    .waFab:active{transform:scale(.96)}
+    .waFab svg{width:28px;height:28px;fill:currentColor}
+    .guideBar{display:none}
+    @media(max-width:920px){.navBtn{display:flex}}
+    @media(max-width:760px){
+      .waFab{display:none}
+      body{padding-bottom:64px}
+      .guideBar{display:grid;grid-template-columns:1fr 1fr 1.2fr;position:fixed;inset-inline:0;bottom:0;z-index:35;
+        background:rgba(3,16,30,.96);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+        border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+      .guideBar a{display:grid;place-items:center;min-height:60px;font-size:13.5px;font-weight:600;color:var(--ivory);
+        border-inline-start:1px solid rgba(255,255,255,.12);font-variant-numeric:tabular-nums;
+        transition-property:background-color;transition-duration:.15s;transition-timing-function:cubic-bezier(.2,0,0,1)}
+      .guideBar a:first-child{border-inline-start:0}
+      .guideBar a:active{background:rgba(240,200,115,.10)}
+      .guideBar a.lead{background:linear-gradient(120deg,var(--gold),#b8965a);color:var(--navy);font-weight:700}
+      .gCta{display:none}
+    }
+    @media(prefers-reduced-motion:reduce){.navSheet,.navBtn .ic,.waFab,.guideBar a{transition-duration:.01ms}}
   </style>
 </head>
 <body>
@@ -445,15 +502,29 @@
         <img src="/assets/images/logo.webp" width="1400" height="296" alt="PMS — פרי מצר סולומון">
         <span>פרי מצר סולומון</span>
       </a>
-      <nav class="gNav" aria-label="ניווט בעמוד">
-        <a href="#calculator">המחשבון</a>
-        <a href="#tiers">מדרגות הניקוד</a>
-        <a href="#insights">תובנות חשובות</a>
-        <a href="#knowledge">ידע משפטי</a>
+      <nav class="gNav siteNav" aria-label="ניווט ראשי">
+        <a href="/">עמוד הבית</a>
+        <a href="/articles">כל המדריכים</a>
+        <a href="/points-calculator">מחשבון נקודות</a>
+        <a href="/#areas">תחומי עיסוק</a>
       </nav>
+      <button class="navBtn" id="navBtn" type="button" aria-expanded="false" aria-controls="navSheet" aria-label="פתיחת תפריט">
+        <svg class="ic icMenu" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="ic icClose" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
       <a class="gCta" href="/#contact">בדיקת דוח לפני תשלום <b>←</b></a>
     </div>
   </header>
+  <div class="navSheet" id="navSheet">
+    <a class="row" href="/">עמוד הבית<b>←</b></a>
+    <a class="row" href="/articles">כל המדריכים<b>←</b></a>
+    <a class="row" href="/points-calculator">מחשבון נקודות<b>←</b></a>
+    <a class="row" href="/#areas">תחומי עיסוק<b>←</b></a>
+    <div class="sheetActions">
+      <a class="btn" href="/#contact">בדיקת המקרה</a>
+      <a class="sheetCall" href="tel:039405151">03-940-5151</a>
+    </div>
+  </div>
 
   <main>
     <!-- ================= Hero + Calculator ================= -->
@@ -1086,5 +1157,12 @@
     document.getElementById('ai_fbAgain').addEventListener('click',reset);
   })();
   </script>
+  <a class="waFab" href="https://wa.me/972528822044" aria-label="פתיחת WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.7.2s-.8 1-1 1.2c-.2.2-.4.2-.7 0-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.2 3.1 1.3 3.3c.2.2 2.3 3.5 5.5 4.9.8.3 1.4.5 1.8.7.8.2 1.5.2 2 .1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.4z"/><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg></a>
+  <div class="guideBar" aria-label="פעולות מהירות">
+    <a href="tel:039405151">חייגו</a>
+    <a href="https://wa.me/972528822044">WhatsApp</a>
+    <a class="lead" href="#aiTool">בדיקת תדפיס</a>
+  </div>
+  <script src="/assets/site.js?v=20260918" defer></script>
 </body>
 </html>
