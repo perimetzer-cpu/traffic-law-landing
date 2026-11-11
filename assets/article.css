@@ -330,3 +330,10 @@ body.navOpen{overflow:hidden}
   .hubRow .t{font-size:17px}
 }
 @media(prefers-reduced-motion:reduce){.hubRow,.hubRow .t,.hubRow b,.hubClear{transition-duration:.01ms}}
+
+/* ===== שורת כותב ותאריך במדריכים ===== */
+.hero .byline{margin:20px 0 0;font-size:13.5px;color:var(--dim);display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center}
+.hero .byline a{display:inline-flex;align-items:center;min-height:44px;color:var(--gold2);border-bottom:0;text-decoration:underline;text-decoration-color:var(--goldline);text-underline-offset:5px}
+.hero .byline a:hover{text-decoration-color:var(--gold2)}
+.hero .byline span{font-variant-numeric:tabular-nums}
+footer p a{display:inline-block;padding:4px 0}
