@@ -39,6 +39,9 @@
     "description": "ייצוג משפטי בדיני תעבורה ורישיון נהיגה: פסילות רישיון, נהיגה בשכרות, תאונות דרכים, דוחות ונקודות.",
     "areaServed": ["מדינת ישראל", "תל אביב", "רמת גן", "גבעתיים", "פתח תקווה", "ראשון לציון", "חולון", "בת ים", "הרצליה", "רעננה", "כפר סבא", "נתניה", "רחובות", "נס ציונה", "אשדוד", "אשקלון", "ירושלים", "חיפה", "באר שבע", "מודיעין"],
     "knowsAbout": ["דיני תעבורה", "פסילת רישיון", "נהיגה בשכרות", "תאונות דרכים", "דוחות תנועה ונקודות"],
+    "sameAs": ["https://www.google.com/maps?cid=2955340700947554398"],
+    "hasMap": "https://www.google.com/maps?cid=2955340700947554398",
+    "employee": { "@type": "Person", "name": "פרי מצר סולומון", "jobTitle": "עורך דין", "description": "עורך דין בתחום דיני התעבורה. שירת במשטרת ישראל בתפקידים בכירים באגף התנועה, לפני שהוסמך כעורך דין.", "worksFor": { "@type": "LegalService", "name": "משרד עורך הדין פרי מצר סולומון" } },
     "founder": {
       "@type": "Person",
       "name": "פרי מצר סולומון",
@@ -409,6 +412,26 @@
     #content .area.rv.in{transform:none}
     }
 
+  
+    /* ===== ביקורות אמיתיות מגוגל — בלי קופסאות ===== */
+    #content .revs{border-top:1px solid rgba(201,149,66,.22)}
+    #content .revs .kicker{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+    #content .revs h2{text-wrap:balance}
+    #content .revScore{display:inline-flex;align-items:baseline;gap:9px;color:#aab7c9;font-size:13px;letter-spacing:.02em}
+    #content .revScore b{font:500 26px/1 "Bodoni Moda","Bodoni 72",Georgia,serif;color:#f0c873;font-variant-numeric:tabular-nums}
+    #content .revScore .stars{color:#f0c873;letter-spacing:.1em;font-size:13px}
+    #content .revScore a,#content .revAll{color:#f0c873;border-bottom:1px solid rgba(201,149,66,.45);padding-bottom:1px;transition-property:color,border-color;transition-duration:.18s}
+    #content .revScore a:hover,#content .revAll:hover{color:#fff3da;border-color:#f0c873}
+    #content .revWall{margin-top:40px;max-width:900px}
+    #content .rev{margin:0;padding:0 0 30px;border-bottom:1px solid rgba(218,226,236,.12)}
+    #content .rev+.rev{padding-top:30px}
+    #content .rev blockquote{margin:0;font:400 clamp(20px,2vw,27px)/1.55 "Heebo",Arial,sans-serif;color:#f5f2eb;text-wrap:pretty}
+    #content .rev blockquote::before{content:"\201D";margin-inline-end:6px;font:500 .9em "Bodoni Moda",Georgia,serif;color:#c99542}
+    #content .rev figcaption{margin-top:14px;font:700 13px "Heebo",Arial,sans-serif;letter-spacing:.06em;color:#c99542}
+    #content .rev figcaption span{font-weight:400;letter-spacing:.02em;color:#8b98a9;margin-inline-start:12px}
+    #content .revAll{display:inline-flex;align-items:center;min-height:44px;margin-top:22px;font-size:15px}
+    #content .aboutCopy .bgNote{color:#f5f2eb}
+    @media(max-width:820px){#content .revWall{margin-top:26px}#content .rev{padding-bottom:22px}#content .rev+.rev{padding-top:22px}}
   </style>
 </head>
 <body>
@@ -465,7 +488,7 @@
       </div>
       <div class="mg-menu">
         <a class="on" href="/">ראשי</a><a href="#about">אודות</a><a href="#areas">תחומי עיסוק</a>
-        <a href="#process">דרך הטיפול</a><a href="/articles">מדריכים</a><a href="/points-calculator">מחשבון נקודות</a><a href="#faq">שאלות</a><a href="#contact">יצירת קשר</a>
+        <a href="#process">דרך הטיפול</a><a href="/articles">מדריכים</a><a href="/points-calculator">מחשבון נקודות</a><a href="#reviews">ביקורות</a><a href="#faq">שאלות</a><a href="#contact">יצירת קשר</a>
       </div>
       <a class="mg-navCta" href="#contact">לבדיקת המקרה</a>
       <button class="menuBtn" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="פתיחת תפריט"><span></span><span></span><span></span></button>
@@ -495,14 +518,26 @@
       </div>
     </div>
   </section>
-  <div class="mobileMenu" id="mobileMenu" hidden><button class="menuClose" type="button" aria-label="סגירת תפריט">✕</button><nav aria-label="תפריט נייד"><a href="#about">אודות</a><a href="#areas">תחומי עיסוק</a><a href="#process">דרך הטיפול</a><a href="/articles">מדריכים</a><a href="/points-calculator">מחשבון נקודות</a><a href="#faq">שאלות</a><a href="#contact">יצירת קשר</a></nav><div class="menuContact"><a href="tel:039405151">03-940-5151</a><a href="https://wa.me/972528822044">WhatsApp</a></div></div>
+  <div class="mobileMenu" id="mobileMenu" hidden><button class="menuClose" type="button" aria-label="סגירת תפריט">✕</button><nav aria-label="תפריט נייד"><a href="#about">אודות</a><a href="#areas">תחומי עיסוק</a><a href="#process">דרך הטיפול</a><a href="/articles">מדריכים</a><a href="/points-calculator">מחשבון נקודות</a><a href="#reviews">ביקורות</a><a href="#faq">שאלות</a><a href="#contact">יצירת קשר</a></nav><div class="menuContact"><a href="tel:039405151">03-940-5151</a><a href="https://wa.me/972528822044">WhatsApp</a></div></div>
   <main id="content">
-    <section id="about" class="section about"><div class="sectionNo">01</div><div><p class="kicker">אודות המשרד</p><h2>ייצוג אישי, יסודי<br>ומדויק בכל שלב</h2></div><div class="aboutCopy"><p>משרד עורך הדין פרי מצר סולומון מעניק ייצוג משפטי לנהגים מכל הארץ בהליכי תעבורה ורישיון נהיגה, בבתי המשפט לתעבורה בכל המחוזות, החל מבדיקת הדוח או חומר החקירה, דרך גיבוש אסטרטגיית ההגנה ועד לסיום ההליך.</p><p>הטיפול בכל תיק מבוסס על בחינה פרטנית של הראיות, הקפדה על המועדים המשפטיים, זמינות ושקיפות מלאה מול הלקוח.</p><div class="signature"><span>פרי מצר סולומון <small>עורך דין</small></span><b lang="en">PERI METZER SOLOMON</b></div></div></section>
+    <section id="about" class="section about"><div class="sectionNo">01</div><div><p class="kicker">אודות המשרד</p><h2>ייצוג אישי, יסודי<br>ומדויק בכל שלב</h2></div><div class="aboutCopy"><p>משרד עורך הדין פרי מצר סולומון מעניק ייצוג משפטי לנהגים מכל הארץ בהליכי תעבורה ורישיון נהיגה, בבתי המשפט לתעבורה בכל המחוזות, החל מבדיקת הדוח או חומר החקירה, דרך גיבוש אסטרטגיית ההגנה ועד לסיום ההליך.</p><p>הטיפול בכל תיק מבוסס על בחינה פרטנית של הראיות, הקפדה על המועדים המשפטיים, זמינות ושקיפות מלאה מול הלקוח.</p><p class="bgNote">עו״ד פרי מצר סולומון שירת במשטרת ישראל, בתפקידים בכירים באגף התנועה, לפני שהוסמך כעורך דין. את חומר החקירה הוא קורא כמי שמכיר את העבודה המשטרתית מבפנים.</p><div class="signature"><span>פרי מצר סולומון <small>עורך דין</small></span><b lang="en">PERI METZER SOLOMON</b></div></div></section>
     <section class="portraitStatement"><figure><img src="assets/images/peri-metzer-solomon-warm.webp" alt="עורך הדין פרי מצר סולומון" loading="lazy" decoding="async"></figure><div><p class="kicker">ליווי אישי. חשיבה אסטרטגית.</p><h2>כל תיק מתחיל<br>בהקשבה לפרטים.</h2><p class="body">הטיפול המשפטי מבוסס על היכרות מעמיקה עם נסיבות המקרה, בחינה יסודית של חומר הראיות וגיבוש דרך פעולה המותאמת ללקוח.</p><a class="textLink" href="#contact">לתיאום שיחת ייעוץ ←</a></div></section>
     <section id="areas" class="section dark"><div class="head"><div><p class="kicker">תחומי עיסוק</p><h2>הגנה משפטית ממוקדת<br>בעולם התעבורה</h2></div><p>כל מקרה נבחן לפי נסיבותיו, חומר הראיות והמשמעות המעשית עבור הנהג.</p></div><div class="areas" id="areasGrid"></div></section>
     <section id="process" class="section process"><div class="head"><div><p class="kicker">דרך הטיפול</p><h2>מסלול ברור.<br>בלי הפתעות.</h2></div><p>תהליך עבודה מובנה, שקוף ומותאם לצרכים המשפטיים והאישיים של כל לקוח.</p></div><div class="steps" id="steps"></div></section>
     <section id="faq" class="section faq"><div><p class="kicker">שאלות נפוצות</p><h2>מידע ראשוני.<br>לפני שמחליטים.</h2><p class="faqIntro">התשובות הן מידע כללי בלבד. ההחלטה הנכונה מתקבלת לאחר בחינת נסיבות המקרה.</p></div><div class="accordion" id="accordion"></div></section>
     <section id="guides" class="section guides"><div class="head"><div><p class="kicker">מידע ומדריכים</p><h2>לדעת את הזכויות.<br>לפני שמחליטים.</h2></div><p>מדריכים מעשיים על דוחות, פסילות, נקודות והליכי תעבורה. מועדים, זכויות ומה חשוב לבדוק בכל שלב.</p></div><div class="guidesGrid"><a href="/traffic-ticket"><span>קיבלתם דוח תנועה? המדריך המלא</span><b>←</b></a><a href="/trial-request"><span>איך ומתי מגישים בקשה להישפט</span><b>←</b></a><a href="/drunk-driving"><span>נהיגה בשכרות ובדיקת ינשוף</span><b>←</b></a><a href="/administrative-suspension"><span>פסילה מנהלית של 30, 60 או 90 יום</span><b>←</b></a><a href="/points-system"><span>שיטת הניקוד ואמצעי התיקון</span><b>←</b></a><a href="/speeding"><span>אכיפה והגנות בדוחות מהירות</span><b>←</b></a><a href="/summons"><span>קיבלתם הזמנה לדין תעבורה? מה עושים</span><b>←</b></a><a href="/traffic-court"><span>בית המשפט לתעבורה: הדיון, העונשים וההשלכות</span><b>←</b></a><a href="/traffic-tribunal"><span>בית הדין המינהלי לתעבורה: השגה וערר</span><b>←</b></a><a href="/default-judgment"><span>פסק דין בהיעדר וביטולו</span><b>←</b></a><a href="/police-hearing"><span>הזכויות שלכם בשימוע המשטרתי</span><b>←</b></a></div><a class="allGuides" href="/articles">לכל המדריכים ←</a></section>
+    <section id="reviews" class="section revs">
+      <p class="kicker">מה אומרים לקוחות
+        <span class="revScore"><b>5.0</b><span class="stars" aria-hidden="true">★★★★★</span><a href="https://share.google/KAH32cxOpWGwTogCw" target="_blank" rel="noopener">8 ביקורות בגוגל</a></span>
+      </p>
+      <h2>לא מה שאני כותב על עצמי.</h2>
+      <div class="revWall">
+        <figure class="rev"><blockquote>תודה ענקית לעורך הדין פרי מצר שטיפל בנו במסירות ובשיא המקצועיות. כל כך חשוב שיש כאלו אנשים קשובים שיודעים לזהות את הצרכים של הלקוחות שלהם ולסייע להם.</blockquote><figcaption>שירי א.<span>ביקורת בגוגל</span></figcaption></figure>
+        <figure class="rev"><blockquote>עו״ד פרי עזר לי מאד והיה קשוב לאורך כל הדרך, מהרגע שפניתי אליו ועד סיום הטיפול במקרה שלי.</blockquote><figcaption><bdi>Hila C.</bdi><span>ביקורת בגוגל</span></figcaption></figure>
+        <figure class="rev"><blockquote>היה שירות מעולה ותוצאות מעולות. תודה רבה לעו״ד.</blockquote><figcaption><bdi>Aviel K.</bdi><span>ביקורת בגוגל</span></figcaption></figure>
+      </div>
+      <a class="revAll" href="https://share.google/KAH32cxOpWGwTogCw" target="_blank" rel="noopener">לכל הביקורות בגוגל</a>
+    </section>
     <section id="contact" class="contact"><div class="contactInfo"><p class="kicker">בדיקה משפטית ראשונית</p><h2>קיבלתם דוח או זימון?</h2><p>השאירו פרטים והפנייה תיבדק בהקדם. מקבלים פניות מכל הארץ ומייצגים בבתי המשפט לתעבורה בכל המחוזות.</p><a href="tel:039405151">03-940-5151</a><a href="mailto:peri@bettylaw.co.il">peri@bettylaw.co.il</a><p class="addrLine">משרד ראשי: שד׳ אבא אבן 8, מתחם ריאליטי, בניין B, קומה 2, הרצליה</p><p class="coverLine">ייצוג נהגים מתל אביב, ראשון לציון, חולון, בת ים, פתח תקווה, רמת גן, נתניה, כפר סבא, אשדוד, אשקלון, ירושלים, חיפה, באר שבע ומכל רחבי הארץ.</p></div><form class="form" id="contactForm"><label>שם מלא<input name="name" required autocomplete="name" placeholder="איך לפנות אליך?"></label><label>מספר טלפון<input name="phone" required type="tel" inputmode="tel" autocomplete="tel" placeholder="050-0000000"></label><label class="wide">סוג הפנייה<select name="subject" required><option value="">בחרו נושא</option><option>דוח תנועה או נקודות</option><option>הזמנה לדין</option><option>פסילה מנהלית</option><option>נהיגה בשכרות</option><option>אחר</option></select></label><label class="wide">תיאור קצר<textarea name="details" placeholder="אפשר לכתוב בכמה מילים"></textarea></label><input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0"><button class="primary" type="submit">שליחת הפנייה</button><p class="formErr" id="formErr" hidden></p><small>הפנייה נשלחת ישירות למשרד ותיבדק בהקדם. אין בשליחתה כדי ליצור יחסי עורך דין ולקוח או אישור לקבלת הייצוג.</small></form></section>
   </main>
   <footer><strong>משרד עורך דין פרי מצר סולומון · PERI METZER SOLOMON</strong><nav class="footLinks" aria-label="מדריכים"><a href="/articles">כל המדריכים</a> · <a href="/traffic-ticket">דוח תנועה</a> · <a href="/trial-request">בקשה להישפט</a> · <a href="/drunk-driving">נהיגה בשכרות</a> · <a href="/administrative-suspension">פסילה מנהלית</a> · <a href="/points-system">שיטת הניקוד</a> · <a href="/speeding">מהירות מופרזת</a> · <a href="/summons">הזמנה לדין</a></nav><p>מידע כללי בלבד, שאינו מהווה ייעוץ משפטי או התחייבות לתוצאה.</p><p>© 2026 כל הזכויות שמורות</p><button class="lockBtn" type="button" aria-label="כניסת ניהול"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></button></footer>
